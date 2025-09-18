@@ -1,6 +1,12 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Header Toolbar</ion-title>
+  <ion-toolbar style="padding: 0 8px;">
+    <ion-avatar slot="start" style="width: 40px; height: 40px;">
+      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </ion-avatar>
+    <ion-searchbar></ion-searchbar>
+    <ion-avatar slot="end" style="width: 40px; height: 40px;">
+      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </ion-avatar>
   </ion-toolbar>
 </ion-header>
 
@@ -20,8 +26,50 @@
   </ion-card>
 </ion-content>
 
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" style="margin-bottom: 64px;">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
 <ion-footer>
   <ion-toolbar>
-    <ion-title>Footer Toolbar</ion-title>
+    <ion-tabs>
+      <ion-tab tab="posts">
+        <div id="home-page">
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Posts</ion-title>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <div class="example-content">Listen now content</div>
+          </ion-content>
+        </div>
+      </ion-tab>
+      <ion-tab tab="radio">
+        <div id="radio-page">
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Posts</ion-title>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <div class="example-content">Radio content</div>
+          </ion-content>
+        </div>
+      </ion-tab>
+
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="posts">
+          <ion-icon name="document-outline"></ion-icon>
+          Posts
+        </ion-tab-button>
+        <ion-tab-button tab="radio">
+          <ion-icon name="calendar-clear-outline"></ion-icon>
+          Agenda
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
   </ion-toolbar>
 </ion-footer>
