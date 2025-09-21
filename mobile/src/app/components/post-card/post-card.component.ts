@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -6,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss'],
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonicModule, CommonModule],
 })
-export class PostCardComponent  implements OnInit {
+export class PostCardComponent implements OnInit {
+  @Input() post: any;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    console.log('Dados do post recebidos:', this.post);
+  }
 }

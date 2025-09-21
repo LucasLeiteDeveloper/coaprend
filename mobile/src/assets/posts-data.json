@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "title": "Primeiros Passos no Desenvolvimento Web",
+    "author": "Equipe Coaprend",
+    "created_at": "2025-09-22T09:00:00Z",
+    "items": [
+      {
+        "id": 101,
+        "type": "text",
+        "order": 1,
+        "content": "Bem-vindo ao mundo do desenvolvimento web! Tudo começa com a combinação de três linguagens fundamentais: HTML, CSS e JavaScript. O HTML estrutura o conteúdo, o CSS o estiliza, e o JavaScript o torna interativo."
+      },
+      {
+        "id": 102,
+        "type": "text",
+        "order": 2,
+        "content": "A melhor forma de aprender é colocando a mão na massa. Tente replicar a estrutura de um site que você gosta, prestando atenção em cada tag e em como elas se aninham."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Dicas de HTML para Iniciantes",
+    "author": "Guilherme S.",
+    "created_at": "2025-09-21T15:30:00Z",
+    "items": [
+      {
+        "id": 201,
+        "type": "text",
+        "order": 1,
+        "content": "Sempre use tags semânticas, como `<header>`, `<nav>`, `<article>` e `<footer>`. Isso não apenas organiza o seu código, mas também ajuda na acessibilidade e na otimização para motores de busca."
+      },
+      {
+        "id": 202,
+        "type": "text",
+        "order": 2,
+        "content": "Lembre-se de fechar todas as tags. Um erro simples de tag aberta pode quebrar toda a estrutura da sua página!"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Estilizando com CSS",
+    "author": "Ana P.",
+    "created_at": "2025-09-20T11:45:00Z",
+    "items": [
+      {
+        "id": 301,
+        "type": "text",
+        "order": 1,
+        "content": "O CSS é como a maquiagem da web. Ele dá vida e cor às suas páginas. Comece entendendo a diferença entre classes (`.`) e IDs (`#`) e como eles funcionam em seletores."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "O Poder do JavaScript",
+    "author": "Carlos V.",
+    "created_at": "2025-09-19T08:20:00Z",
+    "items": [
+      {
+        "id": 401,
+        "type": "text",
+        "order": 1,
+        "content": "Com JavaScript, você pode criar funcionalidades dinâmicas e interativas. É a linguagem que faz um botão funcionar, um formulário validar, ou um menu se expandir. Comece aprendendo sobre variáveis, funções e eventos."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Fluxo de Trabalho de um Desenvolvedor",
+    "author": "Maria F.",
+    "created_at": "2025-09-18T16:00:00Z",
+    "items": [
+      {
+        "id": 501,
+        "type": "text",
+        "order": 1,
+        "content": "Um bom desenvolvedor web tem um fluxo de trabalho organizado. Isso inclui usar um sistema de controle de versão (como Git), um editor de código eficiente (como VS Code) e um console de desenvolvedor para depurar o código."
+      }
+    ]
+  }
+]

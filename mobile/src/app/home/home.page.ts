@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Post } from '../services/post';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class HomePage {
-  constructor() {}
+  posts: any[] = []; // Array para armazenar os posts
+
+  constructor(private postService: Post) {}
+
+  ngOnInit() {
+    this.postService.getPosts().subscribe((data) => {
+      this.posts = data;
+      console.log('Posts carregados:', this.posts); // Verifique no console se os dados foram carregados
+    });
+  }
 }

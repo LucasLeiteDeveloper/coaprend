@@ -5,8 +5,8 @@
 }
 
 .post-card {
-    margin: 8px;
-    padding: 12px;
+    margin: 16px;
+    padding: 16px;
     box-shadow: 0px 2px 10px #000000;
     border-radius: 10px;
 }
@@ -51,4 +51,18 @@
 .post-card-content > p {
     font-size: 12px;
     line-height: 20px;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 4px;
+    background-color: blue;
+    border-radius: 10px;
+}
+
+.tag > p {
+    margin-left: 4px;
+    font-size: 12px;
 }
