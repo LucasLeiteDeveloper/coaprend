@@ -13,7 +13,7 @@ import { PostCardComponent } from '../components/post-card/post-card.component';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    PostCardComponent,
+    PostCardComponent
   ],
   declarations: [HomePage],
 })

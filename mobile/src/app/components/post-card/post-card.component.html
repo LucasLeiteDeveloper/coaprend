@@ -14,6 +14,6 @@
     
     <div class="post-card-content">
       <h2>{{ post.title }}</h2>
-      <p *ngFor="let item of post.items">{{ item.content }}</p>
+      <p class="post-text">{{ post.items[0].content }}</p>
     </div>
   </div>

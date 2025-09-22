@@ -66,3 +66,13 @@
     margin-left: 4px;
     font-size: 12px;
 }
+
+.post-text {
+    -webkit-line-clamp: 4; // Trunca após 4 linhas
+
+    // Estas propriedades são necessárias para que a linha acima funcione
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
