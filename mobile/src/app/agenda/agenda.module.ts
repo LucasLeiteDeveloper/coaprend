@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { AgendaPageRoutingModule } from './agenda-routing.module';
 
 import { AgendaPage } from './agenda.page';
+import { CprHeaderComponent } from '../components/cpr-header/cpr-header.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AgendaPageRoutingModule
+    AgendaPageRoutingModule,
+    CprHeaderComponent
   ],
   declarations: [AgendaPage]
 })
