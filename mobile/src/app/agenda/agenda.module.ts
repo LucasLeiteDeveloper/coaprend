@@ -8,6 +8,7 @@ import { AgendaPageRoutingModule } from './agenda-routing.module';
 
 import { AgendaPage } from './agenda.page';
 import { CprHeaderComponent } from '../components/cpr-header/cpr-header.component';
+import { CprTaskCardComponent } from '../components/cpr-task-card/cpr-task-card.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { CprHeaderComponent } from '../components/cpr-header/cpr-header.componen
     FormsModule,
     IonicModule,
     AgendaPageRoutingModule,
-    CprHeaderComponent
+    CprHeaderComponent,
+    CprTaskCardComponent
   ],
   declarations: [AgendaPage]
 })

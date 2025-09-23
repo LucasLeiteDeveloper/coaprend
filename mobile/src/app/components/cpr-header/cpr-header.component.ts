@@ -7,13 +7,11 @@ import { IonicModule } from '@ionic/angular';
   templateUrl: './cpr-header.component.html',
   styleUrls: ['./cpr-header.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule]
+  imports: [IonicModule, CommonModule],
 })
 
-export class CprHeaderComponent  implements OnInit {
-
-  constructor() { }
+export class CprHeaderComponent implements OnInit {
+  constructor() {}
 
   ngOnInit() {}
-
 }

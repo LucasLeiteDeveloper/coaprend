@@ -1,5 +1,9 @@
 <cpr-header></cpr-header>
 
+<ion-content>
+  <post-card *ngFor="let post of posts" [post]="post"></post-card>
+</ion-content>
+
 <ion-fab
   slot="fixed"
   vertical="bottom"
@@ -21,10 +25,6 @@
     </ion-fab-button>
   </ion-fab-list>
 </ion-fab>
-
-<ion-content>
-  <post-card *ngFor="let post of posts" [post]="post"></post-card>
-</ion-content>
 
 <ion-footer>
   <ion-toolbar>
