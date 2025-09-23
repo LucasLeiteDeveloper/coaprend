@@ -1,13 +1,92 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>agenda</ion-title>
+<ion-header>
+  <ion-toolbar style="padding: 0 8px">
+    <ion-avatar slot="start" style="width: 40px; height: 40px">
+      <img
+        alt="Silhouette of a person's head"
+        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+      />
+    </ion-avatar>
+    <ion-searchbar style="--border-radius: 50px"></ion-searchbar>
+    <ion-avatar slot="end" style="width: 40px; height: 40px">
+      <img
+        alt="Silhouette of a person's head"
+        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+      />
+    </ion-avatar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">agenda</ion-title>
     </ion-toolbar>
   </ion-header>
+<ion-content>
+    <div class="header-range">
+      <span class="week-range-text">Dia {{ weekRange }}</span>
+    </div>
+  <div class="week-container"></div>
+  <div class="top-nav-button">
+    <ion-button fill="clear" (click)="prevWeek()">
+      <ion-icon name="chevron-up-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <div class="week-display">
+    <div class="day-box" *ngFor="let day of currentWeek">
+      <span class="weekday">{{ formatWeekday(day) }}</span>
+      <span class="day">{{ formatDay(day) }}</span>
+    </div>
+  </div>
+  <div class="bottom-nav-button">
+    <ion-button fill="clear" (click)="nextWeek()">
+      <ion-icon name="chevron-down-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <a>Essa semana</a><br>
+<a>Esse Mês</a>
 </ion-content>
+</ion-content>
+
+
+<ion-fab
+  slot="fixed"
+  vertical="bottom"
+  horizontal="end"
+  style="margin-bottom: 64px"
+>
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button>
+      <ion-icon name="document"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="color-palette"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="globe"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-tabs>
+        <ion-tab tab="radio">
+      </ion-tab>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button routerLink="/home" tab="posts">
+          <ion-icon name="document-outline"></ion-icon>
+          Posts
+        </ion-tab-button>
+        <ion-tab-button routerLink="/agenda" tab="radio">
+          <ion-icon name="calendar-clear-outline"></ion-icon>
+          Agenda
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>
+
