@@ -16,9 +16,6 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <post-card *ngFor="let post of posts" [post]="post"></post-card>
-</ion-content>
 
 <ion-fab
   slot="fixed"
@@ -42,40 +39,45 @@
   </ion-fab-list>
 </ion-fab>
 
+<ion-content>
+  <ion-tabs>
+    <ion-tab tab="posts">
+      <ion-content>
+        <ion-card *ngFor="let post of posts">
+          <ion-card-header>
+            <ion-card-title>{{ post.title }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{ post.content }}
+          </ion-card-content>
+        </ion-card>
+      </ion-content>
+    </ion-tab>
+
+    <ion-tab tab="agenda">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Agenda</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <div class="example-content">Conteúdo da Agenda</div>
+      </ion-content>
+    </ion-tab>
+  </ion-tabs>
+</ion-content>
+
 <ion-footer>
   <ion-toolbar>
     <ion-tabs>
-      <ion-tab tab="posts">
-        <div id="home-page">
-          <ion-header>
-            <ion-toolbar>
-              <ion-title>Posts</ion-title>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content>
-            <div class="example-content">Listen now content</div>
-          </ion-content>
-        </div>
+        <ion-tab tab="posts">
       </ion-tab>
-      <ion-tab tab="radio">
-        <div id="radio-page">
-          <ion-header>
-            <ion-toolbar>
-              <ion-title>Posts</ion-title>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content>
-            <div class="example-content">Radio content</div>
-          </ion-content>
-        </div>
-      </ion-tab>
-
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="posts">
+        <ion-tab-button routerLink="/home" tab="posts">
           <ion-icon name="document-outline"></ion-icon>
           Posts
         </ion-tab-button>
-        <ion-tab-button routerLink="/agenda" tab="">
+        <ion-tab-button routerLink="/agenda" tab="radio">
           <ion-icon name="calendar-clear-outline"></ion-icon>
           Agenda
         </ion-tab-button>

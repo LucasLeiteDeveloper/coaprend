@@ -8,13 +8,13 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { PostCardComponent } from '../components/post-card/post-card.component';
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    HomePageRoutingModule,
-    PostCardComponent
-  ],
-  declarations: [HomePage],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    HomePageRoutingModule,
+    PostCardComponent
+  ],
+  declarations: [HomePage],
 })
 export class HomePageModule {}
