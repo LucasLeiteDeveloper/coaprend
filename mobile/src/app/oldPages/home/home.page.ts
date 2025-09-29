@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Post } from '../services/post';
+import { Post } from '../../services/post';
 import { AlertController } from '@ionic/angular';
 
 interface PostInterface {
@@ -14,14 +14,13 @@ interface PostInterface {
   styleUrls: ['home.page.scss'],
   standalone: false,
 })
-
 export class HomePage {
   public posts: PostInterface[] = []; // Array tipado com a interface
 
   constructor(
     private postService: Post,
-    private alertController: AlertController,
-  ) {};
+    private alertController: AlertController
+  ) {}
 
   // Método para carregar posts do localStorage
   loadPostsFromLocalStorage() {
@@ -73,7 +72,7 @@ export class HomePage {
       ],
     });
     await alert.present();
-  };
+  }
 
   createPost(postData: { title: string; content: string; postDate: string }) {
     const newPost: PostInterface = {
@@ -82,10 +81,10 @@ export class HomePage {
       postDate: postData.postDate,
     };
     this.posts.push(newPost);
-    
+
     // Salvar no localStorage após criar o post
     this.savePostsToLocalStorage();
-  };
+  }
 
   // Método auxiliar para formatar data para o input
   formatDateForInput(date: Date): string {
@@ -99,10 +98,10 @@ export class HomePage {
   ngOnInit() {
     // Carrega os posts salvos no localStorage ao inicializar o componente
     this.loadPostsFromLocalStorage();
-    
+
     // Removido o código de posts "falsos" para que a lista comece vazia
     // this.postService.getPosts().subscribe((data) => {
     //   this.posts = data;
     // });
-  };
+  }
 }

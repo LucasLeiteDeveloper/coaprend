@@ -14,28 +14,27 @@ interface Post {
   standalone: false,
 })
 export class AgendaPage implements OnInit {
-  currentWeek: Date[] = [];
-  currentDate: Date = new Date();
-  weekRange: string = '';
-  posts: Post[] = []; 
-  filteredPosts: Post[] = []; 
-  selectedDate: Date | null = null; 
+  public currentDate: Date = new Date();
+  public currentWeek: Date[] = [];
+  public weekRange: string = '';
+  public posts: Post[] = [];
+  public filteredPosts: Post[] = [];
+  public selectedDate: Date | null = null;
 
   constructor(private alertController: AlertController) {}
 
   ngOnInit() {
-    this.loadPostsFromLocalStorage();
+    this.loadPosts();
     this.updateWeek(this.currentDate);
   }
 
-  loadPostsFromLocalStorage() {
+  loadPosts() {
     const storedPosts = localStorage.getItem('posts');
     if (storedPosts) {
       this.posts = JSON.parse(storedPosts);
     }
   }
-
-  savePostsToLocalStorage() {
+  savePosts() {
     localStorage.setItem('posts', JSON.stringify(this.posts));
   }
 
@@ -45,7 +44,12 @@ export class AgendaPage implements OnInit {
       inputs: [
         { name: 'title', type: 'text', placeholder: 'Título' },
         { name: 'content', type: 'textarea', placeholder: 'Conteúdo' },
-        { name: 'postDate', type: 'date', placeholder: 'Data', value: this.formatDateForInput(this.selectedDate || new Date()) },
+        {
+          name: 'postDate',
+          type: 'date',
+          placeholder: 'Data',
+          value: this.formatDate(this.selectedDate || new Date()),
+        },
       ],
       buttons: [
         { text: 'Cancelar', role: 'cancel', cssClass: 'secondary' },
@@ -58,7 +62,7 @@ export class AgendaPage implements OnInit {
               postDate: data.postDate,
             };
             this.posts.push(newPost);
-            this.savePostsToLocalStorage();
+            this.savePosts();
             this.filterPostsByDate(this.selectedDate);
           },
         },
@@ -73,18 +77,31 @@ export class AgendaPage implements OnInit {
       return;
     }
     const formattedDate = this.formatDate(date);
-    this.filteredPosts = this.posts.filter(post => post.postDate === formattedDate);
+    this.filteredPosts = this.posts.filter(
+      (post) => post.postDate === formattedDate
+    );
+  }
+  filterPostsByWeek() {
+    const firstDayOfWeek = this.currentWeek[0];
+    const lastDayOfWeek = this.currentWeek[6];
+    this.filteredPosts = this.posts.filter((post) => {
+      const postDate = new Date(post.postDate);
+      return postDate >= firstDayOfWeek && postDate <= lastDayOfWeek;
+    });
+  }
+  filterPostsByMonth() {
+    const currentMonth = this.currentDate.getMonth();
+    const currentYear = this.currentDate.getFullYear();
+    this.filteredPosts = this.posts.filter((post) => {
+      const postDate = new Date(post.postDate);
+      return (
+        postDate.getMonth() === currentMonth &&
+        postDate.getFullYear() === currentYear
+      );
+    });
   }
 
   formatDate(date: Date): string {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = (d.getMonth() + 1).toString().padStart(2, '0');
-    const day = d.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-
-  formatDateForInput(date: Date): string {
     const d = new Date(date);
     const year = d.getFullYear();
     const month = (d.getMonth() + 1).toString().padStart(2, '0');
@@ -101,11 +118,11 @@ export class AgendaPage implements OnInit {
       day.setDate(firstDay.getDate() + i);
       this.currentWeek.push(day);
     }
-    
+
     const firstDayNum = this.currentWeek[0].getDate();
     const lastDayNum = this.currentWeek[6].getDate();
     this.weekRange = `${firstDayNum}-${lastDayNum}`;
-    
+
     this.filteredPosts = [];
     this.selectedDate = null;
   }
@@ -138,23 +155,5 @@ export class AgendaPage implements OnInit {
   selectDate(day: Date) {
     this.selectedDate = day;
     this.filterPostsByDate(day);
-  }
-
-  filterPostsByWeek() {
-    const firstDayOfWeek = this.currentWeek[0];
-    const lastDayOfWeek = this.currentWeek[6];
-    this.filteredPosts = this.posts.filter(post => {
-      const postDate = new Date(post.postDate);
-      return postDate >= firstDayOfWeek && postDate <= lastDayOfWeek;
-    });
-  }
-
-  filterPostsByMonth() {
-    const currentMonth = this.currentDate.getMonth();
-    const currentYear = this.currentDate.getFullYear();
-    this.filteredPosts = this.posts.filter(post => {
-      const postDate = new Date(post.postDate);
-      return postDate.getMonth() === currentMonth && postDate.getFullYear() === currentYear;
-    });
   }
 }

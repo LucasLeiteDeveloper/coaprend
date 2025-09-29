@@ -7,8 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { AgendaPageRoutingModule } from './agenda-routing.module';
 
 import { AgendaPage } from './agenda.page';
-import { CprHeaderComponent } from '../components/cpr-header/cpr-header.component';
-import { CprTaskCardComponent } from '../components/cpr-task-card/cpr-task-card.component';
+import { CprHeaderComponent } from '../../components/cpr-header/cpr-header.component';
+import { CprTaskCardComponent } from '../../components/cpr-task-card/cpr-task-card.component';
 
 @NgModule({
   imports: [
@@ -17,8 +17,8 @@ import { CprTaskCardComponent } from '../components/cpr-task-card/cpr-task-card.
     IonicModule,
     AgendaPageRoutingModule,
     CprHeaderComponent,
-    CprTaskCardComponent
+    CprTaskCardComponent,
   ],
-  declarations: [AgendaPage]
+  declarations: [AgendaPage],
 })
 export class AgendaPageModule {}

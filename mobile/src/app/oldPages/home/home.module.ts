@@ -6,8 +6,8 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 
-import { PostCardComponent } from '../components/post-card/post-card.component';
-import { CprHeaderComponent } from '../components/cpr-header/cpr-header.component';
+import { PostCardComponent } from '../../components/post-card/post-card.component';
+import { CprHeaderComponent } from '../../components/cpr-header/cpr-header.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +15,7 @@ import { CprHeaderComponent } from '../components/cpr-header/cpr-header.componen
     IonicModule,
     HomePageRoutingModule,
     PostCardComponent,
-    CprHeaderComponent
+    CprHeaderComponent,
   ],
   declarations: [HomePage],
 })
