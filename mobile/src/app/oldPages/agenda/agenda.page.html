@@ -1,5 +1,3 @@
-<cpr-header></cpr-header>
-
 <ion-content [fullscreen]="true" class="ion-padding">
   <div>
     <span class="week-range-text">Dia {{ weekRange }}</span>
@@ -28,7 +26,6 @@
   <a (click)="filterPostsByMonth()">Esse Mês</a>
 
   <div *ngIf="filteredPosts.length > 0">
-    <cpr-task-card *ngFor="let post of filteredPosts" [post]="post"></cpr-task-card>
   </div>
 </ion-content>
 
