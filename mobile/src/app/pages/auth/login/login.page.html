@@ -1,12 +1,19 @@
-<main>
+<main class="content-container grid-spacing-b">
   <h2>Entrar</h2>
-  <form (ngSubmit)="">
-    <input type="text" placeholder="E-mail">
-    <input type="password" placeholder="Senha">
-    <input type="button">
+  <form class="grid-spacing-m">
+    <app-input
+      label="E-mail" 
+      type="email"
+    ></app-input>
+    <app-input
+      label="Senha" 
+      type="password"
+    ></app-input>
+    <input class="primary-btn" value="Continuar" type="button">
+    <p>OU</p>
+    <input class="primary-btn" value="Continuar com Google" type="button">
   </form>
-  <p>Ou</p>
-  <input type="button">
-  <p>Ao continuar você concorda com os Termos de Uso do Coaprend e confirma que leu nossa Politica de Privacidade.</p>
-  <p>Já tem uma conta? Entrar</p>
+  <div class="grid-spacing-m">
+    <p>Não tem uma conta? <a routerLink="/register">Cadastre-se</a>.</p>
+  </div>
 </main>

@@ -36,6 +36,26 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
-h2 {
-    font-size: var(--text-b);
+.content-container {
+    width: calc(100% - 32px);
+    max-width: 600px;
+}
+
+.grid-spacing-b {
+    display: grid;
+    gap: var(--spacing-b);
+}
+
+.grid-spacing-m {
+    display: grid;
+    gap: var(--spacing-m);
+}
+
+.primary-btn {
+    height: 52px;
+    background-color: var(--color-primary);
+    border: 0;
+    border-radius: 100px;
+    color: white;
+    font-weight: bold;
 }

@@ -8,17 +8,21 @@
 
 	--color-border: hsl(0, 0%, 90%);
 
+	--color-text-primary: hsl(0, 0%, 0%);
+	--color-text-secondary: hsl(0, 0%, 40%);
+
 	// Spacing
 	--spacing-xs: 4px;
 	--spacing-s: 8px;
 	--spacing-m: 16px;
 	--spacing-b: 32px;
 
-	// Text
+	// Text Size
 	--text-s: 0.75rem;
 	--text-m: 1rem;
 	--text-b: 2rem;
 
 	// Others
 	--border-thickness: 2px;
+	--border-radius-s: 5px;
 }

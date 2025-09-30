@@ -1,13 +1,24 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<main class="content-container grid-spacing-b">
+  <h2>Cadastre-se</h2>
+  <form class="grid-spacing-m">
+    <app-input
+      label="E-mail" 
+      type="email"
+    ></app-input>
+    <app-input
+      label="Senha" 
+      type="password"
+    ></app-input>
+    <app-input
+      label="Data de Nascimento" 
+      type="date"
+    ></app-input>
+    <input class="primary-btn" value="Continuar" type="button">
+    <p>OU</p>
+    <input class="primary-btn" value="Continuar com Google" type="button">
+  </form>
+  <div class="grid-spacing-m">
+    <p>Ao continuar você concorda com os <a routerLink="/terms">Termos de Uso</a> do Coaprend e confirma que leu nossa <a routerLink="/policy">Politica de Privacidade</a>.</p>
+    <p>Já tem uma conta? <a routerLink="/login">Entrar</a>.</p>
+  </div>
+</main>
