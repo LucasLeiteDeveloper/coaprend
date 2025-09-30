@@ -38,6 +38,10 @@ const routes: Routes = [
         (m) => m.RegisterPageModule
       ),
   },
+  {
+    path: 'class',
+    loadChildren: () => import('./pages/class/class.module').then( m => m.ClassPageModule)
+  },
 ];
 
 @NgModule({

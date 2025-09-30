@@ -36,6 +36,18 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
+ion-header {
+    height: 48px;
+    box-shadow: 0 0 0 !important;
+    border-bottom: var(--border-thickness) solid var(--color-border);
+}
+
+ion-footer {
+    height: 64px;
+    box-shadow: 0 0 0 !important;
+    border-top: var(--border-thickness) solid var(--color-border);
+}
+
 .content-container {
     width: calc(100% - 32px);
     max-width: 600px;
