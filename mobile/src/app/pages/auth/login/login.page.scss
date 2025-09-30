@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    width: calc(100% - 32px);
+    max-width: 600px;
+    margin: auto 16px;
+}
+
+form {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+h2 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: var(--spacing-b);
+}
+
+p {
+    text-align: center;
+    font-size: var(--text-s);
+    margin-bottom: var(--spacing-m);
+}
+
+input {
+    height: 52px;
+    padding: 16px;
+    margin-bottom: var(--spacing-m);
+    border-radius: 5px;
+    border: 2px solid var(--color-border);
+}
