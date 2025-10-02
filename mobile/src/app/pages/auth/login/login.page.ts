@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/apiService/api-service';
+import { LoginService } from 'src/app/services/loginService/login-service';
 
 @Component({
   selector: 'app-login',
@@ -7,18 +9,23 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class LoginPage implements OnInit {
-  form: any = {
-    email: "",
-    password: "",
+  public error: string = 'Seu e-mail ou senha estão incorretos, confira-os.';
+  public form: any = {
+    email: '',
+    password: '',
   };
 
-  constructor() { }
+  constructor(
+    private Login: LoginService,
+    private Api: ApiService
+  ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  submitForm(): String | void {
+    if (!this.Login.isFormDataValid(this.form))
+      return this.error = "Erro";
+    else
+      this.Api.postLogin(this.form);
   }
-
-  test() {
-    console.log(this.form.email);
-  }
-
 }

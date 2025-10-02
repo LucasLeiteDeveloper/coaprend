@@ -4,7 +4,6 @@
     <app-input
       label="E-mail" 
       type="email"
-      error="Erro "
       (value)="form.email = $event"
     ></app-input>
     <app-input
@@ -17,6 +16,7 @@
     <input class="primary-btn" value="Continuar com Google" type="button">
   </form>
   <div class="grid-spacing-m">
+    <p *ngIf="error" class="error-message">{{ error }}</p>
     <p>Não tem uma conta? <a routerLink="/register">Cadastre-se</a>.</p>
   </div>
 </main>

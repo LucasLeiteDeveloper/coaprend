@@ -30,16 +30,3 @@
     font-size: var(--text-s);
     background-color: var(--color-background);
 }
-
-.error-message {
-    position: absolute;
-    bottom: -50%;
-    margin: 0;
-    padding: 0;
-    margin-top: var(--spacing-s);
-    color: red;
-}
-
-.app-input-container > input:focus~.error-message {
-    display: none;
-}

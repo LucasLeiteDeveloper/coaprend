@@ -4,8 +4,6 @@
     [placeholder]="' '"
     (input)="returnValue($event)"           
     [id]="label"
-    [ngClass]="{'error-input': error}"
   >
   <label [for]="label">{{ label }}</label>
-  <p *ngIf="error" class="error-message">{{ error }}</p>
 </div>
