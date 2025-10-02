@@ -1,4 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
@@ -10,8 +11,9 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, CommonModule],
 })
 export class AppInputComponent implements OnInit {
-  @Input() label: string = '';
+  @Input() label: string = 'placeholder';
   @Input() type: string = 'text';
+  @Input() error: string = '';
 
   @Output() value =  new EventEmitter<string>();
 

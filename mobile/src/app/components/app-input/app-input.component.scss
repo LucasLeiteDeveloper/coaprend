@@ -10,6 +10,10 @@
     border: var(--border-thickness) solid var(--color-border);
 }
 
+.app-input-container > .error-input {
+    border: var(--border-thickness) solid red;
+}
+
 .app-input-container > label {
     position: absolute;
     transform: translateY(-50%);
