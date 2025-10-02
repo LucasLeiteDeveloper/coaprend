@@ -8,7 +8,6 @@ export class LoginService {
   isFormDataValid(obj: Object) {
     return true
   }
-  
   // URL base da sua API Laravel. Lembre-se de mudar para o endereço correto!
   private apiUrl = 'http://localhost:8000/api'; 
 
