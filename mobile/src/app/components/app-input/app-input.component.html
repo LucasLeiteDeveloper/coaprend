@@ -1,7 +1,8 @@
 <div class="app-input-container">
   <input
-    [type]="type"                            
-    [placeholder]="' '"           
+    [type]="type"                 
+    [placeholder]="' '"
+    (input)="returnValue($event)"           
     [id]="label"
   >
   <label [for]="label">{{ label }}</label>

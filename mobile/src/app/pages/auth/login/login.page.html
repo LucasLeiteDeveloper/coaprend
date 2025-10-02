@@ -4,12 +4,14 @@
     <app-input
       label="E-mail" 
       type="email"
+      (value)="form.email = $event"
     ></app-input>
     <app-input
       label="Senha" 
       type="password"
+      (value)="form.password = $event"
     ></app-input>
-    <input class="primary-btn" value="Continuar" type="button" routerLink="/class">
+    <input class="primary-btn" value="Continuar" type="button" (click)="test()">
     <p>OU</p>
     <input class="primary-btn" value="Continuar com Google" type="button">
   </form>

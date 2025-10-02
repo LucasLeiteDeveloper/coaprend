@@ -7,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class LoginPage implements OnInit {
+  form: any = {
+    email: "",
+    password: "",
+  };
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  test() {
+    console.log(this.form.email);
   }
 
 }
