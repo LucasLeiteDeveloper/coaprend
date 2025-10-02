@@ -8,12 +8,15 @@ import { ClassPageRoutingModule } from './class-routing.module';
 
 import { ClassPage } from './class.page';
 
+import { ClassSelectorComponent } from 'src/app/components/class-selector/class-selector.component';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ClassPageRoutingModule
+    ClassPageRoutingModule,
+    ClassSelectorComponent,
   ],
   declarations: [ClassPage]
 })

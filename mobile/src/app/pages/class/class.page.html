@@ -1,15 +1,21 @@
 <ion-header>
-  <a>pesquisa aqui</a>
+    <div>
+        <class-selector></class-selector>
+        <div>
+            <ion-icon name="filter-outline"></ion-icon>
+            <ion-icon name="search-outline"></ion-icon>
+        </div>
+    </div>
+    <div></div>
+    <div>
+        <button>Postagens</button>
+        <button>Tarefas</button>
+        <button>Calendário</button>
+    </div>
 </ion-header>
 
 <ion-content>
-    <ion-grid  [fixed]="true">
-  <ion-row>
-    <ion-col><ion-button size="small">Posts</ion-button></ion-col>
-    <ion-col><ion-button size="small" color="light">Tarefas</ion-button></ion-col>
-    <ion-col><ion-button size="small" color="light">Calendário</ion-button></ion-col>
-  </ion-row>
-</ion-grid>
+
 </ion-content>
 
 <ion-footer>
