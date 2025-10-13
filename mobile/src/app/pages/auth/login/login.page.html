@@ -13,18 +13,9 @@
       (value)="form.password = $event"
       required
     ></app-input>
-    
-       <input 
-        class="primary-btn" 
-        value="Continuar" 
-        type="submit" 
-        [disabled]="isLoading" 
-        (click)="submitForm()"
-       >
-
-   <p>OU</p>
-    
-       <input class="primary-btn" value="Continuar com Google" type="button" [disabled]="isLoading">
+    <input class="primary-btn" value="Continuar" type="button">
+    <p>OU</p>
+    <input class="primary-btn" value="Continuar com Google" type="button">
   </form>
 
   <div class="grid-spacing-m">
