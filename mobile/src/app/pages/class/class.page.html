@@ -1,17 +1,23 @@
 <ion-header>
-  <a>pesquisa aqui</a>
+    <div class="header-top content-container">
+        <class-selector></class-selector>
+        <div class="header-search">
+            <ion-icon name="pricetag-outline"></ion-icon>
+            <ion-icon name="search-outline"></ion-icon>
+        </div>
+    </div>
 </ion-header>
 
+<div class="header-nav content-container">
+    <button>Postagens</button>
+    <button>Tarefas</button>
+    <button>Calendário</button>
+</div>
+
 <ion-content>
-    <ion-grid  [fixed]="true">
-  <ion-row>
-    <ion-col><ion-button size="small">Posts</ion-button></ion-col>
-    <ion-col><ion-button size="small" color="light">Tarefas</ion-button></ion-col>
-    <ion-col><ion-button size="small" color="light">Calendário</ion-button></ion-col>
-  </ion-row>
-</ion-grid>
+    <post-card *ngFor="let post of posts" [post]="post"></post-card>
 </ion-content>
 
 <ion-footer>
-  <a>rodapé</a>
+
 </ion-footer>

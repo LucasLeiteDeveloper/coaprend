@@ -1,0 +1,34 @@
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-search {
+    display: grid;
+    grid-auto-flow: column;
+    gap: var(--spacing-s);
+}
+
+.header-search > ion-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.header-nav {
+    display: grid;
+    grid-auto-flow: column;
+    gap: var(--spacing-m);
+}
+
+.header-nav > button {
+    height: 24px;
+    border-radius: 5px;
+    margin-top: var(--spacing-s);
+}
+
+.hl {
+    width: 100vh;
+    margin: auto;
+    border-top: 2px solid black;
+}
