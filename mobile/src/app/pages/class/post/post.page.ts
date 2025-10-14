@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -15,9 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PostPage implements OnInit {
   posts: any[] = [];
-  classId: number = 0;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient) {}
 
   // Esta função retorna um array de posts
   getPosts(): Observable<any[]> {
@@ -27,7 +25,6 @@ export class PostPage implements OnInit {
   ngOnInit() {
     this.getPosts().subscribe((data) => {
       this.posts = data;
-      this.classId = +this.route.snapshot.paramMap.get('id')!;
     });
   }
 }

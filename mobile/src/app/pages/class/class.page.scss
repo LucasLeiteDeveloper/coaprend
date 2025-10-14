@@ -18,11 +18,18 @@
 .header-nav {
     display: grid;
     grid-auto-flow: column;
-    gap: var(--spacing-m);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-s);
 }
 
-.header-nav > button {
-    height: 24px;
+.header-nav > a {
+    font-size: var(--text-m);
+    text-align: center;
+    vertical-align: middle;
+    background-color: var(--color-background-secondary);
+    color: var(--color-text-secondary);
+    height: 32px;
+    line-height: 32px;
     border-radius: 5px;
     margin-top: var(--spacing-s);
 }
