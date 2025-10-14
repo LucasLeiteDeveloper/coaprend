@@ -2,21 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+
 @Component({
-  selector: 'app-class',
-  templateUrl: './class.page.html',
-  styleUrls: ['./class.page.scss'],
+  selector: 'app-tasks',
+  templateUrl: './tasks.page.html',
+  styleUrls: ['./tasks.page.scss'],
   standalone: false,
 })
 @Injectable({
   providedIn: 'root',
 })
-export class ClassPage implements OnInit {
+export class TasksPage implements OnInit {
   posts: any[] = [];
-  classId: Number = 0;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient) {}
 
   // Esta função retorna um array de posts
   getPosts(): Observable<any[]> {
@@ -26,7 +25,6 @@ export class ClassPage implements OnInit {
   ngOnInit() {
     this.getPosts().subscribe((data) => {
       this.posts = data;
-      this.classId = +this.route.snapshot.paramMap.get('id')!;
     });
   }
 }
