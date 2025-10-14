@@ -5,11 +5,12 @@
 	--color-primary-dark: hsl(220, 100%, 30%);
 
 	--color-background: hsl(0, 0%, 100%);
+	--color-background-secondary: hsl(0, 0%, 90%);
 
 	--color-border: hsl(0, 0%, 90%);
 
 	--color-text-primary: hsl(0, 0%, 0%);
-	--color-text-secondary: hsl(0, 0%, 40%);
+	--color-text-secondary: hsl(0, 0%, 20%);
 
 	// Spacing
 	--spacing-xs: 4px;
@@ -18,9 +19,9 @@
 	--spacing-b: 32px;
 
 	// Text Size
-	--text-s: 0.75rem;
-	--text-m: 1rem;
-	--text-b: 2rem;
+	--text-s: 0.625rem;
+	--text-m: 0.938rem;
+	--text-b: 1.25rem;
 
 	// Others
 	--border-thickness: 2px;

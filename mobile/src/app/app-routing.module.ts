@@ -39,7 +39,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'class',
+    path: 'class/:id',
     loadChildren: () => import('./pages/class/class.module').then( m => m.ClassPageModule)
   },
 ];

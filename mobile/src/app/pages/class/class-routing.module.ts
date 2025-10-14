@@ -7,7 +7,20 @@ const routes: Routes = [
   {
     path: '',
     component: ClassPage
+  },
+  {
+    path: ':post',
+    loadChildren: () => import('./post/post.module').then( m => m.PostPageModule)
+  },
+  {
+    path: 'tasks',
+    loadChildren: () => import('./tasks/tasks.module').then( m => m.TasksPageModule)
+  },
+  {
+    path: 'calendar',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
   }
+
 ];
 
 @NgModule({

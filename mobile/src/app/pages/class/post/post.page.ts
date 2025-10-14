@@ -3,18 +3,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+
 @Component({
-  selector: 'app-class',
-  templateUrl: './class.page.html',
-  styleUrls: ['./class.page.scss'],
+  selector: 'app-post',
+  templateUrl: './post.page.html',
+  styleUrls: ['./post.page.scss'],
   standalone: false,
 })
 @Injectable({
   providedIn: 'root',
 })
-export class ClassPage implements OnInit {
+export class PostPage implements OnInit {
   posts: any[] = [];
-  classId: Number = 0;
+  classId: number = 0;
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
