@@ -4,9 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ClassPageRoutingModule } from './class-routing.module';
 import { ClassPage } from './class.page';
-
 import { ClassSelectorComponent } from 'src/app/components/class-selector/class-selector.component';
-import { PostCardComponent } from 'src/app/components/post-card/post-card.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -14,7 +12,6 @@ import { PostCardComponent } from 'src/app/components/post-card/post-card.compon
     IonicModule,
     ClassPageRoutingModule,
     ClassSelectorComponent,
-    PostCardComponent,
   ],
   declarations: [ClassPage]
 })
