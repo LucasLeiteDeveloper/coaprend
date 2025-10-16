@@ -1,44 +1,48 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs'; // 👈 Importa o Observable
-
-
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+  private BASE_URL = environment.apiUrl;
 
-  // URL base da sua API Laravel - Altere para o endereço de sua máquina ou servidor!
-  private BASE_URL = 'http://localhost:8000/api'; 
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
- // Função para envio de dados de REGISTRO
+  // 🔹 Métodos genéricos
+  get(endpoint: string): Observable<any> {
+    return this.http.get(`${this.BASE_URL}/${endpoint}`);
+  }
+
+  post(endpoint: string, data: any): Observable<any> {
+    // se for FormData, não define Content-Type
+    if (data instanceof FormData) {
+      return this.http.post(`${this.BASE_URL}/${endpoint}`, data);
+    }
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.BASE_URL}/${endpoint}`, data, { headers });
+  }
+
+  put(endpoint: string, data: any): Observable<any> {
+    if (data instanceof FormData) {
+      return this.http.put(`${this.BASE_URL}/${endpoint}`, data);
+    }
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put(`${this.BASE_URL}/${endpoint}`, data, { headers });
+  }
+
+  delete(endpoint: string): Observable<any> {
+    return this.http.delete(`${this.BASE_URL}/${endpoint}`);
+  }
+
+  // 🔹 Endpoints específicos
   postRegister(formData: any): Observable<any> {
-    const url = `${this.BASE_URL}/register`;
-    
-    // Opcional, mas mantém o padrão
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-
-    // Envia a requisição POST para o endpoint '/register'
-    return this.http.post(url, formData, { headers });
+    return this.post('register', formData);
   }
-  // Função que envia a requisição POST para o endpoint de login do Laravel
+
   postLogin(formData: any): Observable<any> {
-    // 1. Define o endpoint específico
-    const url = `${this.BASE_URL}/login`;
-    
-    // 2. Define os headers (opcional, mas boa prática)
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-
-    // 3. Retorna o Observable da requisição POST
-    // O 'formData' já contém { email: '...', password: '...' }
-    return this.http.post(url, formData, { headers });
+    return this.post('login', formData);
   }
-
-  // Você adicionaria aqui outros métodos (ex: postCadastro, getCursos, etc.)
 }
