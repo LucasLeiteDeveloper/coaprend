@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CreatePostPage } from './create-post.page';
+import { PostCreatePage } from './create-post.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CreatePostPage
-  }
+    component: PostCreatePage,
+  },
 ];
 
 @NgModule({
