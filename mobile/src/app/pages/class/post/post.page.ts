@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { PostService } from 'src/app/services/postService/post'; // caminho do seu service
 
 @Component({
   selector: 'app-post',
@@ -9,22 +7,29 @@ import { Observable } from 'rxjs';
   styleUrls: ['./post.page.scss'],
   standalone: false,
 })
-@Injectable({
-  providedIn: 'root',
-})
 export class PostPage implements OnInit {
+
   posts: any[] = [];
 
-  constructor(private http: HttpClient) {}
-
-  // Esta função retorna um array de posts
-  getPosts(): Observable<any[]> {
-    return this.http.get<any[]>('assets/posts-data.json');
-  }
+  constructor(private postService: PostService) {}
 
   ngOnInit() {
-    this.getPosts().subscribe((data) => {
-      this.posts = data;
+    this.loadPosts();
+  }
+
+  loadPosts() {
+    this.postService.getAll().subscribe({
+      next: (res) => {
+        // Converte 'options' se vier como JSON no backend
+        this.posts = res.map((p: any) => ({
+          ...p,
+          options: p.options ? JSON.parse(p.options) : [],
+        }));
+        console.log('Posts carregados:', this.posts);
+      },
+      error: (err) => {
+        console.error('Erro ao carregar posts:', err);
+      }
     });
   }
 }

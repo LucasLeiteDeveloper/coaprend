@@ -1,0 +1,66 @@
+<!-- src/app/pages/post-create/post-create.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Criar Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label position="floating">Título</ion-label>
+    <ion-input [(ngModel)]="post.title"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Tipo</ion-label>
+    <ion-select [(ngModel)]="post.type" (ionChange)="onTypeChange()">
+      <ion-select-option value="text">Texto</ion-select-option>
+      <ion-select-option value="image">Imagem</ion-select-option>
+      <ion-select-option value="question">Questão</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Texto -->
+  <ion-item *ngIf="post.type === 'text'">
+    <ion-label position="floating">Conteúdo</ion-label>
+    <ion-textarea [(ngModel)]="post.content"></ion-textarea>
+  </ion-item>
+
+  <!-- Imagem: upload e preview -->
+  <div *ngIf="post.type === 'image'">
+    <ion-item>
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </ion-item>
+    <div *ngIf="imagePreview" style="text-align:center; margin-top:10px;">
+      <img [src]="imagePreview" style="max-width:100%; border-radius:8px;" />
+      <p *ngIf="selectedFileName">{{ selectedFileName }}</p>
+    </div>
+    <ion-item>
+      <ion-label position="floating">Descrição (opcional)</ion-label>
+      <ion-input [(ngModel)]="post.content"></ion-input>
+    </ion-item>
+  </div>
+
+  <!-- Questão com alternativas -->
+  <div *ngIf="post.type === 'question'">
+    <ion-list>
+      <ion-item *ngFor="let opt of post.options; let i = index">
+        <ion-label position="floating">Alternativa {{ i + 1 }}</ion-label>
+        <ion-input [(ngModel)]="post.options[i]"></ion-input>
+        <ion-button fill="clear" slot="end" (click)="removeOption(i)">Remover</ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="block" (click)="addOption()">Adicionar Alternativa</ion-button>
+  </div>
+
+  <!-- Tag (color picker) -->
+  <ion-item>
+    <ion-label>Cor da Tag</ion-label>
+    <input type="color" [(ngModel)]="post.tag_color" style="height:36px; width:48px; border:none;" />
+    <div style="width:16px; height:16px; border-radius:4px; margin-left:8px; background: #000;"></div>
+  </ion-item>
+
+  <ion-button expand="block" color="success" (click)="submit()" [disabled]="saving">Salvar</ion-button>
+
+</ion-content>
