@@ -9,13 +9,11 @@ import { PostService } from 'src/app/services/postService/post'; // caminho do s
 })
 export class PostPage implements OnInit {
   posts: any[] = [];
-  public postExample: any[] = [
-    {
-      title: 'Post de teste',
-      author: 'Usuário de teste',
-      items: { content: 'Conteudo de teste' },
-    },
-  ];
+  public postExample: {} = {
+    title: 'Post de teste',
+    author: 'Usuário de teste',
+    items: [{ content: 'Conteudo de teste' }],
+  };
 
   constructor(private postService: PostService) {}
 
