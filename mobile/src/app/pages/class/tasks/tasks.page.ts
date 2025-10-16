@@ -13,18 +13,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TasksPage implements OnInit {
-  posts: any[] = [];
+  tasks: any[] = [];
+  public taskExample: {} = {
+    title: 'Post de teste',
+    dueDate: '25/10/2025',
+  };
 
   constructor(private http: HttpClient) {}
 
-  // Esta função retorna um array de posts
-  getPosts(): Observable<any[]> {
-    return this.http.get<any[]>('assets/posts-data.json');
-  }
-
-  ngOnInit() {
-    this.getPosts().subscribe((data) => {
-      this.posts = data;
-    });
-  }
+  ngOnInit() {}
 }
