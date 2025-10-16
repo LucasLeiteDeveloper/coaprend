@@ -1,0 +1,79 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.task-card {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+}
+
+.task-card-main {
+    display: grid;
+    grid-auto-flow: column;
+    gap: var(--spacing-m);
+    align-items: center;
+}
+
+.task-card-tags {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
+
+.tag > ion-icon {
+    padding: var(--spacing-xs);
+    background-color: blue;
+    color: white;
+    border-radius: var(--border-radius-s);
+    margin-left: var(--spacing-s);
+}
+
+.task-card-content {
+    display: grid;
+    gap: var(--spacing-sx);
+}
+
+.task-card-content > h2 {
+    font-size: var(--text-b);
+    font-weight: bold;
+}
+
+.task-card-content > p {
+    font-size: var(--text-m);
+    line-height: 140%;
+}
+
+.task-text {
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+/*
+ * ----------------------------------------------------
+ * RODAPÉ DO CARD
+ * ----------------------------------------------------
+ */
+.task-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-link {
+    color: var(--color-primary);
+    font-size: var(--text-m);
+    text-decoration: none;
+}
