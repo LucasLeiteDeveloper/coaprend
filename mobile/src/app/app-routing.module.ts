@@ -45,7 +45,11 @@ const routes: Routes = [
   {
     path: 'create-post',
     loadChildren: () => import('./pages/create-post/create-post.module').then( m => m.PostCreatePageModule)
+  },  {
+    path: 'create-task',
+    loadChildren: () => import('./pages/create-task/create-task.module').then( m => m.CreateTaskPageModule)
   },
+
 
 ];
 
