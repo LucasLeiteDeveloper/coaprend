@@ -91,6 +91,7 @@
 
 .post-text {
     -webkit-line-clamp: 5;
+    line-clamp: 5;
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;

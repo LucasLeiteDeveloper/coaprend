@@ -8,8 +8,14 @@ import { PostService } from 'src/app/services/postService/post'; // caminho do s
   standalone: false,
 })
 export class PostPage implements OnInit {
-
   posts: any[] = [];
+  public postExample: any[] = [
+    {
+      title: 'Post de teste',
+      author: 'Usuário de teste',
+      items: { content: 'Conteudo de teste' },
+    },
+  ];
 
   constructor(private postService: PostService) {}
 
@@ -29,7 +35,7 @@ export class PostPage implements OnInit {
       },
       error: (err) => {
         console.error('Erro ao carregar posts:', err);
-      }
+      },
     });
   }
 }

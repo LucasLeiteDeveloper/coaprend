@@ -41,9 +41,10 @@ const routes: Routes = [
   {
     path: 'class/:id',
     loadChildren: () => import('./pages/class/class.module').then( m => m.ClassPageModule)
-  },  {
+  },
+  {
     path: 'create-post',
-    loadChildren: () => import('./pages/create-post/create-post.module').then( m => m.CreatePostPageModule)
+    loadChildren: () => import('./pages/create-post/create-post.module').then( m => m.PostCreatePageModule)
   },
 
 ];

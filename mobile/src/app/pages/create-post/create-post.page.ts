@@ -5,8 +5,9 @@ import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-post-create',
-  templateUrl: './post-create.page.html',
-  styleUrls: ['./post-create.page.scss'],
+  templateUrl: './create-post.page.html',
+  styleUrls: ['./create-post.page.scss'],
+  standalone: false,
 })
 export class PostCreatePage {
   post = {
