@@ -6,46 +6,38 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calendar.page.scss'],
   standalone: false,
 })
-
 export class CalendarPage implements OnInit {
-  public currentDate: Date = new Date();
-  public currentDaysOfWeek: Date[] = [];
-  public weekRangeDisplay: string = '';
+  public selectedDate: Date = new Date();
   public selectedDay: Date | null = null;
+  public daysOfSelectedWeek: Date[] = [];
+  public weekRangeDisplay: string = '';
 
   constructor() {}
 
   ngOnInit(): void {
-    this.updateWeek(this.currentDate);
+    this.updateSelectedWeek(this.selectedDate);
   }
 
-  public getFirstDayOfWeek(date: Date): Date {
+  private getFirstDayOfWeek(date: Date): Date {
     const dayOfWeek = date.getDay();
     const firstDayOfWeek = date.getDate() - dayOfWeek;
     return new Date(date.setDate(firstDayOfWeek));
   }
 
-  public updateWeek(date: Date): void {
-    this.currentDaysOfWeek = [];
+  private updateSelectedWeek(date: Date): void {
+    this.daysOfSelectedWeek = [];
     this.selectedDay = null;
 
     const firstDayOfWeek: Date = this.getFirstDayOfWeek(date);
     for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
       const day: Date = new Date(firstDayOfWeek);
       day.setDate(firstDayOfWeek.getDate() + dayOfWeek);
-      this.currentDaysOfWeek.push(day);
+      this.daysOfSelectedWeek.push(day);
     }
 
     const firstDayNum: number = firstDayOfWeek.getDate();
-    const lastDayNum: number = this.currentDaysOfWeek[6].getDate();
+    const lastDayNum: number = this.daysOfSelectedWeek[6].getDate();
     this.weekRangeDisplay = `${firstDayNum}-${lastDayNum}`;
-  }
-
-  public formatDate(date: Date): string {
-    const year: string = date.getFullYear().toString();
-    const month: string = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day: string = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
   }
 
   public formatDay(date: Date): string {
@@ -57,13 +49,13 @@ export class CalendarPage implements OnInit {
   }
 
   public goToPrevWeek(): void {
-    this.currentDate.setDate(this.currentDate.getDate() - 7);
-    this.updateWeek(this.currentDate);
+    this.selectedDate.setDate(this.selectedDate.getDate() - 7);
+    this.updateSelectedWeek(this.selectedDate);
   }
 
   public goToNextWeek(): void {
-    this.currentDate.setDate(this.currentDate.getDate() + 7);
-    this.updateWeek(this.currentDate);
+    this.selectedDate.setDate(this.selectedDate.getDate() + 7);
+    this.updateSelectedWeek(this.selectedDate);
   }
 
   public selectDay(day: Date): void {
