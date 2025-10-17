@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [class.hidden]="isHidden">
     <div class="header-top content-container">
         <class-selector></class-selector>
         <div class="header-search">
@@ -14,19 +14,27 @@
     <a [routerLink]="['/class', classId, 'calendar']">Calendário</a>
 </div>
 
-<ion-content>
+<ion-content [scrollEvents]="true" (ionScroll)="onContentScroll($event)">
     <main class="content-container">
         <router-outlet></router-outlet>
     </main>
 </ion-content>
 
-<ion-footer>
-    <ion-toolbar color="primary">
-    <ion-title>Posts</ion-title>
-    <ion-buttons slot="end">
-      <ion-button [routerLink]="['/create-post']">
-        <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+<ion-footer [class.hidden]="isHidden">
+    <nav class="content-container">
+        <ion-tab-button tab="salas">
+            <ion-icon name="school-outline"></ion-icon>
+            <ion-label>Salas</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="criar">
+            <ion-icon name="add-circle" style="font-size: 40px; color: var(--ion-color-primary);"></ion-icon>
+            <ion-label style="display: none;">Criar</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="perfil">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-label>Você</ion-label>
+        </ion-tab-button>
+    </nav>
 </ion-footer>

@@ -17,7 +17,6 @@ export class CalendarPage implements OnInit {
 
   ngOnInit(): void {
     this.updateWeek(this.currentDate);
-    console.log(this.currentDate);
   }
 
   public getFirstDayOfWeek(date: Date): Date {
@@ -37,15 +36,15 @@ export class CalendarPage implements OnInit {
       this.currentDaysOfWeek.push(day);
     }
 
-    const firstDayNum: Number = firstDayOfWeek.getDate();
-    const lastDayNum: Number = this.currentDaysOfWeek[6].getDate();
+    const firstDayNum: number = firstDayOfWeek.getDate();
+    const lastDayNum: number = this.currentDaysOfWeek[6].getDate();
     this.weekRangeDisplay = `${firstDayNum}-${lastDayNum}`;
   }
 
   public formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
+    const year: string = date.getFullYear().toString();
+    const month: string = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day: string = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
 
