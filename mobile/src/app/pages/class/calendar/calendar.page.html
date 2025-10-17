@@ -1,24 +1,21 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-  <div>
-    <span class="week-range-text">Dia {{ weekRange }}</span>
-  </div>
+<span class="week-range-text">Dia {{ weekRangeDisplay }}</span>
 
-  <div class="top-nav-button">
-    <ion-button fill="clear" (click)="prevWeek()">
-      <ion-icon name="chevron-up-outline"></ion-icon>
+<div class="top-nav-button">
+    <ion-button fill="clear" (click)="goToPrevWeek()">
+        <ion-icon name="chevron-up-outline"></ion-icon>
     </ion-button>
-  </div>
+</div>
 
-  <div class="week-display">
-    <div class="day-box" *ngFor="let day of currentWeek" (click)="selectDate(day)">
-      <span class="weekday">{{ formatWeekday(day) }}</span>
-      <span class="day">{{ formatDay(day) }}</span>
+<div class="week-display">
+    <div class="day-box" *ngFor="let day of currentDaysOfWeek" (click)="selectDay(day)">
+        <span class="weekday">{{ formatWeekday(day) }}</span>
+        <span class="day">{{ formatDay(day) }}</span>
     </div>
-  </div>
+</div>
 
-  <div class="bottom-nav-button">
-    <ion-button fill="clear" (click)="nextWeek()">
-      <ion-icon name="chevron-down-outline"></ion-icon>
+<div class="bottom-nav-button">
+    <ion-button fill="clear" (click)="goToNextWeek()">
+        <ion-icon name="chevron-down-outline"></ion-icon>
     </ion-button>
-  </div>
+</div>
   

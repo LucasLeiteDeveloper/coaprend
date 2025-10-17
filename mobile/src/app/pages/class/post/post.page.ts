@@ -7,6 +7,7 @@ import { PostService } from 'src/app/services/postService/post'; // caminho do s
   styleUrls: ['./post.page.scss'],
   standalone: false,
 })
+
 export class PostPage implements OnInit {
   posts: any[] = [];
   public postExample: {} = {
