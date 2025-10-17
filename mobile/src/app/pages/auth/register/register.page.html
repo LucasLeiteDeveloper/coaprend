@@ -1,21 +1,36 @@
 <main class="content-container grid-spacing-b">
-  <h2>Cadastre-se</h2>
+  <h1 class="ion-text-center"><strong>Cadastre-se</strong></h1>
   <form class="grid-spacing-m">
-    <app-input
-      label="E-mail" 
-      type="email"
-    ></app-input>
-    <app-input
-      label="Senha" 
-      type="password"
-    ></app-input>
-    <app-input
-      label="Data de Nascimento" 
-      type="date"
-    ></app-input>
-    <input class="primary-btn" value="Continuar" type="button">
+    <ion-input
+			type="email"
+			placeholder="email@domain.com"
+			label="Email"
+			labelPlacement="stacked"
+			fill="outline"
+			autocomplete="email"
+  		errorText="Email invalido"
+		></ion-input>
+		<ion-input
+			type="password"
+			label="Senha"
+			labelPlacement="stacked"
+			fill="outline"
+			autocomplete="password"
+  		errorText="Senha invalida"
+		>
+			<ion-input-password-toggle slot="end"></ion-input-password-toggle>
+		</ion-input>
+    <ion-input
+			type="date"
+			placeholder="DD/MM/AAAA"
+			label="Data de Nascimento"
+			labelPlacement="stacked"
+			fill="outline"
+  		errorText="Data invalida"
+		></ion-input>
+    <ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round" size="large">Continuar</ion-button>
     <p>OU</p>
-    <input class="primary-btn" value="Continuar com Google" type="button">
+    <ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round" size="large">Continuar com Google</ion-button>
   </form>
   <div class="grid-spacing-m">
     <p>Ao continuar você concorda com os <a routerLink="/terms">Termos de Uso</a> do Coaprend e confirma que leu nossa <a routerLink="/policy">Politica de Privacidade</a>.</p>

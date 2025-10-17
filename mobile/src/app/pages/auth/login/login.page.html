@@ -1,25 +1,32 @@
 <main class="content-container grid-spacing-b">
-  <h2>Entrar</h2>
-    <form class="grid-spacing-m" (ngSubmit)="submitForm()">
-     <app-input
-      label="E-mail" 
-      type="email"
-      (value)="form.email = $event"
-      required 
-    ></app-input>
-     <app-input
-      label="Senha" 
-      type="password"
-      (value)="form.password = $event"
-      required
-    ></app-input>
-    <input class="primary-btn" value="Continuar" type="button">
-    <p>OU</p>
-    <input class="primary-btn" value="Continuar com Google" type="button">
-  </form>
+	<h1 class="ion-text-center"><strong>Entrar</strong></h1>
+	<form class="grid-spacing-m" (ngSubmit)="submitForm()">
+		<ion-input
+			type="email"
+			placeholder="email@domain.com"
+			label="Email"
+			labelPlacement="stacked"
+			fill="outline"
+			autocomplete="email"
+  			errorText="Email invalido"
+		></ion-input>
+		<ion-input
+			type="password"
+			label="Senha"
+			labelPlacement="stacked"
+			fill="outline"
+			autocomplete="password"
+  			errorText="Senha invalida"
+		>
+			<ion-input-password-toggle slot="end"></ion-input-password-toggle>
+		</ion-input>
+		<ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round" size="large">Continuar</ion-button>
+		<p>OU</p>
+		<ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round" size="large">Continuar com Google</ion-button>
+	</form>
 
-  <div class="grid-spacing-m">
-      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
-    <p>Não tem uma conta? <a routerLink="/register">Cadastre-se</a>.</p>
-  </div>
+	<div class="grid-spacing-m">
+		<p>Não tem uma conta? <a routerLink="/register">Cadastre-se</a>.</p>
+	</div>
 </main>
+<ion-toast trigger="test" message="This toast will disappear after 5 seconds" [duration]="5000"></ion-toast>
