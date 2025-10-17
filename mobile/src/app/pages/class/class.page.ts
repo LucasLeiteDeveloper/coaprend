@@ -1,32 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ScrollDetail } from '@ionic/angular';
 @Component({
   selector: 'app-class',
   templateUrl: './class.page.html',
   styleUrls: ['./class.page.scss'],
   standalone: false,
 })
-@Injectable({
-  providedIn: 'root',
-})
 export class ClassPage implements OnInit {
-  posts: any[] = [];
-  classId: Number = 0;
+  public isHidden: boolean = false;
+  private lastScrollTop: number = 0;
+  public classId: number = 0;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor() {}
 
-  // Esta função retorna um array de posts
-  getPosts(): Observable<any[]> {
-    return this.http.get<any[]>('assets/posts-data.json');
-  }
-
-  ngOnInit() {
-    this.getPosts().subscribe((data) => {
-      this.posts = data;
-      this.classId = +this.route.snapshot.paramMap.get('id')!;
-    });
+  ngOnInit() {}
+  onContentScroll(event: CustomEvent<ScrollDetail>) {
+    const scrollTop = event.detail.scrollTop;
+    if (scrollTop > this.lastScrollTop && scrollTop > 50) {
+      if (!this.isHidden) {
+        this.isHidden = true;
+      }
+    } else if (scrollTop < this.lastScrollTop || scrollTop === 0) {
+      if (this.isHidden) {
+        this.isHidden = false;
+      }
+    }
+    this.lastScrollTop = scrollTop;
   }
 }

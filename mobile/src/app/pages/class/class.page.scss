@@ -39,3 +39,22 @@
     margin: auto;
     border-top: 2px solid black;
 }
+
+ion-header.hidden {
+  display: none;
+}
+
+ion-footer.hidden {
+  display: none;
+}
+
+ion-footer {
+    nav {
+        margin: auto;
+        width: 75%;
+        display: flex;
+        justify-content: space-between;
+        height: 100%;
+        align-items: center;
+    }
+}
