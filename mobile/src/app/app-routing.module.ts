@@ -44,11 +44,48 @@ const routes: Routes = [
   },
   {
     path: 'create-post',
-    loadChildren: () => import('./pages/create-post/create-post.module').then( m => m.PostCreatePageModule)
-  },  {
-    path: 'create-task',
-    loadChildren: () => import('./pages/create-task/create-task.module').then( m => m.CreateTaskPageModule)
+    loadChildren: () => import('./oldPages/create-post/create-post.module').then( m => m.PostCreatePageModule)
   },
+  {
+    path: 'create-task',
+    loadChildren: () => import('./oldPages/create-task/create-task.module').then( m => m.CreateTaskPageModule)
+  },
+  {
+    path: 'post',
+    loadChildren: () => import('./pages/create/post/post.module').then( m => m.PostPageModule)
+  },
+  {
+    path: 'task',
+    loadChildren: () => import('./pages/create/task/task.module').then( m => m.TaskPageModule)
+  },
+  {
+    path: 'class',
+    loadChildren: () => import('./pages/create/class/class.module').then( m => m.ClassPageModule)
+  },
+  {
+    path: 'tag',
+    loadChildren: () => import('./pages/create/tag/tag.module').then( m => m.TagPageModule)
+  },
+  {
+    path: 'tfa',
+    loadChildren: () => import('./pages/auth/tfa/tfa.module').then( m => m.TfaPageModule)
+  },  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'post',
+    loadChildren: () => import('./post/post.module').then( m => m.PostPageModule)
+  },
+  {
+    path: 'post',
+    loadChildren: () => import('./pages/post/post.module').then( m => m.PostPageModule)
+  },
+  {
+    path: 'task',
+    loadChildren: () => import('./pages/task/task.module').then( m => m.TaskPageModule)
+  },
+
 
 
 ];

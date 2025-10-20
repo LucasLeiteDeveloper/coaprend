@@ -7,17 +7,15 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ApiService {
-  private BASE_URL = environment.apiUrl;
+  private BASE_URL = "localhost:8000";
 
   constructor(private http: HttpClient) {}
 
-  // 🔹 Métodos genéricos
   get(endpoint: string): Observable<any> {
     return this.http.get(`${this.BASE_URL}/${endpoint}`);
   }
 
   post(endpoint: string, data: any): Observable<any> {
-    // se for FormData, não define Content-Type
     if (data instanceof FormData) {
       return this.http.post(`${this.BASE_URL}/${endpoint}`, data);
     }
@@ -37,7 +35,6 @@ export class ApiService {
     return this.http.delete(`${this.BASE_URL}/${endpoint}`);
   }
 
-  // 🔹 Endpoints específicos
   postRegister(formData: any): Observable<any> {
     return this.post('register', formData);
   }
