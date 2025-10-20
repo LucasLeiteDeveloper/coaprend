@@ -47,6 +47,7 @@ mobile/$RECYCLE.BIN/
 mobile/log.txt
 mobile/.sourcemaps
 mobile/.versions
+mobile/android
 mobile/coverage
 mobile/.ionic
 mobile/www
