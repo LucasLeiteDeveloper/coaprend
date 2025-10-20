@@ -69,13 +69,10 @@ const routes: Routes = [
   {
     path: 'tfa',
     loadChildren: () => import('./pages/auth/tfa/tfa.module').then( m => m.TfaPageModule)
-  },  {
-    path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'post',
-    loadChildren: () => import('./post/post.module').then( m => m.PostPageModule)
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
     path: 'post',
