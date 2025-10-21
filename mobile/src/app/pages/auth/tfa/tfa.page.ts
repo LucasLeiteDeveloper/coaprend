@@ -4,12 +4,10 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-tfa',
   templateUrl: './tfa.page.html',
   styleUrls: ['./tfa.page.scss'],
+  standalone: false,
 })
 export class TfaPage implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
