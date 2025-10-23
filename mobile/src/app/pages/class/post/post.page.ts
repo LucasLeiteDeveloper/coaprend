@@ -55,13 +55,16 @@ export class PostPage implements OnInit {
     this.showResult = false;
 
     try {
-      console.log('4. Enviando fetch para:', 'http://localhost/apiGenQuestion/index.php');
+      console.log(
+        '4. Enviando fetch para:',
+        'http://localhost :8000/generate-content'
+      );
       console.log(
         '5. Dados enviados:',
         JSON.stringify({ prompt: this.promptValue })
       );
 
-      const response = await fetch('http://localhost/apiGenQuestion/index.php', {
+      const response = await fetch('http://localhost:8000/generate-content', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,11 +82,13 @@ export class PostPage implements OnInit {
       const responseText = await response.text();
       console.log('8. Resposta bruta (texto):', responseText);
 
-      const data: GeminiResponse = JSON.parse(responseText);
+      const data: any = JSON.parse(responseText);
       console.log('9. Resposta parseada (JSON):', data);
-
+      
+      this.showResult = true;
+      this.resultText = responseText;
       if (data.success && data.text) {
-        this.resultText = data.text;
+        // this.resultText = data.text;
         this.showResult = true;
         console.log('10. Sucesso! Texto exibido');
       } else {
