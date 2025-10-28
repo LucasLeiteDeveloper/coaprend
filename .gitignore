@@ -4,34 +4,12 @@
 .DS_Store
 Thumbs.db
 
-# -----------------
-# Regras do Backend (Laravel)
-# -----------------
-# Arquivos de log e cache do Laravel.
-backend/*.log
-backend/.phpunit.result.cache
-backend/.fleet
-backend/.idea
-backend/.nova
-backend/.phpunit.cache
-backend/.zed
-backend/auth.json
-backend/public/build
-backend/public/hot
-backend/public/storage
-backend/storage/*.key
-backend/storage/pail
-backend/Homestead.json
-backend/Homestead.yaml
 
 # Arquivos de Configuração e Ambiente
 backend/.env
 backend/.env.backup
 backend/.env.production
 backend/.phpactor.json
-
-# Pastas de Dependências (geradas automaticamente)
-backend/vendor/
 
 # -----------------
 # Regras do Frontend (Ionic)
