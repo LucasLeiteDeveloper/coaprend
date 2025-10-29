@@ -49,7 +49,8 @@ export class RegisterService {
 
       //save the token for session
       localStorage.setItem("firebaseToken", idToken);
-      console.log("Cadastrado!")
+      
+      this.router.navigate(['/home']);
     } catch(error) {
       console.error("Error on register: ", error);
 
