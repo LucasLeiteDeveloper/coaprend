@@ -26,10 +26,7 @@ export class RegisterService {
   
   async register(formData: any): Promise<void>{
     const { email, password, name, dt_birthday } = formData;
-    console.log(email)
-    console.log(password)
-    console.log(name)
-    console.log(dt_birthday)
+    
     //create an account on firebase
     try {
       // create a new user
@@ -62,14 +59,8 @@ export class RegisterService {
 
   isFormDataValid(formData: any): boolean {
     // 1. Checagem de preenchimento
-    if (!formData.name || !formData.email || !formData.password || !formData.password_confirmation) {
+    if (!formData.name || !formData.email || !formData.password || !formData.dt_birthday) {
         // Log ou tratamento de erro mais específico pode ser adicionado aqui.
-        return false;
-    }
-
-    // 2. Checagem de confirmação de senha
-    if (formData.password !== formData.password_confirmation) {
-        // As senhas não conferem.
         return false;
     }
     
