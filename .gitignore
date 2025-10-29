@@ -10,6 +10,7 @@ backend/.env
 backend/.env.backup
 backend/.env.production
 backend/.phpactor.json
+backend/config/credenciais-firebase.json
 
 # -----------------
 # Regras do Frontend (Ionic)
