@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
     if(!req.headers.authorization || !req.headers.authorization.startsWith("Bearer ")) return res.status(401).send("Não autorizado!");
 
     //get the idToken
-    const idToken = req.headers.authorization.split("Bearer")[1];
+    const idToken = req.headers.authorization.split("Bearer ")[1];
 
     try {
         //decode the idToken
