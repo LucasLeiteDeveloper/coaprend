@@ -1,17 +1,32 @@
 <main class="content-container grid-spacing-b">
   <h1 class="ion-text-center"><strong>Cadastre-se</strong></h1>
-  <form class="grid-spacing-m">
+  <form #registerForm="ngForm" class="grid-spacing-m">
+	<ion-input
+			type="text"
+			name="name"
+			[(ngModel)]="userData.name"
+			placeholder="Fulano da Silva"
+			label="Nome de usuário"
+			labelPlacement="stacked"
+			fill="outline"
+			autocomplete="nome"
+  		errorText="Email invalido"
+		></ion-input>
     <ion-input
 			type="email"
+			name="email"
+			[(ngModel)]="userData.email"
 			placeholder="email@domain.com"
 			label="Email"
 			labelPlacement="stacked"
 			fill="outline"
 			autocomplete="email"
-  		errorText="Email invalido"
+  		errorText="Nome invalido"
 		></ion-input>
 		<ion-input
 			type="password"
+			name="password"
+			[(ngModel)]="userData.password"
 			label="Senha"
 			labelPlacement="stacked"
 			fill="outline"
@@ -22,6 +37,8 @@
 		</ion-input>
     <ion-input
 			type="date"
+			name="dt_birthday"
+			[(ngModel)]="userData.dt_birthday"
 			placeholder="DD/MM/AAAA"
 			label="Data de Nascimento"
 			labelPlacement="stacked"

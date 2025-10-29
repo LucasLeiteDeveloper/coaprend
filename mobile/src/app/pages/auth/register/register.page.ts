@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router'; // 👈 1. Para redirecionar
 import { ApiService } from 'src/app/services/apiService/api-service'; // 👈 2. Serviço para comunicação com o Backend
 import { RegisterService } from 'src/app/services/registerService/register-service'; 
@@ -10,17 +11,19 @@ import { RegisterService } from 'src/app/services/registerService/register-servi
   standalone: false,
 })
 export class RegisterPage implements OnInit {
- 
-  public errorMessage: string = '';
-  public isLoading: boolean = false;
+  //form object to valid data received
+  @ViewChild('registerForm') registerForm!: NgForm;
 
-  // 4. Estrutura do formulário (IMPORTANTE: deve refletir o que o Laravel espera!)
-  public form: any = {
+  //object with the real userData
+  userData = {
     name: '',
     email: '',
     password: '',
-    dt_birthday: '', 
-  };
+    dt_birthday: ''
+  }
+ 
+  public errorMessage: string = '';
+  public isLoading: boolean = false;
 
   constructor(
     private registerService: RegisterService, 
@@ -38,14 +41,15 @@ export class RegisterPage implements OnInit {
     // Você deve implementar uma função isRegisterDataValid no seu LoginService
     // que checa se as senhas são iguais, se todos os campos estão preenchidos, etc.
     
-    console.table(this.form)
-    if (!this.registerService.isFormDataValid(this.form)) {
+    if (!this.registerForm.valid || !this.registerService.isFormDataValid(this.userData)) {
+      alert("teste")
       this.errorMessage = "Por favor, preencha todos os campos e confirme sua senha corretamente.";
       return; 
     }
 
     this.isLoading = true; // Indica que a requisição está em andamento
-    
-    this.registerService.register(this.form);
+
+    console.table(this.userData);
+    // this.registerService.register(this.userData);
   }
 }
