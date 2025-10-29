@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+
+const auth = getAuth();
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +17,23 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   // Função chamada pelo componente de login
-  login(email: string, senha: string) {
-    // 1. Cria o objeto JSON com os dados de login
-    const dadosLogin = { 
-      email: email, 
-      password: senha 
-    };
+  async login(formData: any): Promise<void> {
+    const { email, password } = formData;
 
-    // 2. Define os headers (cabeçalhos) para informar que o corpo é JSON
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
+    //try login on firebase auth
+    try {
+      //login user
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      const user = userCredential.user;
 
-    // 3. Envia a requisição POST para o endpoint '/login' do Laravel
-    // O '.pipe(catchError(...))' é uma boa prática para lidar com erros na requisição.
-    return this.http.post(`${this.apiUrl}/login`, dadosLogin, { headers });
+      //get the new idToken
+      const idToken = await user.getIdToken();
+
+      //save the idToken
+      localStorage.setItem("firebaseToken", idToken);
+    }catch(error){
+      console.error("Error on login: ", error);
+      throw error;
+    }
   }
 }

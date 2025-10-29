@@ -38,29 +38,6 @@ export class LoginPage implements OnInit {
 
     this.isLoading = true; // Inicia o carregamento
 
-    // 1. O ApiService deve retornar um Observable que usamos aqui com o .subscribe()
-    this.apiService.postLogin(this.form).subscribe({
-      next: (response: any) => {
-        // 2. SUCCESSO: Se o Laravel retornar 200 (OK)
-        this.isLoading = false;
-        console.log('Login OK. Token recebido:', response.token);
-        
-        // 3. Salva o token e/ou dados do usuário (EXEMPLO: No localStorage)
-        localStorage.setItem('auth_token', response.token); 
-        
-        // 4. Redireciona o usuário (ex: para a página inicial do Coaprend)
-        this.router.navigate(['/home']);
-      },
-      error: (err: any) => {
-        // 5. ERRO: Se o Laravel retornar 401 (Unauthorized) ou outro erro
-        this.isLoading = false;
-        console.error('Falha na API:', err);
-        
-        // Exibe a mensagem de erro que vem do backend (Laravel)
-        this.errorMessage = err.error && err.error.message 
-                          ? err.error.message 
-                          : 'Erro desconhecido ao tentar logar.';
-      }
-    });
+    this.loginService.login(this.form)
   }
 }

@@ -19,8 +19,7 @@ export class RegisterPage implements OnInit {
     name: '',
     email: '',
     password: '',
-    // O Laravel (com a regra 'confirmed') exige este campo para confirmar a senha
-    password_confirmation: '', 
+    dt_birthday: '', 
   };
 
   constructor(
@@ -38,36 +37,15 @@ export class RegisterPage implements OnInit {
     // **VALIDAÇÃO LOCAL (Frontend)**
     // Você deve implementar uma função isRegisterDataValid no seu LoginService
     // que checa se as senhas são iguais, se todos os campos estão preenchidos, etc.
+    
+    console.table(this.form)
     if (!this.registerService.isFormDataValid(this.form)) {
       this.errorMessage = "Por favor, preencha todos os campos e confirme sua senha corretamente.";
       return; 
     }
 
     this.isLoading = true; // Indica que a requisição está em andamento
-
-    // **COMUNICAÇÃO COM A API (Backend)**
-    this.apiService.postRegister(this.form).subscribe({
-      next: (response: any) => {
-        // SUCESSO: Login automático após o registro
-        this.isLoading = false;
-        console.log('Registro OK. Usuário criado e logado:', response.token);
-        
-        // Armazena o token para manter o usuário autenticado
-        localStorage.setItem('auth_token', response.token); 
-        
-        // Redireciona para a home page do Coaprend
-        this.router.navigate(['/home']);
-      },
-      error: (err: any) => {
-        // ERRO: Pode ser falha de conexão ou erro de validação do Laravel (ex: e-mail já existe)
-        this.isLoading = false;
-        console.error('Falha na API durante o registro:', err);
-        
-        // Tenta exibir a mensagem de erro do backend
-        this.errorMessage = err.error && err.error.message 
-                          ? err.error.message 
-                          : 'Erro no registro. Tente novamente mais tarde.';
-      }
-    });
+    
+    this.registerService.register(this.form);
   }
 }
