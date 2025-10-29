@@ -1,7 +1,7 @@
 //get the auth service from db.js
 const { auth } = require("../config/db");
 
-async function checkAuth(req, res, next){
+module.exports = async (req, res, next) => {
     //check if was send all 
     if(!req.headers.authorization || !req.headers.authorization.startsWith("Bearer ")) return res.status(401).send("Não autorizado!");
 
