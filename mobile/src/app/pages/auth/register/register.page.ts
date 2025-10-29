@@ -42,14 +42,13 @@ export class RegisterPage implements OnInit {
     // que checa se as senhas são iguais, se todos os campos estão preenchidos, etc.
     
     if (!this.registerForm.valid || !this.registerService.isFormDataValid(this.userData)) {
-      alert("teste")
       this.errorMessage = "Por favor, preencha todos os campos e confirme sua senha corretamente.";
       return; 
     }
 
     this.isLoading = true; // Indica que a requisição está em andamento
 
-    console.table(this.userData);
+    this.registerService.register(this.userData);
     // this.registerService.register(this.userData);
   }
 }

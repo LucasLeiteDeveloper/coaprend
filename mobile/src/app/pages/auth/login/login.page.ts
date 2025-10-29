@@ -43,6 +43,6 @@ export class LoginPage implements OnInit {
 
     this.isLoading = true; // Inicia o carregamento
 
-    console.table(this.userData);
+    this.loginService.login(this.userData);
   }
 }
