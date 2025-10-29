@@ -8,7 +8,11 @@ const auth = getAuth();
   providedIn: 'root'
 })
 export class LoginService {
-  isFormDataValid(obj: Object) {
+  isFormDataValid(formData: any) {
+    if(!formData.email || !formData.password){
+      return false;
+    }
+
     return true
   }
   // URL base da sua API Laravel. Lembre-se de mudar para o endereço correto!
