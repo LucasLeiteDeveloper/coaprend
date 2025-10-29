@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router'; // 👈 IMPORTANTE: Para redirecionar
 import { ApiService } from 'src/app/services/apiService/api-service';
 import { LoginService } from 'src/app/services/loginService/login-service';
@@ -10,12 +11,16 @@ import { LoginService } from 'src/app/services/loginService/login-service';
   standalone: false,
 })
 export class LoginPage implements OnInit {
+  @ViewChild('loginForm') loginForm!: NgForm;
+
+  userData = {
+    email: '',
+    password: ''
+  }
+
   // Mensagem de erro padrão
   public errorMessage: string = ''; 
-  public form: any = {
-    email: '',
-    password: '',
-  };
+  
   public isLoading: boolean = false; // 👈 Bom para desativar o botão durante a requisição
 
   constructor(
@@ -31,13 +36,13 @@ export class LoginPage implements OnInit {
     // Limpa a mensagem de erro anterior
     this.errorMessage = '';
     
-    if (!this.loginService.isFormDataValid(this.form)) {
+    if (!this.loginForm.valid || !this.loginService.isFormDataValid(this.userData)) {
       this.errorMessage = "Por favor, preencha todos os campos corretamente.";
       return; // Para a execução se os dados locais forem inválidos
     }
 
     this.isLoading = true; // Inicia o carregamento
 
-    this.loginService.login(this.form)
+    console.table(this.userData);
   }
 }

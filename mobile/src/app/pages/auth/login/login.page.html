@@ -1,8 +1,10 @@
 <main class="content-container grid-spacing-b">
 	<h1 class="ion-text-center"><strong>Entrar</strong></h1>
-	<form class="grid-spacing-m" (ngSubmit)="submitForm()">
+	<form class="grid-spacing-m" #loginForm="ngForm" >
 		<ion-input
 			type="email"
+			name="email"
+			[(ngModel)]="userData.email"
 			placeholder="email@domain.com"
 			label="Email"
 			labelPlacement="stacked"
@@ -12,6 +14,8 @@
 		></ion-input>
 		<ion-input
 			type="password"
+			name="password"
+			[(ngModel)]="userData.password"
 			label="Senha"
 			labelPlacement="stacked"
 			fill="outline"
@@ -20,7 +24,7 @@
 		>
 			<ion-input-password-toggle slot="end"></ion-input-password-toggle>
 		</ion-input>
-		<ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round" size="large">Continuar</ion-button>
+		<ion-button (click)="submitForm()" class="ion-text-capitalize" shape="round" size="large">Continuar</ion-button>
 		<p>OU</p>
 		<ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round" size="large">Continuar com Google</ion-button>
 	</form>
