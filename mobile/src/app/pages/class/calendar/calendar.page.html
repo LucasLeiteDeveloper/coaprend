@@ -5,7 +5,7 @@
         <ion-icon name="chevron-up-outline"></ion-icon>
     </ion-button>
 </div>
-
+<h2>{{ currentMonth | titlecase }}</h2>
 <div class="week-display">
     <div class="day-box" *ngFor="let day of daysOfSelectedWeek" (click)="selectDay(day)">
         <span class="weekday">{{ formatWeekday(day) }}</span>
