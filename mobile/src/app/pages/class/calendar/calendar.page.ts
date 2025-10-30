@@ -10,7 +10,7 @@ export class CalendarPage implements OnInit {
   public selectedDate: Date = new Date();
   public selectedDay: Date | null = null;
   public daysOfSelectedWeek: Date[] = [];
-  public weekRangeDisplay: string = '';
+  public currentMonth: string = ''; 
 
   constructor() {}
 
@@ -28,16 +28,15 @@ export class CalendarPage implements OnInit {
     this.daysOfSelectedWeek = [];
     this.selectedDay = null;
 
-    const firstDayOfWeek: Date = this.getFirstDayOfWeek(date);
+    const firstDayOfWeek: Date = this.getFirstDayOfWeek(new Date(date));
+
     for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
       const day: Date = new Date(firstDayOfWeek);
       day.setDate(firstDayOfWeek.getDate() + dayOfWeek);
       this.daysOfSelectedWeek.push(day);
     }
 
-    const firstDayNum: number = firstDayOfWeek.getDate();
-    const lastDayNum: number = this.daysOfSelectedWeek[6].getDate();
-    this.weekRangeDisplay = `${firstDayNum}-${lastDayNum}`;
+    this.currentMonth = this.formatMonth(this.selectedDate);
   }
 
   public formatDay(date: Date): string {
@@ -46,6 +45,10 @@ export class CalendarPage implements OnInit {
 
   public formatWeekday(date: Date): string {
     return date.toLocaleString('pt-BR', { weekday: 'short' });
+  }
+
+  public formatMonth(date: Date): string {
+    return date.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
   }
 
   public goToPrevWeek(): void {

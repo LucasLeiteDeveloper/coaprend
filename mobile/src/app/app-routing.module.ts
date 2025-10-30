@@ -51,11 +51,11 @@ const routes: Routes = [
     loadChildren: () => import('./oldPages/create-task/create-task.module').then( m => m.CreateTaskPageModule)
   },
   {
-    path: 'post',
+    path: 'post/:id',
     loadChildren: () => import('./pages/create/post/post.module').then( m => m.PostPageModule)
   },
   {
-    path: 'task',
+    path: 'task/:id',
     loadChildren: () => import('./pages/create/task/task.module').then( m => m.TaskPageModule)
   },
   {
