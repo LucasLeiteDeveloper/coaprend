@@ -1,5 +1,5 @@
 <ion-header [class.hidden]="isHidden">
-    <div class="header-top content-container">
+    <div class="header-top">
         <class-selector></class-selector>
         <div class="header-search">
             <ion-icon name="pricetag-outline"></ion-icon>
@@ -8,10 +8,10 @@
     </div>
 </ion-header>
 
-<div class="header-nav content-container">
-    <a [routerLink]="['/class', classId, 'post']">Postagens</a>
-    <a [routerLink]="['/class', classId, 'tasks']">Tarefas</a>
-    <a [routerLink]="['/class', classId, 'calendar']">Calendário</a>
+<div class="header-nav">
+    <a [class.tabselected]="postTab" [routerLink]="['/class', classId, 'post']">Postagens</a>
+    <a [routerLink]="['/class', classId, 'tasks']" [class.tabselected]="taskTab">Tarefas</a>
+    <a [routerLink]="['/class', classId, 'calendar']" [class.tabselected]="calendarTab">Calendário</a>
 </div>
 
 <ion-content [scrollEvents]="true" (ionScroll)="onContentScroll($event)">
@@ -21,7 +21,7 @@
 </ion-content>
 
 <ion-footer [class.hidden]="isHidden">
-    <nav class="content-container">
+    <nav>
         <ion-tab-button tab="salas">
             <ion-icon name="school-outline"></ion-icon>
             <ion-label>Salas</ion-label>
