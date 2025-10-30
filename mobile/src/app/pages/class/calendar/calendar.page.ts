@@ -29,6 +29,7 @@ export class CalendarPage implements OnInit {
     this.selectedDay = null;
 
     const firstDayOfWeek: Date = this.getFirstDayOfWeek(new Date(date));
+
     for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
       const day: Date = new Date(firstDayOfWeek);
       day.setDate(firstDayOfWeek.getDate() + dayOfWeek);
