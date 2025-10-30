@@ -40,7 +40,7 @@
 .hl {
     width: 100vh;
     margin: auto;
-    border-top: 2px solid black;
+    border-top: var(--border-thickness) solid var(--color-border);
 }
 
 ion-header.hidden {
