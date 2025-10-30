@@ -6,7 +6,6 @@
 			placeholder="email@domain.com"
 			label="Email"
 			labelPlacement="stacked"
-			fill="outline"
 			autocomplete="email"
   			errorText="Email invalido"
 		></ion-input>
@@ -14,15 +13,14 @@
 			type="password"
 			label="Senha"
 			labelPlacement="stacked"
-			fill="outline"
 			autocomplete="password"
   			errorText="Senha invalida"
 		>
 			<ion-input-password-toggle slot="end"></ion-input-password-toggle>
 		</ion-input>
-		<ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round" size="large">Continuar</ion-button>
+		<ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round">Continuar</ion-button>
 		<p>OU</p>
-		<ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round" size="large">Continuar com Google</ion-button>
+		<ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round">Continuar com Google</ion-button>
 	</form>
 
 	<div class="grid-spacing-m">

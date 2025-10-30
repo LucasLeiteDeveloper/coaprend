@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScrollDetail } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-class',
   templateUrl: './class.page.html',
@@ -8,12 +9,19 @@ import { ScrollDetail } from '@ionic/angular';
 })
 export class ClassPage implements OnInit {
   public isHidden: boolean = false;
+  public postTab: boolean = true;
+  public taskTab: boolean = false;
+  public calendarTab: boolean = false;
   private lastScrollTop: number = 0;
-  public classId: number = 0;
+  public classId: any = 0;
 
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      this.classId = params.get('id');
+    });
+  }
   onContentScroll(event: CustomEvent<ScrollDetail>) {
     const scrollTop = event.detail.scrollTop;
     if (scrollTop > this.lastScrollTop && scrollTop > 50) {

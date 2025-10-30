@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class PostPage implements OnInit {
-  constructor() {}
+  postId: any = "";
 
-  ngOnInit() {}
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      this.postId = params.get('id');
+    });
+  }
 }
