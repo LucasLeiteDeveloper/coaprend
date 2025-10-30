@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Router } from '@angular/router';
 
 const auth = getAuth();
 
@@ -18,7 +19,7 @@ export class LoginService {
   // URL base da sua API Laravel. Lembre-se de mudar para o endereço correto!
   private apiUrl = 'http://localhost:8000/api'; 
 
-  constructor(private http: HttpClient) { }
+  constructor(private router: Router) { }
 
   // Função chamada pelo componente de login
   async login(formData: any): Promise<void> {
@@ -35,6 +36,7 @@ export class LoginService {
 
       //save the idToken
       localStorage.setItem("firebaseToken", idToken);
+      this.router.navigate(['/home']);
     }catch(error){
       console.error("Error on login: ", error);
       throw error;
