@@ -2,11 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 var(--spacing-m);
 }
 
 .header-search {
     display: grid;
     grid-auto-flow: column;
+    gap: var(--spacing-s);
 }
 
 .header-search > ion-icon {
