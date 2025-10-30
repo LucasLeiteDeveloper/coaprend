@@ -1,10 +1,10 @@
-<span class="week-range-text">Dia {{ weekRangeDisplay }}</span>
-
 <div class="top-nav-button">
     <ion-button fill="clear" (click)="goToPrevWeek()">
         <ion-icon name="chevron-up-outline"></ion-icon>
     </ion-button>
 </div>
+
+<h2>{{ currentMonth | titlecase }}</h2>
 
 <div class="week-display">
     <div class="day-box" *ngFor="let day of daysOfSelectedWeek" (click)="selectDay(day)">
