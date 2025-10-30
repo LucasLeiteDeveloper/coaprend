@@ -10,13 +10,17 @@ exports.registerUser = async (req, res) => {
     if(!uid || !name || !email) return res.status(400).json({ error: "Essential data (uid, name or email) not send!" });
 
     try {
+        //formating the dt_birthday
+        let dt_birthdayFormated = null;
+        if(dt_birthday) dt_birthdayFormated = new Date(dt_birthday);
+
         //create the document on firestore
         const userRef = db.collection('users').doc(uid);
         
         await userRef.set({
             name,
             email,
-            dt_birthday: dt_birthday,
+            dt_birthday: dt_birthdayFormated,
             imgAccount: null,
             bio: 'new user coaprend',
         });
