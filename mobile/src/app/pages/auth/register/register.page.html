@@ -47,7 +47,7 @@
 		></ion-input>
     <ion-button class="ion-text-capitalize" (click)="submitForm()" shape="round" size="large">Continuar</ion-button>
     <p>OU</p>
-    <ion-button class="ion-text-capitalize" shape="round" size="large">Continuar com Google</ion-button>
+    <ion-button class="ion-text-capitalize" (click)="googleLogin()"  shape="round" size="large">Continuar com Google</ion-button>
   </form>
   <div class="grid-spacing-m">
     <p>Ao continuar você concorda com os <a routerLink="/terms">Termos de Uso</a> do Coaprend e confirma que leu nossa <a routerLink="/policy">Politica de Privacidade</a>.</p>
