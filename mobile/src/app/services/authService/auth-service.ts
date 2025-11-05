@@ -1,19 +1,34 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
-//gets the auth
-const auth = getAuth();
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  //the API URL, from environment
   private readonly apiUrl = environment.apiUrl;
+  //gets the auth
+  private auth = getAuth();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  //this will tell us if some user is authenticated
+  private isAuthenticatedSubject = new BehaviorSubject<boolean | undefined>(undefined);
+  //its a listener that others files can check
+  public isAuthenticated$: Observable<boolean | undefined> = this.isAuthenticatedSubject.asObservable();
+
+  constructor(private http: HttpClient, private router: Router) { 
+    //firebase's listener that check if the user logon, logout or if the token is expired
+    onAuthStateChanged(this.auth, (user) => {
+      if(user){ //if the user is logged in
+        this.isAuthenticatedSubject.next(true);
+      } else { // if isn't
+        this.isAuthenticatedSubject.next(false);
+      }
+    })
+  }
 
   //register a new user 
   async register(formData: any): Promise<void>{
@@ -22,7 +37,7 @@ export class AuthService {
     //create an account on firebase
     try {
       // create a new user
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
       const user = userCredential.user;
 
       //get uid and idToken
@@ -57,7 +72,7 @@ export class AuthService {
     //try login on firebase auth
     try {
       //login user
-      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      const userCredential = await signInWithEmailAndPassword(this.auth, email, password)
       const user = userCredential.user;
 
       //get the new idToken
@@ -79,7 +94,7 @@ export class AuthService {
         const provider = new GoogleAuthProvider();
   
         //calls the login pop-up
-        const userCredential = await signInWithPopup(auth, provider);
+        const userCredential = await signInWithPopup(this.auth, provider);
         const user = userCredential.user;
   
         // gets the token
@@ -106,7 +121,8 @@ export class AuthService {
   }
 
   //clean all session data and let in login
-  logout(){
+  async logout(){
+    await this.auth.signOut();
     localStorage.removeItem('firebaseToken');
 
     //return to login page
