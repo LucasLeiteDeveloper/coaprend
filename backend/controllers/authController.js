@@ -1,5 +1,5 @@
 //get the service of firestore
-const { db } = require("../config/db");
+const { auth, db } = require("../config/db");
 
 //create an user
 exports.registerUser = async (req, res) => {
@@ -68,6 +68,33 @@ exports.syncProfile = async (req, res) => {
         console.error("Erro ao sincronizar perfil: ", error);
         return res.status(500).json({
             error: "Erro interno ao sincronizar o perfil"
+        });
+    }
+}
+
+//delete the account
+exports.deleteUserAccount = async (req, res) => {
+    try {  
+        //get the uid by the middleware
+        const { uid } = req.user;
+
+        //execute the 2 exclusions 
+        await Promise.all([
+            auth.deleteUser(uid), //delete of firebase Auth
+            db.collection('users').doc(uid).delete() //delete the profile of firestore
+        ]);
+
+        return res.status(200).json({
+            message: "Conta excluída com sucesso!"
         })
+    }catch(error) {
+        console.error("Erro ao deletar usuário(a)");
+
+        //in the case of user doesn't exists
+        if(error.code === 'auth/user-not-found') return res.status(404).json({ error: "Usuário não encontrado" });
+
+        return res.status(500).json({
+            error: "Erro interno ao deletar usuário(a)"
+        });
     }
 }
