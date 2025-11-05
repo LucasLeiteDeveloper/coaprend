@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
 
 //starts the auth
 const auth = getAuth();
@@ -69,5 +69,37 @@ export class RegisterService {
     // requisitos mínimos de senha aqui para feedback imediato ao usuário.
 
     return true; 
+  }
+
+  async loginWithGoogle(): Promise<void>{
+    try {
+        //create the google provider
+        const provider = new GoogleAuthProvider();
+  
+        //calls the login pop-up
+        const userCredential = await signInWithPopup(auth, provider);
+        const user = userCredential.user;
+  
+        // gets the token
+        const idToken = await user.getIdToken();
+  
+        //saves the token on localStorage
+        localStorage.setItem("firebaseToken", idToken);
+        console.log("Login com Google feito com sucesso!");
+  
+        //calls the sync route of backend
+        await this.syncProfile(idToken);
+      } catch(error){
+        console.error("Erro ao logar com google: ", error);
+        throw Error;
+      }
+  }
+
+  private async syncProfile(idToken: string): Promise<any> {
+    //creates the header to API 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${idToken}`);
+
+    //calls the protected route on backend
+    return this.http.post(`${this.apiUrl}/auth/sync`, {}, { headers }).toPromise()
   }
 }

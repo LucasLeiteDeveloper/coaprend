@@ -51,4 +51,19 @@ export class RegisterPage implements OnInit {
     this.registerService.register(this.userData);
     // this.registerService.register(this.userData);
   }
+
+  async googleLogin(){
+    try {
+      this.isLoading = true;
+      await this.registerService.loginWithGoogle();
+
+      //success, go to home
+      this.router.navigate(['/home']);
+    } catch(error){
+      this.errorMessage = "Falha no login com Google. Tente novamente";
+      console.error(error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
 }
