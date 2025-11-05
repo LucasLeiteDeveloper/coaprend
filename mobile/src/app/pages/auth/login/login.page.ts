@@ -45,4 +45,20 @@ export class LoginPage implements OnInit {
 
     this.loginService.login(this.userData);
   }
+
+  // enter with Google service
+  async googleLogin(){ 
+    try {
+      this.isLoading = true;
+      await this.loginService.loginWithGoogle();
+
+      //success, go to home
+      this.router.navigate(['/home']);
+    } catch(error){
+      this.errorMessage = "Falha no login com Google. Tente novamente";
+      console.error(error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
 }
