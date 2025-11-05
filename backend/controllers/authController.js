@@ -37,7 +37,37 @@ exports.registerUser = async (req, res) => {
         });
     }
 }
-exports.loginUser = async (req, res)=> {
-    console.log("Realizando login..")
-    res.status(405).json({ message: "Essa rota deve ser acessada via firebase" })
+
+//sync the account
+exports.syncProfile = async (req, res) => {
+    try {
+        //the authenticateToken already validate the token and give the req.user
+        const { uid, name, email, picture } = req.user;
+
+        //create an reference to the collection users with the uid
+        const userRef = db.collection('users').doc(uid);
+        const doc = await userRef.get();
+
+        //if the user exists
+        if(doc.exists) return res.status(200).json(doc.data());
+
+        //if doesn't exists, create the account 
+        const userData = {
+            name: name || "Coaprend User",
+            email: email,
+            dt_birthday: null,
+            imgAccount: picture || null, //'picture' comes from google
+            bio: "new user",
+        };
+
+        //await the user being created
+        await userRef.create(userData);
+
+        return res.status(201).json(userData); // returns the profile
+    }catch(error){
+        console.error("Erro ao sincronizar perfil: ", error);
+        return res.status(500).json({
+            error: "Erro interno ao sincronizar o perfil"
+        })
+    }
 }
