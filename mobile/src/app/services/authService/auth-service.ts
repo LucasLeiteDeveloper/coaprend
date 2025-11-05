@@ -1,29 +1,21 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { environment } from 'src/environments/environment';
 
-//starts the auth
+//gets the auth
 const auth = getAuth();
 
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterService {
-  private apiUrl = 'http://localhost:8000/api'
+export class AuthService {
+  private readonly apiUrl = environment.apiUrl;
 
-  constructor(
-    private router: Router,
-    private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  /**
-   * Verifica se os dados do formulário de registro são válidos
-   * (Checagem local antes de enviar à API).
-   *    * @param formData Objeto com os dados: { name, email, password, password_confirmation }
-   * @returns true se os dados forem válidos, false caso contrário.
-   */
-
-  
+  //register a new user 
   async register(formData: any): Promise<void>{
     const { email, password, name, dt_birthday } = formData;
     
@@ -58,19 +50,29 @@ export class RegisterService {
     }
   }
 
-  isFormDataValid(formData: any): boolean {
-    // 1. Checagem de preenchimento
-    if (!formData.name || !formData.email || !formData.password || !formData.dt_birthday) {
-        // Log ou tratamento de erro mais específico pode ser adicionado aqui.
-        return false;
-    }
-    
-    // 3. (Opcional) Você pode adicionar validação de formato de e-mail ou 
-    // requisitos mínimos de senha aqui para feedback imediato ao usuário.
+  //log in into an user account
+  async login(formData: any): Promise<void> {
+    const { email, password } = formData;
 
-    return true; 
+    //try login on firebase auth
+    try {
+      //login user
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      const user = userCredential.user;
+
+      //get the new idToken
+      const idToken = await user.getIdToken();
+
+      //save the idToken
+      localStorage.setItem("firebaseToken", idToken);
+      this.router.navigate(['/home']);
+    }catch(error){
+      console.error("Error on login: ", error);
+      throw error;
+    }
   }
 
+  //enter in the profile with google
   async loginWithGoogle(): Promise<void>{
     try {
         //create the google provider
@@ -94,12 +96,42 @@ export class RegisterService {
         throw Error;
       }
   }
-
+  //sync the profile with the profile created in firestore
   private async syncProfile(idToken: string): Promise<any> {
     //creates the header to API 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${idToken}`);
 
     //calls the protected route on backend
     return this.http.post(`${this.apiUrl}/auth/sync`, {}, { headers }).toPromise()
+  }
+
+  //clean all session data and let in login
+  logout(){
+    localStorage.removeItem('firebaseToken');
+
+    //return to login page
+    this.router.navigate(['/login']);
+  }
+
+  async deleteAccount(): Promise<void>{
+    try {
+      //get the idToken of the logged user
+      const idToken = localStorage.getItem("firebaseToken");
+
+      //if doesn't exist any idToken
+      if(!idToken) throw new Error("Usuário não autenticado!");
+
+      //create the auth header
+      const headers = new HttpHeaders().set('Authorization', `Beare ${idToken}`);
+
+      //calls the delete route
+      await this.http.delete(`${this.apiUrl}/user/me`, { headers }).toPromise();
+
+      // if it's alright, clean the frontend
+      this.logout();
+    } catch(error){
+      console.error("Erro a excluir conta: ", error);
+      throw error;
+    }
   }
 }
