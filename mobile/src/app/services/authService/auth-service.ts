@@ -15,7 +15,7 @@ export class AuthService {
   private auth = getAuth();
 
   //this will tell us if some user is authenticated
-  private isAuthenticatedSubject = new BehaviorSubject<boolean | undefined>(undefined);
+  private isAuthenticatedSubject = new BehaviorSubject<boolean | undefined>(false); //initialize with "false"
   //its a listener that others files can check
   public isAuthenticated$: Observable<boolean | undefined> = this.isAuthenticatedSubject.asObservable();
 
