@@ -9,8 +9,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  //the API URL, from environment
-  private readonly apiUrl = environment.apiUrl;
+  //the API URL, from environment, adding auth route
+  private readonly apiUrl = `${environment.apiUrl}/auth`;
   //gets the auth
   private auth = getAuth();
 
@@ -117,7 +117,7 @@ export class AuthService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${idToken}`);
 
     //calls the protected route on backend
-    return this.http.post(`${this.apiUrl}/auth/sync`, {}, { headers }).toPromise()
+    return this.http.post(`${this.apiUrl}/sync`, {}, { headers }).toPromise()
   }
 
   //send e-mail in case of 'forgot-password'
