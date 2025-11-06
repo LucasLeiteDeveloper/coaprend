@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { UserProfile } from '../../services/authService/auth-service';
 import { AuthService } from 'src/app/services/authService/auth-service';
 
 @Component({
@@ -10,13 +11,25 @@ import { AuthService } from 'src/app/services/authService/auth-service';
   standalone: false,
 })
 export class ProfilePage implements OnInit {
+  // initialize the profileData
+  profileData: UserProfile | null = null;
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private alertController: AlertController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() { this.loadProfile() }
+
+  //get the profile data on init
+  async loadProfile(){
+    try {
+      this.profileData = await this.authService.getProfileData();
+    } catch(error){
+      console.error("Erro ao carregar perfil: ", error);
+    }
+  }
 
   //pop-up to confirm the logout
   async confirmLogout(){
