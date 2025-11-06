@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -118,6 +118,17 @@ export class AuthService {
 
     //calls the protected route on backend
     return this.http.post(`${this.apiUrl}/auth/sync`, {}, { headers }).toPromise()
+  }
+
+  //send e-mail in case of 'forgot-password'
+  async sendResetEmail(email: string): Promise<void>{
+    try {
+      //firebase works to us
+      await sendPasswordResetEmail(this.auth, email);
+    }catch(error) {
+      console.error("Erro ao enviar e-mail de redefinição: ", error);
+      throw error;
+    }
   }
 
   //clean all session data and let in login
