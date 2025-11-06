@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -27,7 +28,7 @@ export class AuthService {
   //its a listener that others files can check
   public isAuthenticated$: Observable<boolean | undefined> = this.isAuthenticatedSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { 
+  constructor(private http: HttpClient, private router: Router, private toastController: ToastController) { 
     //firebase's listener that check if the user logon, logout or if the token is expired
     onAuthStateChanged(this.auth, (user) => {
       if(user){ //if the user is logged in
@@ -67,6 +68,7 @@ export class AuthService {
       
       this.router.navigate(['/home']);
     } catch(error) {
+      this.showToast("Erro ao cadastrar usuário!")
       console.error("Error on register: ", error);
 
       throw error; //reject the promise
@@ -90,6 +92,7 @@ export class AuthService {
       localStorage.setItem("firebaseToken", idToken);
       this.router.navigate(['/home']);
     }catch(error){
+      this.showToast("Erro ao entrar na conta")
       console.error("Error on login: ", error);
       throw error;
     }
@@ -115,6 +118,7 @@ export class AuthService {
         //calls the sync route of backend
         await this.syncProfile(idToken);
       } catch(error){
+        this.showToast("Erro ao entrar com o Google!");
         console.error("Erro ao logar com google: ", error);
         throw Error;
       }
@@ -134,6 +138,7 @@ export class AuthService {
       //firebase works to us
       await sendPasswordResetEmail(this.auth, email);
     }catch(error) {
+      this.showToast("Erro ao entrar na conta!");
       console.error("Erro ao enviar e-mail de redefinição: ", error);
       throw error;
     }
@@ -166,6 +171,7 @@ export class AuthService {
       // if it's alright, clean the frontend
       this.logout();
     } catch(error){
+      this.showToast("Erro ao deletar usuário")
       console.error("Erro a excluir conta: ", error);
       throw error;
     }
@@ -189,5 +195,16 @@ export class AuthService {
       console.error("Erro ao buscar dados do perfil: ", error);
       throw error;
     }
+  }
+
+  //show the error toast
+  async showToast(msg: string){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 3000,
+      position: 'top'
+    })
+
+    await toast.present();
   }
 }
