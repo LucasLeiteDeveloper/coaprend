@@ -5,6 +5,14 @@ import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStat
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+export interface UserProfile {
+  name: string,
+  email: string,
+  dt_birthday?: string,
+  bio?: string,
+  imgAccount?: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -140,6 +148,7 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  //delete the account
   async deleteAccount(): Promise<void>{
     try {
       //get the idToken of the logged user
@@ -158,6 +167,26 @@ export class AuthService {
       this.logout();
     } catch(error){
       console.error("Erro a excluir conta: ", error);
+      throw error;
+    }
+  }
+
+  //get the user profile data
+  async getProfileData(): Promise<UserProfile> {
+    try {
+      const idToken = localStorage.getItem("firebaseToken");
+
+      if(!idToken) throw new Error("Usuário não autenticado!");
+
+      //create the header of authorization
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${idToken}`);
+      //prepares the call to /api/auth/profile
+      const url = `${this.apiUrl}/profile`;
+
+      const profile = await this.http.get<UserProfile>(url, { headers }).toPromise();
+      return profile as UserProfile;
+    }catch(error){
+      console.error("Erro ao buscar dados do perfil: ", error);
       throw error;
     }
   }
