@@ -18,6 +18,29 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {}
 
+  //pop-up to confirm the logout
+  async confirmLogout(){
+    const alert = await this.alertController.create({
+      header: "Deseja sair da conta?",
+      message: "Você tem certeza? Para entrar novamente precisará fazer log-in novamente",
+      buttons: [
+        {
+          text: "Cancelar",
+          role: "cancel"
+        },
+        {
+          text: "Excluir",
+          cssClass: 'alert-button-danger',
+          handler: ()=> {
+            this.authService.logout();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   // pop-up to confirm the delete
   async confirmDeleteAccount(){
     const alert = await this.alertController.create({
