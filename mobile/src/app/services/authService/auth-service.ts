@@ -66,7 +66,7 @@ export class AuthService {
       //save the token for session
       localStorage.setItem("firebaseToken", idToken);
       
-      this.router.navigate(['/home']);
+      this.router.navigate(['/profile']);
     } catch(error) {
       this.showToast("Erro ao cadastrar usuário!")
       console.error("Error on register: ", error);
@@ -90,7 +90,7 @@ export class AuthService {
 
       //save the idToken
       localStorage.setItem("firebaseToken", idToken);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/profile']);
     }catch(error){
       this.showToast("Erro ao entrar na conta")
       console.error("Error on login: ", error);
