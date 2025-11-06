@@ -1,3 +1,3 @@
 module.exports = {
-    DOOR: process.env.DOOR || 3000
+    DOOR: process.env.DOOR || 8000
 };
