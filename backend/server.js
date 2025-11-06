@@ -4,12 +4,15 @@ const express = require('express');
 const cors = require('cors');
 //initializes the app
 const app = express();
-//get the authenticate controller
+//get routers
 const authRoutes = require('./routes/authRoutes');
+const contentRoutes = require("./routes/contentRoutes");
 
 //configure the dotenv's variables, making they usable
 require('dotenv').config();
 const { DOOR } = require('./config/config');
+//get middleware
+const authenticateToken = require('./middlewares/authenticateToken');
 
 //cors configuration
 app.use(cors({
@@ -21,7 +24,8 @@ app.use(cors({
 //configure the express to use JSON
 app.use(express.json());
 //configure the app routes of authentication to /api
-app.use('/api', authRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/content', authenticateToken, contentRoutes);
 
 //starts the application
 app.listen(DOOR, () => {

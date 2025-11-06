@@ -10,7 +10,7 @@ const authController = require('../controllers/authController');
 //routes of authentication
 router.post('/register', authController.registerUser);
 //route to be called after the login
-router.post('/auth/sync', authenticateToken, authController.syncProfile);
+router.post('/sync', authenticateToken, authController.syncProfile);
 //route to delete an user
 router.delete('/user/me', authenticateToken, authController.deleteUserAccount);
 
