@@ -1,13 +1,32 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
     <ion-title>profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-row>
+    <ion-col>
+      <ion-button
+        shape="round"
+        expand="block"
+        color="danger"
+        fill="outline">
+        Sair da Conta
+      </ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button
+        (click)="confirmDeleteAccount()"
+        shape="round"
+        expand="block"
+        color="danger"
+        fill="outline">
+        Excluir Minha Conta
+      </ion-button>
+    </ion-col>
+  </ion-row>
 </ion-content>

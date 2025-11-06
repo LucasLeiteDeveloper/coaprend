@@ -149,7 +149,7 @@ export class AuthService {
       if(!idToken) throw new Error("Usuário não autenticado!");
 
       //create the auth header
-      const headers = new HttpHeaders().set('Authorization', `Beare ${idToken}`);
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${idToken}`);
 
       //calls the delete route
       await this.http.delete(`${this.apiUrl}/user/me`, { headers }).toPromise();
