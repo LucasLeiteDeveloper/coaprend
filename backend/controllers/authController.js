@@ -98,3 +98,24 @@ exports.deleteUserAccount = async (req, res) => {
         });
     }
 }
+
+// get the user profile data, its a secure route, 
+exports.getUserProfile = async (req, res) => {
+    try {
+        const uid = req.user.uid; //UID will be send by anthenticateToken
+
+        // get the users doc on firestore
+        const userRef = db.collection('users').doc(uid);
+        const userDoc = await userRef.get();
+
+        //if the user doesn't exists
+        if(!userDoc.exists) return res.status(404).json({ error: "Dados do usuário não encontrados" });
+
+        const profileData = userDoc.data();
+
+        return res.status(200).json(profileData);
+    } catch(error){
+        console.error(error);
+        return res.status(500).json({ error: "Erro interno no servidor ao buscar perfil" })
+    }
+}
