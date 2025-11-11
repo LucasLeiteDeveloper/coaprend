@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ScrollDetail } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-class',
   templateUrl: './class.page.html',
@@ -22,6 +23,7 @@ export class ClassPage implements OnInit {
       this.classId = params.get('id');
     });
   }
+
   onContentScroll(event: CustomEvent<ScrollDetail>) {
     const scrollTop = event.detail.scrollTop;
     if (scrollTop > this.lastScrollTop && scrollTop > 50) {
@@ -34,5 +36,11 @@ export class ClassPage implements OnInit {
       }
     }
     this.lastScrollTop = scrollTop;
+  }
+
+  selectTab(tab: string) {
+    this.postTab = tab === 'post';
+    this.taskTab = tab === 'tasks';
+    this.calendarTab = tab === 'calendar';
   }
 }
