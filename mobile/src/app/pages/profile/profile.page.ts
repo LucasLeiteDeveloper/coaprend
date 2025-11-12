@@ -15,6 +15,11 @@ export class ProfilePage implements OnInit {
   public calendarTab: boolean = false;
   private lastScrollTop: number = 0;
   public classId: any = 0;
+  public postExample: {} = {
+    title: 'Post de teste',
+    author: 'Usuário de teste',
+    items: [{ content: 'Conteudo de teste' }],
+  };
 
   constructor(private route: ActivatedRoute) {}
 
