@@ -16,6 +16,6 @@ export class PostCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log('Dados do post recebidos:', this.post);
+    console.log('📩 Dados do post recebidos:', this.post);
   }
 }
