@@ -81,7 +81,11 @@ const routes: Routes = [
   {
     path: 'task',
     loadChildren: () => import('./pages/task/task.module').then( m => m.TaskPageModule)
+  },  {
+    path: 'create-class',
+    loadChildren: () => import('./pages/create-class/create-class.module').then( m => m.CreateClassPageModule)
   },
+
 
 
 

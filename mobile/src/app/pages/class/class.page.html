@@ -1,6 +1,8 @@
 <ion-header [class.hidden]="isHidden">
   <div class="header-top">
-    <class-selector></class-selector>
+    <!-- Passa o evento (salaSelecionada) -->
+    <class-selector (salaSelecionada)="onSalaSelecionada($event)"></class-selector>
+
     <div class="header-search">
       <ion-icon name="pricetag-outline"></ion-icon>
       <ion-icon name="search-outline"></ion-icon>
@@ -16,16 +18,18 @@
   >
     Postagens
   </a>
+
   <a
-    [routerLink]="['/class', classId, 'tasks']"
     [class.tabselected]="taskTab"
+    [routerLink]="['/class', classId, 'tasks']"
     (click)="selectTab('tasks')"
   >
     Tarefas
   </a>
+
   <a
-    [routerLink]="['/class', classId, 'calendar']"
     [class.tabselected]="calendarTab"
+    [routerLink]="['/class', classId, 'calendar']"
     (click)="selectTab('calendar')"
   >
     Calendário
@@ -39,23 +43,23 @@
 </ion-content>
 
 <ion-footer [class.hidden]="isHidden">
-    <nav>
-        <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'post']">
-            <ion-icon name="school-outline"></ion-icon>
-            <ion-label>Salas</ion-label>
-        </ion-tab-button>
-
-    <ion-tab-button tab="criar">
-      <ion-icon
-        name="add-circle"
-        style="font-size: 40px; color: var(--ion-color-primary);"
-      ></ion-icon>
-      <ion-label style="display: none;">Criar</ion-label>
+  <nav>
+    <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'post']">
+      <ion-icon name="school-outline"></ion-icon>
+      <ion-label>Salas</ion-label>
     </ion-tab-button>
 
-        <ion-tab-button tab="perfil" [routerLink]="['/profile']">
-            <ion-icon name="person-outline"></ion-icon>
-            <ion-label>Você</ion-label>
-        </ion-tab-button>
-    </nav>
+<ion-tab-button tab="criar" (click)="abrirMenuCriacao($event)">
+  <ion-icon
+    name="add-circle"
+    style="font-size: 40px; color: var(--ion-color-primary);"
+  ></ion-icon>
+  <ion-label style="display: none;">Criar</ion-label>
+</ion-tab-button>
+
+    <ion-tab-button tab="perfil" [routerLink]="['/profile']">
+      <ion-icon name="person-outline"></ion-icon>
+      <ion-label>Você</ion-label>
+    </ion-tab-button>
+  </nav>
 </ion-footer>
