@@ -7,7 +7,8 @@ Thumbs.db
 
 # Arquivos de Configuração e Ambiente
 backend/.env
-credenciais-firebase.json
+backend/config/credenciais-firebase.json
+backend/config/backup-credenciais-firebase.json
 
 # -----------------
 # Regras do Frontend (Ionic)
