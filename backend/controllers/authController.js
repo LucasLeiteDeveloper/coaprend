@@ -11,8 +11,9 @@ exports.registerUser = async (req, res) => {
 
     try {
         //formating the dt_birthday
-        let dt_birthdayFormated = null;
-        if(dt_birthday) dt_birthdayFormated = new Date(dt_birthday);
+        let dt_birthdayFormated = dt_birthday ? 
+            new Date(dt_birthday)
+            : null;
 
         //create the document on firestore
         const userRef = db.collection('users').doc(uid);
@@ -23,6 +24,8 @@ exports.registerUser = async (req, res) => {
             dt_birthday: dt_birthdayFormated,
             imgAccount: null,
             bio: 'new user coaprend',
+            handle: null, //check if exist some @
+            createdAt: new Date()
         });
 
         return res.status(201).json({
