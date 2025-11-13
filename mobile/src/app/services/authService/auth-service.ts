@@ -11,6 +11,7 @@ export interface UserProfile {
   email: string,
   dt_birthday?: string,
   bio?: string,
+  username?: string,
   imgAccount?: string
 }
 
