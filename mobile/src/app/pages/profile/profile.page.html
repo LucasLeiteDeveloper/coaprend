@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -48,4 +49,46 @@
       </ion-button>
     </ion-col>
   </ion-row>
+=======
+<ion-header [class.hidden]="isHidden">
+    <div class="header-top">
+        <div class="header-search">
+            <ion-icon name="pricetag-outline"></ion-icon>
+            <ion-icon name="search-outline"></ion-icon>
+        </div>
+    </div>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="onContentScroll($event)">
+    <main class="content-container">
+        <div class="profile">
+          <img src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg">
+          <h2>Nome do Usuário</h2>
+          <h3>@ do Usuário</h3>
+        </div>
+        <post-card [post]="postExample"></post-card>
+        <post-card [post]="postExample"></post-card>
+        <post-card [post]="postExample"></post-card>
+        <post-card [post]="postExample"></post-card>
+    </main>
+>>>>>>> 0a71926a0d97d5157d86a40f16c3b65933028b50
 </ion-content>
+
+<ion-footer [class.hidden]="isHidden">
+    <nav>
+        <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'tasks']">
+            <ion-icon name="school-outline"></ion-icon>
+            <ion-label>Salas</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="criar">
+            <ion-icon name="add-circle" style="font-size: 40px; color: var(--ion-color-primary);"></ion-icon>
+            <ion-label style="display: none;">Criar</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="perfil" [routerLink]="['/profile']">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-label>Você</ion-label>
+        </ion-tab-button>
+    </nav>
+</ion-footer>

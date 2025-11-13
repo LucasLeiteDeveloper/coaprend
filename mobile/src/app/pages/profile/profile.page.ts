@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { UserProfile } from '../../services/authService/auth-service';
 import { AuthService } from 'src/app/services/authService/auth-service';
+=======
+import { ScrollDetail } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+>>>>>>> 0a71926a0d97d5157d86a40f16c3b65933028b50
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +16,7 @@ import { AuthService } from 'src/app/services/authService/auth-service';
   standalone: false,
 })
 export class ProfilePage implements OnInit {
+<<<<<<< HEAD
   // initialize the profileData
   profileData: UserProfile | null = null;
 
@@ -99,5 +105,38 @@ export class ProfilePage implements OnInit {
 
 
     await alert.present();
+=======
+  public isHidden: boolean = false;
+  public postTab: boolean = true;
+  public taskTab: boolean = false;
+  public calendarTab: boolean = false;
+  private lastScrollTop: number = 0;
+  public classId: any = 0;
+  public postExample: {} = {
+    title: 'Post de teste',
+    author: 'Usuário de teste',
+    items: [{ content: 'Conteudo de teste' }],
+  };
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      this.classId = params.get('id');
+    });
+  }
+  onContentScroll(event: CustomEvent<ScrollDetail>) {
+    const scrollTop = event.detail.scrollTop;
+    if (scrollTop > this.lastScrollTop && scrollTop > 50) {
+      if (!this.isHidden) {
+        this.isHidden = true;
+      }
+    } else if (scrollTop < this.lastScrollTop || scrollTop === 0) {
+      if (this.isHidden) {
+        this.isHidden = false;
+      }
+    }
+    this.lastScrollTop = scrollTop;
+>>>>>>> 0a71926a0d97d5157d86a40f16c3b65933028b50
   }
 }

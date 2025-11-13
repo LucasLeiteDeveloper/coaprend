@@ -1,0 +1,22 @@
+.menu-criacao {
+  ion-item {
+    --background: var(--ion-color-light);
+    --color: var(--ion-color-dark);
+    border-radius: 12px;
+    margin-bottom: 4px;
+    transition: background 0.2s ease;
+  }
+
+  ion-item:hover {
+    --background: var(--ion-color-primary-tint);
+  }
+
+  ion-icon {
+    color: var(--ion-color-primary);
+  }
+}
+
+.menu-criacao-popover {
+  --width: 200px;
+  --border-radius: 12px;
+}
