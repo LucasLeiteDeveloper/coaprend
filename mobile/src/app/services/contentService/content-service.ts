@@ -45,5 +45,9 @@ export class ContentService {
 
     return this.http.get<any[]>(`${this.apiUrl}/rooms/${roomId}/tasks`, { headers }).toPromise();
   }
-  async createTask(data: { title: string, roomId: string, last_date: string }): Promise<>
+  async createTask(data: { title: string, roomId: string, last_date: string }): Promise<any>{
+    const headers = this.getAuthHeaders();
+
+    return this.http.post(`${this.apiUrl}/tasks`, data, { headers }).toPromise();
+  }
 }
