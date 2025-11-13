@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/postService/post'; // caminho do seu service
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ContentService } from 'src/app/services/contentService/content-service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -9,42 +11,66 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   standalone: false,
 })
 export class PostPage implements OnInit {
-  posts: any[] = [];
-  public postExample: {} = {
-    title: 'Post de teste',
-    author: 'Usuário de teste',
-    items: [{ content: 'Conteudo de teste' }],
-  };
+  posts: any[] | undefined = [];
+  private roomId: string | null;
 
   promptValue: string = '';
   isLoading: boolean = false;
   showResult: boolean = false;
   resultText: SafeHtml = '';
 
-  constructor(private postService: PostService, private sanitizer: DomSanitizer) {}
+  constructor(
+    private route: ActivatedRoute,
+    private contentService: ContentService,
+    private sanitizer: DomSanitizer) {
+      //pgets the room id
+      this.roomId = this.route.snapshot.paramMap.get('roomId');
+
+      if(!this.roomId) console.error("ID da sala não encontrado na URL!")
+    }
 
   ngOnInit() {
     this.loadPosts();
   }
 
-  loadPosts() {
-    this.postService.getAll().subscribe({
-      next: (res) => {
-        this.posts = res.map((p: any) => ({
-          ...p,
-          options: p.options ? JSON.parse(p.options) : [],
-        }));
-        console.log('Posts carregados:', this.posts);
-      },
-      error: (err) => {
-        console.error('Erro ao carregar posts:', err);
-      },
-    });
+  async loadPosts() {
+    if(!this.roomId) return;
+
+    this.isLoading = true;
+    try {
+      this.posts = await this.contentService.getPosts(this.roomId);
+      console.log("Posts carregados: ", this.posts);
+    } catch(error){
+      console.error("Erro ao carregar posts", error);
+    } finally{
+      this.isLoading = false;
+    }
+  }
+
+  // create a new post
+  async submitNewPost(title: string, content: string[]){
+    if(!this.roomId) return;
+
+    this.isLoading = true;
+    try {
+      await this.contentService.createPost({
+        title: title,
+        roomId: this.roomId,
+        texts: content
+      });
+
+      // clean all places and load the posts
+      this.promptValue = '';
+      this.showResult = false;
+      this.loadPosts();
+    } catch(error){
+      console.error("Erro ao salvar post: ", error);
+    } finally{
+      this.isLoading = false;
+    }
   }
 
   async generateContent() {
-    console.log('1. Iniciando requisição');
-    console.log('2. Prompt digitado:', this.promptValue);
 
     if (!this.promptValue.trim()) {
       alert('Por favor, digite um prompt!');
