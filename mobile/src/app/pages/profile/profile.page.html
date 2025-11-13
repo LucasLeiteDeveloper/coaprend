@@ -13,6 +13,7 @@
           <img [src]="profileData.imgAccount ||  'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'">
           <h2> {{ profileData.name }} </h2>
           <h3> {{ profileData.email.split('@')[0] }} </h3>
+          <ion-button (click)="openEditProfileModal()">Editar perfil</ion-button>
         </div>
         <post-card [post]="postExample"></post-card>
         <post-card [post]="postExample"></post-card>
