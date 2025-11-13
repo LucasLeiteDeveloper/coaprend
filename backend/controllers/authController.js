@@ -1,6 +1,23 @@
 //get the service of firestore
 const { auth, db } = require("../config/db");
 
+// auxiliar function to parse the date received
+function parseDateStringToUTC(dateString) {
+    if (!dateString || typeof dateString !== 'string') return null;
+    try {
+        const parts = dateString.split('-'); // expect "YYYY-MM-DD"
+        if (parts.length !== 3) return new Date(dateString); // Fallbacl
+
+        const year = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1; // months in JS is index 0 = january, 1 = february...
+        const day = parseInt(parts[2], 10);
+        
+        return new Date(Date.UTC(year, month, day));
+    } catch (e) {
+        return null;
+    }
+}
+
 //create an user
 exports.registerUser = async (req, res) => {
     //get the info send by ionic
@@ -11,9 +28,7 @@ exports.registerUser = async (req, res) => {
 
     try {
         //formating the dt_birthday
-        let dt_birthdayFormated = dt_birthday ? 
-            new Date(dt_birthday)
-            : null;
+        let dt_birthdayFormated = parseDateStringToUTC(dt_birthday)
 
         //create the document on firestore
         const userRef = db.collection('users').doc(uid);
@@ -89,7 +104,7 @@ exports.updateUserProfile = async (req, res) => {
         if (updates.bio !== undefined) dataToUpdate.bio = updates.bio;
         if (updates.username) dataToUpdate.username = updates.username;
         if (updates.dt_birthday) {
-            dataToUpdate.dt_birthday = new Date(updates.dt_birthday)
+            dataToUpdate.dt_birthday = parseDateStringToUTC(updates.dt_birthday);
         } else if(updates.dt_birthday === '') { // if the frontend sends the date empty, saves with null
             dataToUpdate.dt_birthday = null;
         }
