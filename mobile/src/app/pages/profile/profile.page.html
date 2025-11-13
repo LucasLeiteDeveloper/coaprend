@@ -1,55 +1,3 @@
-<<<<<<< HEAD
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  @if(profileData){
-    <h2 class="ion-text-center">{{ profileData.name }}</h2>
-    <p class="ion-text-center ion-text-muted">{{ profileData.email }}</p>
-    
-    <ion-list class="ion-margin-top">
-      <ion-item lines="full">
-        <ion-label>
-          <p class="ion-text-wrap">Bio: {{ profileData.bio || 'Sem bio cadastrada' }}</p>
-        </ion-label>
-      </ion-item>
-      <ion-item lines="full">
-        <ion-label>
-          <p>Data de Nascimento: {{ profileData.dt_birthday || 'Sem data cadastrada' }}</p>
-        </ion-label>
-       </ion-item>
-    </ion-list>
-  }
-
-  <ion-row>
-    <ion-col>
-      <ion-button
-        (click)="confirmLogout()"
-        shape="round"
-        expand="block"
-        color="danger"
-        fill="outline">
-        Sair da Conta
-      </ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button
-        (click)="confirmDeleteAccount()"
-        shape="round"
-        expand="block"
-        color="danger"
-        fill="outline">
-        Excluir Minha Conta
-      </ion-button>
-    </ion-col>
-  </ion-row>
-=======
 <ion-header [class.hidden]="isHidden">
     <div class="header-top">
         <div class="header-search">
@@ -71,7 +19,6 @@
         <post-card [post]="postExample"></post-card>
         <post-card [post]="postExample"></post-card>
     </main>
->>>>>>> 0a71926a0d97d5157d86a40f16c3b65933028b50
 </ion-content>
 
 <ion-footer [class.hidden]="isHidden">
