@@ -1,12 +1,9 @@
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
+<task-card *ngFor="let task of tasks" [task]="task"></task-card>
+
+<ion-item *ngIf="tasks.length === 0 && !isLoading" lines="none">
+    <ion-label class="ion-text-center">
+        Nenhuma tarefa nesta sala ainda.
+    </ion-label>
+</ion-item>
+
+<ion-spinner *ngIf="isLoading" name="crescent" class="ion-text-center"></ion-spinner>
