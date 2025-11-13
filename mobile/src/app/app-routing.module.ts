@@ -39,30 +39,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'class/:id',
-    loadChildren: () => import('./pages/class/class.module').then( m => m.ClassPageModule)
-  },
-  {
-    path: 'create-post',
-    loadChildren: () => import('./oldPages/create-post/create-post.module').then( m => m.PostCreatePageModule)
-  },
-  {
-    path: 'create-task',
-    loadChildren: () => import('./oldPages/create-task/create-task.module').then( m => m.CreateTaskPageModule)
-  },
-  {
-    path: 'post/:id',
-    loadChildren: () => import('./pages/create/post/post.module').then( m => m.PostPageModule)
-  },
-  {
-    path: 'task/:id',
-    loadChildren: () => import('./pages/create/task/task.module').then( m => m.TaskPageModule)
-  },
-  {
-    path: 'class',
-    loadChildren: () => import('./pages/create/class/class.module').then( m => m.ClassPageModule)
-  },
-  {
     path: 'tag',
     loadChildren: () => import('./pages/create/tag/tag.module').then( m => m.TagPageModule)
   },
@@ -74,22 +50,24 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   },
+  // CREATING PATHS
   {
-    path: 'post',
-    loadChildren: () => import('./pages/post/post.module').then( m => m.PostPageModule)
+    path: 'create/class',
+    loadChildren: () => import('./pages/create/class/class.module').then( m => m.ClassPageModule)
   },
   {
-    path: 'task',
-    loadChildren: () => import('./pages/task/task.module').then( m => m.TaskPageModule)
+    path: 'create/task/:roomId',
+    loadChildren: () => import('./pages/create/task/task.module').then( m => m.TaskPageModule)
+  },
+  // SHOWING PATHS
+  {
+    path: 'class/:roomId/posts',
+    loadChildren: () => import('./pages/class/post/post.module').then( m => m.PostPageModule)
   },
   {
-    path: 'create-class',
-    loadChildren: () => import('./pages/create-class/create-class.module').then( m => m.CreateClassPageModule)
+    path: 'class/:roomId/tasks',
+    loadChildren: () => import('./pages/class/tasks/tasks.module').then( m => m.TasksPageModule)
   },
-
-
-
-
 ];
 
 @NgModule({
