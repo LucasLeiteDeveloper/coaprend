@@ -8,10 +8,14 @@ const authenticateToken = require("../middlewares/authenticateToken");
 const authController = require('../controllers/authController');
 
 //routes of authentication
+//gets the profile data
+router.get('/profile', authenticateToken, authController.getUserProfile);
+// update the profile
+router.put('/profile', authenticateToken, authController.updateUserProfile);
+// create a new profile
 router.post('/register', authController.registerUser);
 //route to be called after the login
 router.post('/sync', authenticateToken, authController.syncProfile);
-router.get('/profile', authenticateToken, authController.getUserProfile);
 //route to delete an user
 router.delete('/user/me', authenticateToken, authController.deleteUserAccount);
 

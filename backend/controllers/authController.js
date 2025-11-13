@@ -75,6 +75,29 @@ exports.syncProfile = async (req, res) => {
     }
 }
 
+//update the user account
+exports.updateUserProfile = async (req, res) => {
+    const uid = req.user.uid;
+
+    const { name, bio, dt_birthday, handle } = req.body;
+
+    // inserts data per data to be updated
+    const dataToUpdate = {};
+    if (name) dataToUpdate.name = name;
+    if (bio) dataToUpdate.bio = bio;
+    if (handle) dataToUpdate.handle = handle;
+    if(dt_birthday) dataToUpdate.dt_birthday = new Date(dt_birthday);
+
+    try {
+        await db.collection('users').doc(uid).update(dataToUpdate);
+        res.status(200).json({ message: "Perfil atualizado com sucesso!" });
+    }  catch(error){
+        console.error("Erro ao atualizar perfil: ", error);
+        res.status(500).json({ error: "Erro interno!" });
+    }
+
+}
+
 //delete the account
 exports.deleteUserAccount = async (req, res) => {
     try {  
