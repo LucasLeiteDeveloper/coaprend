@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ScrollDetail } from '@ionic/angular';
+import { ModalController, ScrollDetail } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService, UserProfile } from 'src/app/services/authService/auth-service';
+import { EditProfilePage } from '../edit-profile/edit-profile.page';
 
 @Component({
   selector: 'app-profile',
@@ -28,7 +29,8 @@ export class ProfilePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService) {}
+    private authService: AuthService,
+    private modalCtrl: ModalController) {}
 
   async ngOnInit() {
     await this.loadProfileData();
@@ -50,6 +52,23 @@ export class ProfilePage implements OnInit {
     } finally {
       this.isLoading = false;
     }
+  }
+
+  async openEditProfileModal(){
+    const modal = await this.modalCtrl.create({
+      component: EditProfilePage,
+      componentProps: {
+        profile: this.profileData
+      }
+    });
+
+    await modal.present();
+
+    // await the modal stop
+    const { data } = await modal.onDidDismiss();
+
+    // if the updating whas sucessfuly
+    if(data === true) this.loadProfileData();
   }
 
   onContentScroll(event: CustomEvent<ScrollDetail>) {
