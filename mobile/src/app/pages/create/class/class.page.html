@@ -1,13 +1,45 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>class</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/profile"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Criar Nova Sala</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">class</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <form (ngSubmit)="submitCreateRoom()" class="ion-padding">
+    <ion-list>
+      <ion-item>
+        <ion-input
+          label="Nome da Sala *"
+          labelPlacement="stacked"
+          type="text"
+          [(ngModel)]="title"
+          name="title"
+          required
+        ></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-textarea
+          label="Descrição (Opcional)"
+          labelPlacement="stacked"
+          rows="4"
+          [(ngModel)]="description"
+          name="description"
+        ></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <ion-button 
+      type="submit" 
+      expand="block" 
+      class="ion-margin-top" 
+      [disabled]="isLoading || title.trim() === ''"
+    >
+      <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+      <span *ngIf="!isLoading">Criar Sala</span>
+    </ion-button>
+  </form>
 </ion-content>
