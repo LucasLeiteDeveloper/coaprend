@@ -58,6 +58,7 @@ exports.syncProfile = async (req, res) => {
         const userData = {
             name: name || "Coaprend User",
             email: email,
+            username: null, // start with no username
             dt_birthday: null,
             imgAccount: picture || null, //'picture' comes from google
             bio: "new user",
