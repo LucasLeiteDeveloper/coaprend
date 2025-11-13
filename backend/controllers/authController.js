@@ -78,18 +78,26 @@ exports.syncProfile = async (req, res) => {
 
 //update the user account
 exports.updateUserProfile = async (req, res) => {
-    const uid = req.user.uid;
-
-    const { name, bio, dt_birthday, username } = req.body;
-
-    // inserts data per data to be updated
-    const dataToUpdate = {};
-    if (name) dataToUpdate.name = name;
-    if (bio) dataToUpdate.bio = bio;
-    if (username) dataToUpdate.username = username;
-    if(dt_birthday) dataToUpdate.dt_birthday = new Date(dt_birthday);
-
     try {
+        const uid = req.user.uid;
+        // gets the parts to be updated
+        const updates = req.body;
+
+        // inserts data per data to be updated
+        const dataToUpdate = {};
+        if (updates.name) dataToUpdate.name = updates.name;
+        if (updates.bio !== undefined) dataToUpdate.bio = updates.bio;
+        if (updates.username) dataToUpdate.username = updates.username;
+        if (updates.dt_birthday) {
+            dataToUpdate.dt_birthday = new Date(updates.dt_birthday)
+        } else if(updates.dt_birthday === '') { // if the frontend sends the date empty, saves with null
+            dataToUpdate.dt_birthday = null;
+        }
+
+        if(Object.keys(dataToUpdate).length === 0){
+            return res.status(400).json({ error: "Nenhum campo válido para atualizar" })
+        }
+
         await db.collection('users').doc(uid).update(dataToUpdate);
         res.status(200).json({ message: "Perfil atualizado com sucesso!" });
     }  catch(error){
