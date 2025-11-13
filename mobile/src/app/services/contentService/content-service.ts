@@ -27,6 +27,13 @@ export class ContentService {
     return new HttpHeaders().set("Authorization", `Bearer ${idToken}`);
   }
 
+  // method for rooms
+  async createRoom(data: { title: string, description: string }): Promise<any>{
+    const headers = this.getAuthHeaders();
+
+    return this.http.post<any>(`${this.apiUrl}/room`, data, { headers }).toPromise();
+  }
+
   // methods for posts
   async getPosts(roomId: string): Promise<any[] | undefined> {
     const headers = this.getAuthHeaders();
