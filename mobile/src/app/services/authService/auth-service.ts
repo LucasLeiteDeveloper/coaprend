@@ -144,6 +144,27 @@ export class AuthService {
     }
   }
 
+  async updateProfileData(updates: Partial<UserProfile>): Promise<void>{
+    try{
+      // gets the idToken and check if is valid
+      const idToken = localStorage.getItem("firebaseToken");
+      if(!idToken) throw new Error("Usuário não autenticado!");
+
+      //set the header
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${idToken}`);
+
+      // http://localhost:8000/api/auth/profile
+      const url = `${this.apiUrl}/profile`;
+
+      await this.http.patch(url, updates, { headers }).toPromise();
+      this.showToast("Perfil atualizado!");
+    } catch(error){
+      this.showToast("Erro ao atualizar perfil!");
+      console.error("Erro ao atualizar perfil: ", error);
+      throw error;
+    }
+  }
+
   //clean all session data and let in login
   async logout(){
     await this.auth.signOut();
