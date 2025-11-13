@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { AuthService, UserProfile } from 'src/app/services/authService/auth-service';
 
@@ -6,7 +7,7 @@ import { AuthService, UserProfile } from 'src/app/services/authService/auth-serv
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.page.html',
   styleUrls: ['./edit-profile.page.scss'],
-  imports: [IonicModule]
+  imports: [IonicModule, FormsModule]
 })
 export class EditProfilePage implements OnInit {
   // receive the user profile data
@@ -16,16 +17,25 @@ export class EditProfilePage implements OnInit {
   public isLoading: boolean = false;
 
   constructor(
-    private modalCtrl: ModalController,
+    public modalCtrl: ModalController,
     private authService: AuthService
   ) { }
 
   ngOnInit() {
     if(this.profile.dt_birthday){ //converts the dt_birthday
-     const dateObj = new Date(this.profile.dt_birthday);
+     const dateValue = this.profile.dt_birthday;
+     let dateObj: Date;
 
-     // verify if the convertion whas valid before format
-     if(!isNaN(dateObj.getTime())) this.dtBirthdayModel = dateObj.toISOString().split('T')[0];
+     //check if the dateValue is a FirestoreTimestamp
+     if (typeof dateValue === 'object' && dateValue !== null && '_seconds' in dateValue){
+      dateObj = new Date(dateValue._seconds * 1000); //converts the seconds to miliseconds
+     } else {
+      dateObj = new Date(dateValue as string); 
+     }
+
+     if(!isNaN(dateObj.getTime())){
+      this.dtBirthdayModel = dateObj.toISOString().split('T')[0];
+     }
     }
   }
 

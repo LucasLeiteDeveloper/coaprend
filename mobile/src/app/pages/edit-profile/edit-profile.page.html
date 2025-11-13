@@ -1,13 +1,53 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>edit-profile</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="modalCtrl.dismiss()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Editar Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">edit-profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <main class="content-container ion-padding">
+
+    <form class="grid-spacing-m">
+      
+      <ion-input
+        type="text"
+        label="Nome completo"
+        labelPlacement="stacked"
+        fill="outline"
+        placeholder="Seu nome"
+        name="name"
+        [(ngModel)]="profile.name"
+      ></ion-input>
+
+      <ion-textarea
+        label="Bio"
+        labelPlacement="stacked"
+        fill="outline"
+        placeholder="Fale um pouco sobre você..."
+        name="bio"
+        [(ngModel)]="profile.bio"
+        [autoGrow]="true"
+        rows="3"
+      ></ion-textarea>
+      
+      <ion-input
+        type="date"
+        label="Data de Nascimento"
+        labelPlacement="stacked"
+        fill="outline"
+        name="dt_birthday"
+        [(ngModel)]="dtBirthdayModel"
+      ></ion-input>
+      
+      <ion-button (click)="saveChanges()" [disabled]="isLoading">Salvar</ion-button>
+
+      </form>
+    
+  </main>
 </ion-content>

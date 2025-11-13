@@ -6,10 +6,16 @@ import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStat
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+//format that the dt_birthday is returned by firetore
+export interface FirestoreTimestamp {
+  _seconds: number,
+  _nanoseconds: number,
+}
+
 export interface UserProfile {
   name: string,
   email: string,
-  dt_birthday?: string,
+  dt_birthday?: string | FirestoreTimestamp,
   bio?: string,
   username?: string,
   imgAccount?: string
