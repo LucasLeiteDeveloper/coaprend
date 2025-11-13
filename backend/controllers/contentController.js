@@ -107,15 +107,15 @@ exports.getPostsForRoom = async (req, res) => {
 // route: POST /api/content/tasks
 exports.createTask = async (req, res) => {
     try {
-        // the last_day needs to come in a string ISO
-        const { title, roomId, last_day } = req.body;
+        // the dt_final needs to come in a string ISO
+        const { title, roomId, dt_final } = req.body;
 
-        if(!title || !roomId || !last_day) return res.status(400).json({ error: "Campos 'title', 'roomId' e 'last_day' são obrigatórios!" })
+        if(!title || !roomId || !dt_final) return res.status(400).json({ error: "Campos 'title', 'roomId' e 'dt_final' são obrigatórios!" })
 
         const taskData = {
             title,
             roomId,
-            last_day: new Date(last_day),
+            dt_final: new Date(dt_final),
             finishedBy: []
         };
 
@@ -140,7 +140,7 @@ exports.getTasksForRoom = async (req, res) => {
         // create a reference of taskRef and get the tasks of room
         const taskRef = db.collection('tasks');
         const snapshot = await taskRef.where('roomId', '==', roomId)
-                                        .orderBy('last_day', 'asc')
+                                        .orderBy('dt_final', 'asc')
                                         .get();
 
         if(snapshot.empty) return res.status(200).json([]);
