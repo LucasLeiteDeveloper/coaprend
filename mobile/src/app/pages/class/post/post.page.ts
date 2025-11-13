@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/postService/post'; // caminho do seu service
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-post',
@@ -14,12 +15,13 @@ export class PostPage implements OnInit {
     author: 'Usuário de teste',
     items: [{ content: 'Conteudo de teste' }],
   };
+
   promptValue: string = '';
   isLoading: boolean = false;
   showResult: boolean = false;
-  resultText: string = '';
+  resultText: SafeHtml = '';
 
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService, private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
     this.loadPosts();
@@ -28,7 +30,6 @@ export class PostPage implements OnInit {
   loadPosts() {
     this.postService.getAll().subscribe({
       next: (res) => {
-        // Converte 'options' se vier como JSON no backend
         this.posts = res.map((p: any) => ({
           ...p,
           options: p.options ? JSON.parse(p.options) : [],
@@ -45,9 +46,8 @@ export class PostPage implements OnInit {
     console.log('1. Iniciando requisição');
     console.log('2. Prompt digitado:', this.promptValue);
 
-    if (!this.promptValue || this.promptValue.trim() === '') {
+    if (!this.promptValue.trim()) {
       alert('Por favor, digite um prompt!');
-      console.log('3. Erro: Prompt vazio');
       return;
     }
 
@@ -55,60 +55,55 @@ export class PostPage implements OnInit {
     this.showResult = false;
 
     try {
-      console.log(
-        '4. Enviando fetch para:',
-        'http://localhost :8000/generate-content'
-      );
-      console.log(
-        '5. Dados enviados:',
-        JSON.stringify({ prompt: this.promptValue })
-      );
-
-      const response = await fetch('http://localhost:8000/generate-content', {
+      const response = await fetch('http://localhost:8000/api/gemini/generate-content', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: this.promptValue }),
       });
 
-      console.log('6. Status da resposta:', response.status);
-      console.log('7. Headers da resposta:', response.headers);
+      console.log('Status da resposta:', response.status);
+      const text = await response.text();
+      console.log('Resposta bruta:', text);
 
-      if (!response.ok) {
-        throw new Error('HTTP status: ' + response.status);
-      }
+      const data = JSON.parse(text);
+      console.log('Resposta parseada:', data);
 
-      const responseText = await response.text();
-      console.log('8. Resposta bruta (texto):', responseText);
+      if (data.success && data.quiz?.quiz) {
+        const quizArray = data.quiz.quiz;
+        let html = `<h2>Questionário Gerado</h2>`;
 
-      const data: any = JSON.parse(responseText);
-      console.log('9. Resposta parseada (JSON):', data);
-      
-      this.showResult = true;
-      this.resultText = responseText;
-      if (data.success && data.text) {
-        // this.resultText = data.text;
-        this.showResult = true;
-        console.log('10. Sucesso! Texto exibido');
+        quizArray.forEach((q: any) => {
+          html += `
+            <div class="quiz-item">
+              <p><strong>${q.id}. ${q.question}</strong></p>
+              <ul>
+                <li><b>A)</b> ${q.options.A}</li>
+                <li><b>B)</b> ${q.options.B}</li>
+                <li><b>C)</b> ${q.options.C}</li>
+                <li><b>D)</b> ${q.options.D}</li>
+              </ul>
+              <p><em>Correta: ${q.correct}</em></p>
+              <hr>
+            </div>
+          `;
+        });
+
+        this.resultText = this.sanitizer.bypassSecurityTrustHtml(html);
       } else {
-        alert('Erro do backend: ' + data.error);
-        console.log('11. Erro do backend:', data.error);
+        this.resultText = this.sanitizer.bypassSecurityTrustHtml(
+          `<p><b>Erro:</b> ${data.error || 'Não foi possível gerar o questionário.'}</p>`
+        );
       }
+
+      this.showResult = true;
     } catch (error: any) {
-      alert('Erro ao conectar com a API: ' + error.message);
-      console.error('12. Erro na requisição:', error);
-      console.error('13. Stack trace:', error.stack);
+      console.error('Erro na requisição:', error);
+      this.resultText = this.sanitizer.bypassSecurityTrustHtml(
+        `<p><b>Erro:</b> ${error.message}</p>`
+      );
+      this.showResult = true;
     } finally {
       this.isLoading = false;
-      console.log('14. Requisição finalizada');
     }
   }
-}
-interface GeminiResponse {
-  success: boolean;
-  text?: string;
-  error?: string;
-  details?: string;
-  response?: any;
 }
