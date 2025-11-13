@@ -24,7 +24,7 @@ exports.registerUser = async (req, res) => {
             dt_birthday: dt_birthdayFormated,
             imgAccount: null,
             bio: 'new user coaprend',
-            handle: null, //check if exist some @
+            username: null, //check if exist some @
             createdAt: new Date()
         });
 
@@ -79,13 +79,13 @@ exports.syncProfile = async (req, res) => {
 exports.updateUserProfile = async (req, res) => {
     const uid = req.user.uid;
 
-    const { name, bio, dt_birthday, handle } = req.body;
+    const { name, bio, dt_birthday, username } = req.body;
 
     // inserts data per data to be updated
     const dataToUpdate = {};
     if (name) dataToUpdate.name = name;
     if (bio) dataToUpdate.bio = bio;
-    if (handle) dataToUpdate.handle = handle;
+    if (username) dataToUpdate.username = username;
     if(dt_birthday) dataToUpdate.dt_birthday = new Date(dt_birthday);
 
     try {
