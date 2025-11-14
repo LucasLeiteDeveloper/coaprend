@@ -1,13 +1,23 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>tfa</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="Previous" icon="caret-back"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">tfa</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<main class="content-container grid-spacing-b">
+  <div class="grid-spacing-m">
+    <h1 class="ion-text-center"><strong>Verifique o código em seu E-mail</strong></h1>
+  </div>
+	<form class="grid-spacing-m">
+		<ion-input
+			type="text"
+      label="Código"
+			labelPlacement="stacked"
+  		errorText="Código Invalido"
+		></ion-input>
+    <ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round">Verificar</ion-button>
+	</form>
+  <p>Não encontrou seu código? <a>Reenviar E-mail</a>.</p>
+</main>
+<ion-toast trigger="test" message="This toast will disappear after 5 seconds" [duration]="5000"></ion-toast>
