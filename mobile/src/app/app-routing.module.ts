@@ -8,6 +8,11 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'agenda',
+    loadChildren: () =>
+      import('./oldPages/agenda/agenda.module').then((m) => m.AgendaPageModule),
+  },
+  {
     path: 'policy',
     loadChildren: () =>
       import('./pages/static/policy/policy.module').then(
@@ -42,7 +47,7 @@ const routes: Routes = [
     path: 'create-post',
     loadChildren: () =>
       import('./oldPages/create-post/create-post.module').then(
-        (m) => m.PostCreatePageModule
+        (m) => m.CreatePostPageModule
       ),
   },
   {
@@ -68,16 +73,21 @@ const routes: Routes = [
       import('./pages/auth/tfa/tfa.module').then((m) => m.TfaPageModule),
   },
   {
-    path: 'forgot-password',
+    path: 'profile',
     loadChildren: () =>
-      import('./pages/auth/forgot-password/forgot-password.module').then(
-        (m) => m.ForgotPasswordPageModule
+      import('./pages/profile/profile.module').then(
+        (m) => m.ProfilePageModule
       ),
   },
   {
-    path: 'profile',
+    path: 'post',
     loadChildren: () =>
-      import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
+      import('./pages/post/post.module').then((m) => m.PostPageModule),
+  },
+  {
+    path: 'task',
+    loadChildren: () =>
+      import('./pages/task/task.module').then((m) => m.TaskPageModule),
   },
   {
     path: 'create-class',
@@ -90,7 +100,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: PreloadAllModules,
+    }),
   ],
   exports: [RouterModule],
 })
