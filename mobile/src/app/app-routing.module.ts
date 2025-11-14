@@ -73,11 +73,14 @@ const routes: Routes = [
       import('./pages/auth/tfa/tfa.module').then((m) => m.TfaPageModule),
   },
   {
+    path: 'forgot-password',
+    loadChildren: () =>
+      import('./pages/auth/forgot-password/forgot-password.module').then((m) => m.ForgotPasswordPageModule),
+  },
+  {
     path: 'profile',
     loadChildren: () =>
-      import('./pages/profile/profile.module').then(
-        (m) => m.ProfilePageModule
-      ),
+      import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
   },
   {
     path: 'post',
