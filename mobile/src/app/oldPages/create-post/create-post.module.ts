@@ -1,9 +1,9 @@
-// src/app/pages/post-create/post-create.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
+
+import { CreatePostPageRoutingModule } from './create-post-routing.module';
 import { PostCreatePage } from './create-post.page';
 
 @NgModule({
@@ -11,8 +11,9 @@ import { PostCreatePage } from './create-post.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild([{ path: '', component: PostCreatePage }])
+    CreatePostPageRoutingModule
   ],
   declarations: [PostCreatePage]
 })
-export class PostCreatePageModule {}
+export class CreatePostPageModule {}
+
