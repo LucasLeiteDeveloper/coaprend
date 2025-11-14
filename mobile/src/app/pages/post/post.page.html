@@ -1,46 +1,32 @@
 
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Previous" icon="caret-back"></ion-back-button>
+    </ion-buttons>
     <ion-title>Postagens</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <main class="content-container">
+    <post-card [post]="postExample"></post-card>
 
-  <!-- =============== LISTA DE POSTS =============== -->
-  <ng-container *ngIf="posts.length > 0; else noPosts">
-    <post-card 
-      *ngFor="let p of posts" 
-      [post]="p">
-    </post-card>
-  </ng-container>
+    <ion-button expand="block" (click)="generateContent()">
+      Gerar Questionário
+    </ion-button>
 
-  <ng-template #noPosts>
-    <ion-text color="medium" style="margin: 16px; display: block;">
-      Nenhuma postagem encontrada.
-    </ion-text>
-  </ng-template>
+    <ion-spinner
+      *ngIf="isLoading"
+      name="crescent"
+      style="display: block; margin: 20px auto;">
+    </ion-spinner>
 
-  <ion-item>
-    <ion-label position="floating">Digite seu prompt</ion-label>
-    <ion-input [(ngModel)]="promptValue" type="text"></ion-input>
-  </ion-item>
-
-  <ion-button expand="block" (click)="generateContent()">
-    Gerar Conteúdo
-  </ion-button>
-
-  <ion-spinner
-    *ngIf="isLoading"
-    name="crescent"
-    style="display: block; margin: 20px auto;">
-  </ion-spinner>
-
-  <ion-card *ngIf="showResult">
-    <ion-card-header>
-      <ion-card-title>Resultado</ion-card-title>
-    </ion-card-header>
-    <ion-card-content [innerHTML]="resultText"></ion-card-content>
-  </ion-card>
-
+    <ion-card *ngIf="showResult">
+      <ion-card-header>
+        <ion-card-title>Resultado</ion-card-title>
+      </ion-card-header>
+      <ion-card-content [innerHTML]="resultText"></ion-card-content>
+    </ion-card>
+  </main>
 </ion-content>
