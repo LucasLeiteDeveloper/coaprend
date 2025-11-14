@@ -55,24 +55,12 @@ const routes: Routes = [
   {
     path: 'post/:id',
     loadChildren: () =>
-      import('./pages/create/post/post.module').then((m) => m.PostPageModule),
+      import('./pages/post/post.module').then((m) => m.PostPageModule),
   },
   {
     path: 'task/:id',
     loadChildren: () =>
-      import('./pages/create/task/task.module').then((m) => m.TaskPageModule),
-  },
-  {
-    path: 'class',
-    loadChildren: () =>
-      import('./pages/create/class/class.module').then(
-        (m) => m.ClassPageModule
-      ),
-  },
-  {
-    path: 'tag',
-    loadChildren: () =>
-      import('./pages/create/tag/tag.module').then((m) => m.TagPageModule),
+      import('./pages/task/task.module').then((m) => m.TaskPageModule),
   },
   {
     path: 'tfa',
@@ -82,22 +70,14 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     loadChildren: () =>
-      import('./pages/auth/forgot-password/forgot-password.module').then((m) => m.ForgotPasswordPageModule),
+      import('./pages/auth/forgot-password/forgot-password.module').then(
+        (m) => m.ForgotPasswordPageModule
+      ),
   },
   {
     path: 'profile',
     loadChildren: () =>
       import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
-  },
-  {
-    path: 'post',
-    loadChildren: () =>
-      import('./pages/post/post.module').then((m) => m.PostPageModule),
-  },
-  {
-    path: 'task',
-    loadChildren: () =>
-      import('./pages/task/task.module').then((m) => m.TaskPageModule),
   },
   {
     path: 'create-class',
