@@ -1,1 +1,46 @@
 
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Postagens</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- =============== LISTA DE POSTS =============== -->
+  <ng-container *ngIf="posts.length > 0; else noPosts">
+    <post-card 
+      *ngFor="let p of posts" 
+      [post]="p">
+    </post-card>
+  </ng-container>
+
+  <ng-template #noPosts>
+    <ion-text color="medium" style="margin: 16px; display: block;">
+      Nenhuma postagem encontrada.
+    </ion-text>
+  </ng-template>
+
+  <ion-item>
+    <ion-label position="floating">Digite seu prompt</ion-label>
+    <ion-input [(ngModel)]="promptValue" type="text"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="generateContent()">
+    Gerar Conteúdo
+  </ion-button>
+
+  <ion-spinner
+    *ngIf="isLoading"
+    name="crescent"
+    style="display: block; margin: 20px auto;">
+  </ion-spinner>
+
+  <ion-card *ngIf="showResult">
+    <ion-card-header>
+      <ion-card-title>Resultado</ion-card-title>
+    </ion-card-header>
+    <ion-card-content [innerHTML]="resultText"></ion-card-content>
+  </ion-card>
+
+</ion-content>
