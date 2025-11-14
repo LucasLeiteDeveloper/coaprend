@@ -44,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: 'create-post',
-    loadChildren: () => import('./oldPages/create-post/create-post.module').then( m => m.PostCreatePageModule)
+    loadChildren: () => import('./oldPages/create-post/create-post.module').then( m => m.CreatePostPageModule)
   },
   {
     path: 'create-task',
@@ -81,7 +81,8 @@ const routes: Routes = [
   {
     path: 'task',
     loadChildren: () => import('./pages/task/task.module').then( m => m.TaskPageModule)
-  },  {
+  },
+  {
     path: 'create-class',
     loadChildren: () => import('./pages/create-class/create-class.module').then( m => m.CreateClassPageModule)
   },
