@@ -10,9 +10,7 @@ const routes: Routes = [
   {
     path: 'agenda',
     loadChildren: () =>
-      import('./oldPages/agenda/agenda.module').then(
-        (m) => m.AgendaPageModule
-      ),
+      import('./oldPages/agenda/agenda.module').then((m) => m.AgendaPageModule),
   },
   {
     path: 'policy',
@@ -31,9 +29,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () =>
-      import('./pages/auth/login/login.module').then(
-        (m) => m.LoginPageModule
-      ),
+      import('./pages/auth/login/login.module').then((m) => m.LoginPageModule),
   },
   {
     path: 'register',
@@ -45,9 +41,7 @@ const routes: Routes = [
   {
     path: 'class/:id',
     loadChildren: () =>
-      import('./pages/class/class.module').then(
-        (m) => m.ClassPageModule
-      ),
+      import('./pages/class/class.module').then((m) => m.ClassPageModule),
   },
   {
     path: 'create-post',
@@ -66,16 +60,12 @@ const routes: Routes = [
   {
     path: 'post/:id',
     loadChildren: () =>
-      import('./pages/create/post/post.module').then(
-        (m) => m.PostPageModule
-      ),
+      import('./pages/create/post/post.module').then((m) => m.PostPageModule),
   },
   {
     path: 'task/:id',
     loadChildren: () =>
-      import('./pages/create/task/task.module').then(
-        (m) => m.TaskPageModule
-      ),
+      import('./pages/create/task/task.module').then((m) => m.TaskPageModule),
   },
   {
     path: 'class',
@@ -87,16 +77,12 @@ const routes: Routes = [
   {
     path: 'tag',
     loadChildren: () =>
-      import('./pages/create/tag/tag.module').then(
-        (m) => m.TagPageModule
-      ),
+      import('./pages/create/tag/tag.module').then((m) => m.TagPageModule),
   },
   {
     path: 'tfa',
     loadChildren: () =>
-      import('./pages/auth/tfa/tfa.module').then(
-        (m) => m.TfaPageModule
-      ),
+      import('./pages/auth/tfa/tfa.module').then((m) => m.TfaPageModule),
   },
   {
     path: 'profile',
@@ -108,16 +94,12 @@ const routes: Routes = [
   {
     path: 'post',
     loadChildren: () =>
-      import('./pages/post/post.module').then(
-        (m) => m.PostPageModule
-      ),
+      import('./pages/post/post.module').then((m) => m.PostPageModule),
   },
   {
     path: 'task',
     loadChildren: () =>
-      import('./pages/task/task.module').then(
-        (m) => m.TaskPageModule
-      ),
+      import('./pages/task/task.module').then((m) => m.TaskPageModule),
   },
   {
     path: 'create-class',
