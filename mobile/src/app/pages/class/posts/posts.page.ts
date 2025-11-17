@@ -3,12 +3,12 @@ import { PostService } from 'src/app/services/postService/post'; // caminho do s
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.page.html',
-  styleUrls: ['./post.page.scss'],
+  selector: 'app-posts',
+  templateUrl: './posts.page.html',
+  styleUrls: ['./posts.page.scss'],
   standalone: false,
 })
-export class PostPage implements OnInit {
+export class PostsPage implements OnInit {
   posts: any[] = [];
   public postExample: {} = {
     title: 'Post de teste',
