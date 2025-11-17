@@ -13,7 +13,8 @@
 <div class="header-nav">
   <a
     [class.tabselected]="selectedTab == 'posts'"
-    [routerLink]="['/class', classId, 'post']"
+    [routerLink]="['/class', classId, 'posts']"
+    (click)="onTabChange('posts')"
   >
     Postagens
   </a>
@@ -21,6 +22,7 @@
   <a
     [class.tabselected]="selectedTab == 'tasks'"
     [routerLink]="['/class', classId, 'tasks']"
+    (click)="onTabChange('tasks')"
   >
     Tarefas
   </a>
@@ -28,6 +30,7 @@
   <a
      [class.tabselected]="selectedTab == 'calendar'"
     [routerLink]="['/class', classId, 'calendar']"
+    (click)="onTabChange('calendar')"
   >
     Calendário
   </a>
