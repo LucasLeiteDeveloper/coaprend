@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ScrollDetail, PopoverController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuCriacaoComponent } from 'src/app/components/menu-criacao/menu-criacao.component';
+import { HideOnScrollService } from 'src/app/services/hideOnScrollService/hide-on-scroll-service';
 
 @Component({
   selector: 'app-class',
@@ -9,60 +10,37 @@ import { MenuCriacaoComponent } from 'src/app/components/menu-criacao/menu-criac
   styleUrls: ['./class.page.scss'],
   standalone: false,
 })
+
 export class ClassPage implements OnInit {
-  public isHidden: boolean = false;
-  public postTab: boolean = true;
-  public taskTab: boolean = false;
-  public calendarTab: boolean = false;
-  private lastScrollTop: number = 0;
-  public classId: any = 0;
+  public selectedTab: string = "";
+  public classId: any = "";
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    public scroll: HideOnScrollService,
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       this.classId = params.get('id');
     });
+    this.selectedTab = this.router.url.split('/')[3];
   }
 
-  // 🔹 Atualiza a sala selecionada
-  onSalaSelecionada(idSala: number) {
-    this.classId = idSala;
-    this.router.navigate(['/class', idSala, 'post']);
+  onSelectClass(id: any) {
+    this.classId = id;
+    this.router.navigate(['/class', this.classId, 'post']);
   }
 
-  // 🔹 Efeito de esconder header/footer ao rolar
-  onContentScroll(event: CustomEvent<ScrollDetail>) {
-    const scrollTop = event.detail.scrollTop;
-    if (scrollTop > this.lastScrollTop && scrollTop > 50) {
-      if (!this.isHidden) this.isHidden = true;
-    } else if (scrollTop < this.lastScrollTop || scrollTop === 0) {
-      if (this.isHidden) this.isHidden = false;
-    }
-    this.lastScrollTop = scrollTop;
-  }
-
-  // 🔹 Seleção das abas (post, tarefa, calendário)
-  selectTab(tab: string) {
-    this.postTab = tab === 'post';
-    this.taskTab = tab === 'tasks';
-    this.calendarTab = tab === 'calendar';
-  }
-
-  // 🔹 Abre o mini menu flutuante de criação
-  async abrirMenuCriacao(ev: any) {
+  async openCreateNav(ev: any) {
     const popover = await this.popoverCtrl.create({
       component: MenuCriacaoComponent,
       event: ev,
       translucent: true,
       cssClass: 'menu-criacao-popover',
     });
-
     await popover.present();
   }
 }
-
