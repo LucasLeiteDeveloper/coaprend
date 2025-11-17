@@ -7,97 +7,65 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full',
   },
-  {
-    path: 'agenda',
-    loadChildren: () =>
-      import('./oldPages/agenda/agenda.module').then((m) => m.AgendaPageModule),
-  },
-  {
-    path: 'policy',
-    loadChildren: () =>
-      import('./pages/static/policy/policy.module').then(
-        (m) => m.PolicyPageModule
-      ),
-  },
-  {
-    path: 'terms',
-    loadChildren: () =>
-      import('./pages/static/terms/terms.module').then(
-        (m) => m.TermsPageModule
-      ),
-  },
-  {
-    path: 'login',
-    loadChildren: () =>
-      import('./pages/auth/login/login.module').then((m) => m.LoginPageModule),
-  },
-  {
-    path: 'register',
-    loadChildren: () =>
-      import('./pages/auth/register/register.module').then(
-        (m) => m.RegisterPageModule
-      ),
-  },
-  {
-    path: 'class/:id',
-    loadChildren: () =>
-      import('./pages/class/class.module').then((m) => m.ClassPageModule),
-  },
-  {
-    path: 'create-post',
-    loadChildren: () =>
-      import('./oldPages/create-post/create-post.module').then(
-        (m) => m.CreatePostPageModule
-      ),
-  },
-  {
-    path: 'create-task',
-    loadChildren: () =>
-      import('./oldPages/create-task/create-task.module').then(
-        (m) => m.CreateTaskPageModule
-      ),
-  },
+
+  // DYNAMIC ROUTES //
   {
     path: 'post/:id',
-    loadChildren: () =>
-      import('./pages/post/post.module').then((m) => m.PostPageModule),
+    loadChildren: () => import('./pages/post/post.module').then((m) => m.PostPageModule),
   },
   {
     path: 'task/:id',
-    loadChildren: () =>
-      import('./pages/task/task.module').then((m) => m.TaskPageModule),
+    loadChildren: () => import('./pages/task/task.module').then((m) => m.TaskPageModule),
+  },
+  {
+    path: 'class/:id',
+    loadChildren: () => import('./pages/class/class.module').then((m) => m.ClassPageModule),
+  },
+
+  // AUTH PAGES //
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/auth/login/login.module').then((m) => m.LoginPageModule),
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/auth/register/register.module').then((m) => m.RegisterPageModule),
+  },
+  {
+    path: 'policy',
+    loadChildren: () => import('./pages/static/policy/policy.module').then((m) => m.PolicyPageModule),
+  },
+  {
+    path: 'terms',
+    loadChildren: () => import('./pages/static/terms/terms.module').then((m) => m.TermsPageModule),
   },
   {
     path: 'tfa',
-    loadChildren: () =>
-      import('./pages/auth/tfa/tfa.module').then((m) => m.TfaPageModule),
+    loadChildren: () =>import('./pages/auth/tfa/tfa.module').then((m) => m.TfaPageModule),
   },
   {
     path: 'forgot-password',
-    loadChildren: () =>
-      import('./pages/auth/forgot-password/forgot-password.module').then((m) => m.ForgotPasswordPageModule),
+    loadChildren: () => import('./pages/auth/forgot-password/forgot-password.module').then((m) => m.ForgotPasswordPageModule),
   },
+
+  // CREATE PAGES //
+  {
+    path: 'create-post',
+    loadChildren: () => import('./oldPages/create-post/create-post.module').then((m) => m.CreatePostPageModule),
+  },
+  {
+    path: 'create-task',
+    loadChildren: () => import('./oldPages/create-task/create-task.module').then((m) => m.CreateTaskPageModule),
+  },
+    {
+    path: 'create-class',
+    loadChildren: () => import('./pages/create-class/create-class.module').then((m) => m.CreateClassPageModule),
+  },
+
+  // PROFILE PAGE //
   {
     path: 'profile',
-    loadChildren: () =>
-      import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
-  },
-  {
-    path: 'post',
-    loadChildren: () =>
-      import('./pages/post/post.module').then((m) => m.PostPageModule),
-  },
-  {
-    path: 'task',
-    loadChildren: () =>
-      import('./pages/task/task.module').then((m) => m.TaskPageModule),
-  },
-  {
-    path: 'create-class',
-    loadChildren: () =>
-      import('./pages/create-class/create-class.module').then(
-        (m) => m.CreateClassPageModule
-      ),
+    loadChildren: () => import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
   },
 ];
 
