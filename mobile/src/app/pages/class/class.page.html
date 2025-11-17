@@ -1,7 +1,7 @@
-<ion-header [class.hidden]="isHidden">
+<ion-header [class.hidden]="scroll.isHidden">
   <div class="header-top">
     <!-- Passa o evento (salaSelecionada) -->
-    <class-selector (salaSelecionada)="onSalaSelecionada($event)"></class-selector>
+    <!-- <class-selector (salaSelecionada)="onSelectClass($event)"></class-selector> -->
 
     <div class="header-search">
       <ion-icon name="pricetag-outline"></ion-icon>
@@ -12,44 +12,41 @@
 
 <div class="header-nav">
   <a
-    [class.tabselected]="postTab"
+    [class.tabselected]="selectedTab == 'posts'"
     [routerLink]="['/class', classId, 'post']"
-    (click)="selectTab('post')"
   >
     Postagens
   </a>
 
   <a
-    [class.tabselected]="taskTab"
+    [class.tabselected]="selectedTab == 'tasks'"
     [routerLink]="['/class', classId, 'tasks']"
-    (click)="selectTab('tasks')"
   >
     Tarefas
   </a>
 
   <a
-    [class.tabselected]="calendarTab"
+     [class.tabselected]="selectedTab == 'calendar'"
     [routerLink]="['/class', classId, 'calendar']"
-    (click)="selectTab('calendar')"
   >
     Calendário
   </a>
 </div>
 
-<ion-content [scrollEvents]="true" (ionScroll)="onContentScroll($event)">
+<ion-content [scrollEvents]="true" (ionScroll)="scroll.onContentScroll($event)">
   <main class="content-container">
     <router-outlet></router-outlet>
   </main>
 </ion-content>
 
-<ion-footer [class.hidden]="isHidden">
+<ion-footer [class.hidden]="scroll.isHidden">
   <nav>
     <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'post']">
       <ion-icon name="school-outline"></ion-icon>
       <ion-label>Salas</ion-label>
     </ion-tab-button>
 
-<ion-tab-button tab="criar" (click)="abrirMenuCriacao($event)">
+<ion-tab-button tab="criar" (click)="openCreateNav($event)">
   <ion-icon
     name="add-circle"
     style="font-size: 40px; color: var(--ion-color-primary);"
