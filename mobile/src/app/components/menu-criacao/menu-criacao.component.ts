@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [IonicModule, CommonModule],
 })
+
 export class MenuCriacaoComponent {
   constructor(
     private navCtrl: NavController,
@@ -17,16 +18,16 @@ export class MenuCriacaoComponent {
 
   async criarClasse() {
     await this.popoverCtrl.dismiss();
-    this.navCtrl.navigateForward('/create-class');
+    this.navCtrl.navigateForward('/create/class');
   }
 
   async criarPost() {
     await this.popoverCtrl.dismiss();
-    this.navCtrl.navigateForward('/create-post');
+    this.navCtrl.navigateForward('/create/post');
   }
 
   async criarTarefa() {
     await this.popoverCtrl.dismiss();
-    this.navCtrl.navigateForward('/create-task');
+    this.navCtrl.navigateForward('/create/task');
   }
 }

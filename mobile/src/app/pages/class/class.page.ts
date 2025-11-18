@@ -26,10 +26,9 @@ export class ClassPage implements OnInit {
     this.route.paramMap.subscribe((params) => {
       this.classId = params.get('id');
     });
-    console.log(this.router.url.split('/')[3]);
     this.selectedTab = this.router.url.split('/')[3];
   }
-
+  
   onSelectClass(id: any) {
     this.classId = id;
     this.router.navigate(['/class', this.classId, 'post']);
