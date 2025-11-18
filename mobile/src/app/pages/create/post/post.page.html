@@ -1,5 +1,5 @@
-<ion-header>
-  <div class="content-container" style="height: 100%; display: flex; align-items: center;">
+<ion-header style="border-bottom: 1px solid gray;">
+  <div class="content-container" style="height: 100%; display: flex; align-items: center; margin: 0 16px;">
     <ion-buttons slot="start" style="height: 100%;">
       <ion-back-button icon="caret-back"></ion-back-button>
     </ion-buttons>
@@ -8,5 +8,34 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
+  <form class="content-container grid-spacing-m">
+    <ion-input
+			type="text"
+			placeholder="Digite aqui"
+			label="Título"
+			labelPlacement="stacked"
+      style="border-bottom: 1px solid gray;"
+		></ion-input>
+    <ion-input
+			type="text"
+			placeholder="Digite aqui"
+			label="Conteúdo"
+			labelPlacement="stacked"
+		></ion-input>
+	</form>
 </ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" [activated]="true" style="display: flex; align-items: end; gap: 8px;">
+  <div style="display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; background-color: #E6E6E6; border-radius: 16px;">
+    <ion-icon name="calendar-outline" style="font-size: 20px; color: black;"></ion-icon>
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; background-color: #E6E6E6; border-radius: 16px;">
+    <ion-icon name="pricetag-outline" style="font-size: 20px; color: black;"></ion-icon>
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; background-color: #E6E6E6; border-radius: 16px; overflow: hidden;">
+    <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="/>
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center; width: 48px; aspect-ratio: 1/1; background-color: var(--ion-color-primary); border-radius: 24px;">
+    <ion-icon name="add" style="font-size: 32px; color: white;"></ion-icon>
+  </div>
+</ion-fab>
