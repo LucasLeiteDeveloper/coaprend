@@ -50,16 +50,16 @@ const routes: Routes = [
 
   // CREATE PAGES //
   {
-    path: 'create-post',
-    loadChildren: () => import('./oldPages/create-post/create-post.module').then((m) => m.CreatePostPageModule),
+    path: 'create/post',
+    loadChildren: () => import('./pages/create/post/post.module').then((m) => m.PostPageModule),
   },
   {
-    path: 'create-task',
-    loadChildren: () => import('./oldPages/create-task/create-task.module').then((m) => m.CreateTaskPageModule),
+    path: 'create/task',
+    loadChildren: () => import('./pages/create/task/task.module').then((m) => m.TaskPageModule),
   },
-    {
-    path: 'create-class',
-    loadChildren: () => import('./pages/create-class/create-class.module').then((m) => m.CreateClassPageModule),
+  {
+    path: 'create/class',
+    loadChildren: () => import('./pages/create/class/class.module').then((m) => m.ClassPageModule),
   },
 
   // PROFILE PAGE //

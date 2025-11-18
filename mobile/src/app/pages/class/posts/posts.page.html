@@ -1,19 +1,2 @@
-
 <post-card [post]="postExample"></post-card>
 <post-card [post]="postExample"></post-card>
-
-  <ion-item>
-  <ion-label position="floating">Digite seu prompt</ion-label>
-  <ion-input [(ngModel)]="promptValue" type="text"></ion-input>
-</ion-item>
-
-<ion-button expand="block" (click)="generateContent()">Gerar Conteúdo</ion-button>
-
-<ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-
-<ion-card *ngIf="showResult">
-  <ion-card-header>
-    <ion-card-title>Resultado</ion-card-title>
-  </ion-card-header>
-  <ion-card-content [innerHTML]="resultText"></ion-card-content>
-</ion-card>
