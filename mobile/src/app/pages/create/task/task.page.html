@@ -1,13 +1,13 @@
 <ion-header style="border-bottom: 1px solid gray;">
   <div class="content-container" style="height: 100%; display: flex; align-items: center; margin: 0 16px;">
     <ion-buttons slot="start" style="height: 100%;">
-      <ion-back-button icon="caret-back"></ion-back-button>
+      <ion-back-button icon="caret-back" color="dark" text=""></ion-back-button>
     </ion-buttons>
     <ion-title>Criar Tarefa</ion-title>
   </div>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <form class="content-container grid-spacing-m">
 		<ion-input
 			type="date"
@@ -23,12 +23,12 @@
 			labelPlacement="stacked"
       style="border-bottom: 1px solid gray;"
 		></ion-input>
-    <ion-input
-			type="text"
+    <ion-textarea
 			placeholder="Digite aqui"
 			label="Conteúdo"
 			labelPlacement="stacked"
-		></ion-input>
+      [autoGrow]="true"
+		></ion-textarea>
 	</form>
 </ion-content>
 
