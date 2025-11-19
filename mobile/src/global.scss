@@ -79,3 +79,14 @@ hr {
     margin: 1em 0;
     padding: 0;
 }
+
+.subpage-header {
+    border-bottom: 1px solid gray;
+    
+    div {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        margin: 0 16px;
+    }
+}
