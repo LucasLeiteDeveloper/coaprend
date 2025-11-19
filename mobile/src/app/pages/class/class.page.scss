@@ -2,7 +2,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
   padding: 0 var(--spacing-m);
+}
+
+.header-class {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 174px;
+  height: 36px;
+  padding: 3px;
+  background-color: var(--color-background-secondary);
+  border-radius: 18px;
+  border: 2px solid var(--color-border);
+  
+  div {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 28px;
+      aspect-ratio: 1/1;
+      margin-right: var(--spacing-s);
+      border-radius: 50%;
+    }
+
+    p {
+      font-size: var(--text-m);
+    }
+  }
 }
 
 .header-search {
