@@ -1,18 +1,18 @@
-
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text="Previous" icon="caret-back"></ion-back-button>
+<ion-header style="border-bottom: 1px solid gray;">
+  <div class="content-container" style="height: 100%; display: flex; align-items: center; margin: 0 16px;">
+    <ion-buttons slot="start" style="height: 100%;">
+      <ion-back-button icon="caret-back" color="dark" text=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Postagens</ion-title>
-  </ion-toolbar>
+    <ion-title>Post</ion-title>
+  </div>
 </ion-header>
 
 <ion-content>
   <main class="content-container">
-    <post-card [post]="post"></post-card>
+    <post-card [post]="post" [multiPosts]="false"></post-card>
 
     <ion-button expand="block" (click)="generateContent()">
+      <ion-icon slot="start" name="bulb-outline"></ion-icon>
       Gerar Questionário
     </ion-button>
 
