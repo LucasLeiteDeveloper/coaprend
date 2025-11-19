@@ -18,7 +18,7 @@
   </div>
 
   <footer class="post-card-footer">
-    <a [routerLink]="['/post', post.id]" class="post-link">Ver Mais</a>
+    <a [routerLink]="['/post', post.id]" class="post-link" *ngIf="multiPosts">Ver Mais</a>
     <div>
       <button class="bookmark-button" aria-label="Marcar postagem">
         <ion-icon name="bookmark-outline"></ion-icon>
@@ -26,5 +26,5 @@
     </div>
   </footer>
 
-  <hr>
+  <hr *ngIf="multiPosts">
 </article>

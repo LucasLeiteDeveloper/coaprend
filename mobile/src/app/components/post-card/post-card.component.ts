@@ -12,10 +12,9 @@ import { IonicModule } from '@ionic/angular';
 })
 export class PostCardComponent implements OnInit {
   @Input() post: any;
+  @Input() multiPosts: boolean = true;
 
   constructor() {}
 
-  ngOnInit() {
-    console.log('📩 Dados do post recebidos:', this.post);
-  }
+  ngOnInit() {}
 }
