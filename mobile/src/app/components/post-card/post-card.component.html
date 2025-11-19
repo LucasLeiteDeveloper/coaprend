@@ -2,7 +2,7 @@
   <header class="post-card-header">
     <div class="post-card-profile">
       <img alt="Avatar do autor" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-      <p class="post-author-name">{{ post.author }}</p>
+      <p class="post-author-name">{{ post.username }}</p>
     </div>
     <div class="post-card-tags">
       <div class="tag">
@@ -14,11 +14,11 @@
   
   <div class="post-card-content">
     <h2>{{ post.title }}</h2> 
-    <p class="post-text">{{ post.items[0].content }}</p>
+    <p class="post-text">{{ post.content }}</p>
   </div>
 
   <footer class="post-card-footer">
-    <a [routerLink]="['/post/:id']" class="post-link">Ver Mais</a>
+    <a [routerLink]="['/post', post.id]" class="post-link">Ver Mais</a>
     <div>
       <button class="bookmark-button" aria-label="Marcar postagem">
         <ion-icon name="bookmark-outline"></ion-icon>
