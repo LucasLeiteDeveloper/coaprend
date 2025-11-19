@@ -27,7 +27,6 @@ export class PostsPage implements OnInit {
     this.http.get("assets/posts-data.json").subscribe({
       next: (data) => {
         this.posts = data;
-        console.log('Posts carregados:', this.posts);
       },
       error: (err) => {
         console.error('Erro ao carregar os posts:', err);

@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/postService/post';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-post',
   templateUrl: './post.page.html',
   styleUrls: ['./post.page.scss'],
-  standalone: false // 🔥 ESSENCIAL
+  standalone: false
 })
-export class PostPage implements OnInit {
-  posts: any[] = [];
-  public postExample: any = {
-    title: 'Post de teste',
-    author: 'Usuário de teste',
-    items: [{ content: 'Conteúdo de teste' }],
-  };
 
+export class PostPage implements OnInit {
+  postId: any = "";
+  posts: any = "";
+  post: any = "";
   promptValue: string = '';
   isLoading: boolean = false;
   showResult: boolean = false;
@@ -23,25 +21,39 @@ export class PostPage implements OnInit {
 
   constructor(
     private postService: PostService,
-    private sanitizer: DomSanitizer
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
+    private http: HttpClient,
   ) {}
 
   ngOnInit() {
-    this.loadPosts();
-  }
+    this.route.paramMap.subscribe((params) => {
+      this.postId = params.get('id');
+    });
 
-  loadPosts() {
-    this.postService.getAll().subscribe({
-      next: (res) => {
-        this.posts = res.map((p: any) => ({
-          ...p,
-          options: p.options ? JSON.parse(p.options) : [],
-        }));
-        console.log('Posts carregados:', this.posts);
+    this.http.get("assets/posts-data.json").subscribe({
+      next: (data) => {
+        this.posts = data;
+        this.post = this.posts.find((post: any) => post.id == this.postId);
       },
-      error: (err) => console.error('Erro ao carregar posts:', err),
+      error: (err) => {
+        console.error('Erro ao carregar os posts:', err);
+      }
     });
   }
+
+  // loadPosts() {
+  //   this.postService.getAll().subscribe({
+  //     next: (res) => {
+  //       this.posts = res.map((p: any) => ({
+  //         ...p,
+  //         options: p.options ? JSON.parse(p.options) : [],
+  //       }));
+  //       console.log('Posts carregados:', this.posts);
+  //     },
+  //     error: (err) => console.error('Erro ao carregar posts:', err),
+  //   });
+  // }
 
   async generateContent() {
     if (!this.promptValue.trim()) {
