@@ -1,0 +1,21 @@
+.class-item {
+    div {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-s);
+
+        img {
+            width: 32px;
+            aspect-ratio: 1/1;
+            border-radius: 16px;
+        }
+
+        p {
+            font-size: var(--text-m);
+        }
+
+        ion-icon {
+            font-size: 20px;
+        }
+    }
+}
