@@ -1,8 +1,12 @@
 <ion-header [class.hidden]="scroll.isHidden">
   <div class="header-top">
-    <!-- Passa o evento (salaSelecionada) -->
-    <!-- <class-selector (salaSelecionada)="onSelectClass($event)"></class-selector> -->
-
+    <div class="header-class" [routerLink]="'/class-select'">
+      <div>
+        <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="/>
+        <p>Teste</p>
+      </div>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </div>
     <div class="header-search">
       <ion-icon name="pricetag-outline"></ion-icon>
       <ion-icon name="search-outline"></ion-icon>
@@ -44,8 +48,8 @@
 
 <ion-footer [class.hidden]="scroll.isHidden">
   <nav>
-    <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'post']">
-      <ion-icon name="school-outline"></ion-icon>
+    <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'post']" class="active-tab">
+      <ion-icon name="school" style="color: var(--ion-color-primary);"></ion-icon>
       <ion-label>Salas</ion-label>
     </ion-tab-button>
 

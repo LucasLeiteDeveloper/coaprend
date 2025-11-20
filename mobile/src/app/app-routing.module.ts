@@ -66,7 +66,11 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
+  },  {
+    path: 'class-select',
+    loadChildren: () => import('./pages/class-select/class-select.module').then( m => m.ClassSelectPageModule)
   },
+
 ];
 
 @NgModule({

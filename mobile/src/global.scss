@@ -44,7 +44,6 @@ ion-header {
 ion-footer {
     height: 50px;
     box-shadow: 0 0 0 !important;
-    border-top: var(--border-thickness) solid var(--color-border);
 }
 
 .content-container {
@@ -79,4 +78,15 @@ hr {
     border-top: 1px solid #ccc;
     margin: 1em 0;
     padding: 0;
+}
+
+.subpage-header {
+    border-bottom: 1px solid gray;
+    
+    div {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        margin: 0 16px;
+    }
 }

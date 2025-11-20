@@ -89,7 +89,7 @@
     line-height: 140%;
 }
 
-.post-text {
+.post-text.multiPosts {
     -webkit-line-clamp: 5;
     line-clamp: 5;
     -webkit-box-orient: vertical;
