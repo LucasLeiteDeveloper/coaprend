@@ -7,50 +7,14 @@
 
 <ion-content>
   <ion-list lines="full">
-    <ion-item class="class-item">
+    <ion-item *ngFor="let class of classes" class="class-item">
       <div>
         <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=">
-        <p>Teste</p>
+        <p>{{ class.name }}</p>
       </div>
       <div slot="end">
-        <ion-icon name="settings-outline" id="open-modal" [routerLink]="'/class/0/config'"></ion-icon>
-        <ion-icon name="exit-outline" color="danger"></ion-icon>
-      </div>
-    </ion-item>
-    <ion-item class="class-item">
-      <div>
-        <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=">
-        <p>Teste</p>
-      </div>
-      <div slot="end">
-        <ion-icon name="exit-outline" color="danger"></ion-icon>
-      </div>
-    </ion-item>
-    <ion-item class="class-item">
-      <div>
-        <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=">
-        <p>Teste</p>
-      </div>
-      <div slot="end">
-        <ion-icon name="exit-outline" color="danger"></ion-icon>
-      </div>
-    </ion-item>
-    <ion-item class="class-item">
-      <div>
-        <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=">
-        <p>Teste</p>
-      </div>
-      <div slot="end">
-        <ion-icon name="exit-outline" color="danger"></ion-icon>
-      </div>
-    </ion-item>
-    <ion-item class="class-item">
-      <div>
-        <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=">
-        <p>Teste</p>
-      </div>
-      <div slot="end">
-        <ion-icon name="exit-outline" color="danger"></ion-icon>
+        <ion-icon name="settings-outline" id="open-modal" [routerLink]="['/class', class.id, 'config']"></ion-icon>
+        <ion-icon name="exit-outline" color="danger" (click)="exitClassAlert(class.name, class.id)"></ion-icon>
       </div>
     </ion-item>
   </ion-list>
