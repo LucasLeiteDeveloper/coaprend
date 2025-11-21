@@ -1,5 +1,5 @@
-<ion-header [class.hidden]="scroll.isHidden">
-  <div class="header-top">
+<ion-header [class.hidden]="scroll.isHidden" class="content-container">
+  <ion-toolbar slot="start" class="header-top">
     <div class="header-class" [routerLink]="'/class-select'">
       <div>
         <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="/>
@@ -7,11 +7,11 @@
       </div>
       <ion-icon name="chevron-forward-outline"></ion-icon>
     </div>
-    <div class="header-search">
+    <div slot="end" class="header-search">
       <ion-icon name="pricetag-outline" id="trigger-button"></ion-icon>
       <ion-icon name="search-outline"></ion-icon>
     </div>
-  </div>
+  </ion-toolbar>
 </ion-header>
 
 <ion-popover trigger="trigger-button">
@@ -22,7 +22,7 @@
 
 <div class="header-nav">
   <a
-    [class.tabselected]="selectedTab == 'posts'"
+    [class.selected]="selectedTab == 'posts'"
     [routerLink]="['/class', classId, 'posts']"
     (click)="onTabChange('posts')"
   >
@@ -30,7 +30,7 @@
   </a>
 
   <a
-    [class.tabselected]="selectedTab == 'tasks'"
+    [class.selected]="selectedTab == 'tasks'"
     [routerLink]="['/class', classId, 'tasks']"
     (click)="onTabChange('tasks')"
   >
@@ -38,7 +38,7 @@
   </a>
 
   <a
-     [class.tabselected]="selectedTab == 'calendar'"
+     [class.selected]="selectedTab == 'calendar'"
     [routerLink]="['/class', classId, 'calendar']"
     (click)="onTabChange('calendar')"
   >
