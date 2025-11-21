@@ -83,10 +83,21 @@ hr {
 .subpage-header {
     border-bottom: 1px solid gray;
     
-    div {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        margin: 0 16px;
+    ion-toolbar {
+        --background: #ffffff;
+        --color: #000000;
+        --opacity: 0;
+
+        --border-width: 0;
+        --border-style: none;
+
+        --min-height: 48px;
+        --padding-top: 0px;
+        --padding-bottom: 0px;
+
+        .header-nav {
+            display: flex;
+            gap: var(--spacing-s);
+        }
     }
 }
