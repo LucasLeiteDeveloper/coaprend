@@ -1,6 +1,12 @@
+ion-header {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
 .header-top {
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
     align-items: center;
     padding: 0 var(--spacing-m);
 }

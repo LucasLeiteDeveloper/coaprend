@@ -1,14 +1,15 @@
-<ion-header [class.hidden]="isHidden">
+<ion-header [class.hidden]="isHidden" style="border-bottom: 1px solid gray;">
     <div class="header-top">
         <div class="header-search">
-            <ion-icon name="pricetag-outline"></ion-icon>
+            <ion-icon name="settings-outline"></ion-icon>
+            <ion-icon name="bookmark-outline"></ion-icon>
             <ion-icon name="search-outline"></ion-icon>
         </div>
     </div>
 </ion-header>
 
 <ion-content [scrollEvents]="true" (ionScroll)="onContentScroll($event)">
-    <main class="content-container">
+    <main class="content-container" style="margin-top: var(--spacing-m);">
         <div class="profile">
           <img src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg">
           <h2>Nome do Usuário</h2>
