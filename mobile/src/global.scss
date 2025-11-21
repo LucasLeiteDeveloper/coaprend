@@ -94,11 +94,15 @@ ion-toolbar {
 
 .subpage-header {
     border-bottom: 1px solid gray;
-    
-    ion-toolbar {
-        .header-nav {
-            display: flex;
-            gap: var(--spacing-s);
-        }
-    }
+}
+
+.header-options {
+  display: grid;
+  grid-auto-flow: column;
+  gap: var(--spacing-s);
+
+  ion-icon {
+    width: 24px;
+    height: 24px;
+  }
 }

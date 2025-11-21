@@ -1,5 +1,5 @@
-<ion-header [class.hidden]="scroll.isHidden" class="content-container">
-  <ion-toolbar slot="start" class="header-top">
+<ion-header [class.hidden]="scroll.isHidden">
+  <ion-toolbar slot="start" class="content-container">
     <div class="header-class" [routerLink]="'/class-select'">
       <div>
         <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="/>
@@ -7,7 +7,7 @@
       </div>
       <ion-icon name="chevron-forward-outline"></ion-icon>
     </div>
-    <div slot="end" class="header-search">
+    <div slot="end" class="header-options">
       <ion-icon name="pricetag-outline" id="trigger-button"></ion-icon>
       <ion-icon name="search-outline"></ion-icon>
     </div>

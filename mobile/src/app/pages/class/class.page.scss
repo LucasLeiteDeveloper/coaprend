@@ -26,17 +26,6 @@
   }
 }
 
-.header-search {
-  display: grid;
-  grid-auto-flow: column;
-  gap: var(--spacing-s);
-
-  ion-icon {
-    width: 24px;
-    height: 24px;
-  }
-}
-
 .header-nav {
   display: grid;
   grid-auto-flow: column;
