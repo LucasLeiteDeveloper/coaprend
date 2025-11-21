@@ -3,8 +3,8 @@
     <ion-back-button slot="start" icon="chevron-back-outline" color="dark" text=""></ion-back-button>
     <ion-title>Selecionar Sala</ion-title>
     <div slot="end" class="header-options">
-      <ion-icon name="add-outline"></ion-icon>
-      <ion-icon name="enter-outline"></ion-icon>
+      <ion-icon name="add-outline" [routerLink]="['/create/class']"></ion-icon>
+      <ion-icon name="enter-outline" (click)="enterClassAlert()"></ion-icon>
     </div>
   </ion-toolbar>
 </ion-header>

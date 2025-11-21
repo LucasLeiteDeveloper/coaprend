@@ -35,21 +35,19 @@ export class ClassSelectPage implements OnInit {
   async exitClassAlert(name: string, id: any) {
     const alert = await this.alert.create({
       header: `Deseja sair de ${name}?`,
-      // subHeader: 'A Sub Header Is Optional',
-      // message: 'A message should be a short, complete sentence.',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           handler: () => {
-            console.log('Alert canceled');
+            // O que acontece se cancelar
           },
         },
         {
-          text: 'OK',
+          text: 'Confirmar',
           role: 'confirm',
           handler: () => {
-            console.log('Alert confirmed');
+            // O que acontece se confirmar
           },
         },
       ]
@@ -58,4 +56,32 @@ export class ClassSelectPage implements OnInit {
     await alert.present();
   }
 
+  async enterClassAlert() {
+    const alert = await this.alert.create({
+      header: `Insira o link da sala`,
+      inputs: [
+        {
+          placeholder: 'Digite aqui...',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            // O que acontece se cancelar
+          },
+        },
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: () => {
+            // O que acontece se confirmar
+          },
+        },
+      ]
+    });
+
+    await alert.present();
+  }
 }
