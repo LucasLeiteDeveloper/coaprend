@@ -2,19 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/postService/post';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.page.html',
   styleUrls: ['./post.page.scss'],
   standalone: false
 })
-
 export class PostPage implements OnInit {
-  postId: any = "";
-  posts: any = "";
-  post: any = "";
-  promptValue: string = '';
+  postId: number = 0;
+  post: any = null;
+
   isLoading: boolean = false;
   showResult: boolean = false;
   resultText: SafeHtml = '';
@@ -23,43 +21,34 @@ export class PostPage implements OnInit {
     private postService: PostService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private http: HttpClient,
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
-      this.postId = params.get('id');
-    });
-
-    this.http.get("assets/posts-data.json").subscribe({
-      next: (data) => {
-        this.posts = data;
-        this.post = this.posts.find((post: any) => post.id == this.postId);
-      },
-      error: (err) => {
-        console.error('Erro ao carregar os posts:', err);
-      }
+      this.postId = Number(params.get('id'));
+      this.loadPost();
     });
   }
 
-  // loadPosts() {
-  //   this.postService.getAll().subscribe({
-  //     next: (res) => {
-  //       this.posts = res.map((p: any) => ({
-  //         ...p,
-  //         options: p.options ? JSON.parse(p.options) : [],
-  //       }));
-  //       console.log('Posts carregados:', this.posts);
-  //     },
-  //     error: (err) => console.error('Erro ao carregar posts:', err),
-  //   });
-  // }
+  loadPost() {
+    this.postService.getAll().subscribe({
+      next: (res) => {
+        this.post = res.find((p: any) => p.id == this.postId);
+      },
+      error: (err) => console.error('Erro ao carregar post:', err)
+    });
+  }
 
   async generateContent() {
-    if (!this.promptValue.trim()) {
-      alert('Por favor, digite um prompt!');
+    if (!this.post || !this.post.content) {
+      alert('O post não possui conteúdo para gerar o questionário.');
       return;
     }
+
+    const autoPrompt = `
+      Gere um questionário baseado no seguinte conteúdo do post:
+      "${this.post.content}"
+    `;
 
     this.isLoading = true;
     this.showResult = false;
@@ -68,7 +57,7 @@ export class PostPage implements OnInit {
       const response = await fetch('http://localhost:8000/api/gemini/generate-content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: this.promptValue }),
+        body: JSON.stringify({ prompt: autoPrompt }),
       });
 
       const text = await response.text();
@@ -76,6 +65,7 @@ export class PostPage implements OnInit {
 
       if (data.success && data.quiz?.quiz) {
         const quizArray = data.quiz.quiz;
+
         let html = `<h2>Questionário Gerado</h2>`;
 
         quizArray.forEach((q: any) => {
@@ -103,7 +93,6 @@ export class PostPage implements OnInit {
 
       this.showResult = true;
     } catch (error: any) {
-      console.error('Erro na requisição:', error);
       this.resultText = this.sanitizer.bypassSecurityTrustHtml(
         `<p><b>Erro:</b> ${error.message}</p>`
       );
