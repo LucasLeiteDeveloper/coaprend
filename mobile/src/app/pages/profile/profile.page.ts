@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ScrollDetail } from '@ionic/angular';
+import { HideOnScrollService } from 'src/app/services/hideOnScrollService/hide-on-scroll-service';
 import { ActivatedRoute } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
+import { MenuCriacaoComponent } from 'src/app/components/menu-criacao/menu-criacao.component';
 
 @Component({
   selector: 'app-profile',
@@ -9,11 +11,6 @@ import { ActivatedRoute } from '@angular/router';
   standalone: false,
 })
 export class ProfilePage implements OnInit {
-  public isHidden: boolean = false;
-  public postTab: boolean = true;
-  public taskTab: boolean = false;
-  public calendarTab: boolean = false;
-  private lastScrollTop: number = 0;
   public classId: any = 0;
   public postExample: {} = {
     title: 'Post de teste',
@@ -21,24 +18,26 @@ export class ProfilePage implements OnInit {
     items: [{ content: 'Conteudo de teste' }],
   };
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private popover: PopoverController,
+    public scroll: HideOnScrollService,
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       this.classId = params.get('id');
     });
   }
-  onContentScroll(event: CustomEvent<ScrollDetail>) {
-    const scrollTop = event.detail.scrollTop;
-    if (scrollTop > this.lastScrollTop && scrollTop > 50) {
-      if (!this.isHidden) {
-        this.isHidden = true;
-      }
-    } else if (scrollTop < this.lastScrollTop || scrollTop === 0) {
-      if (this.isHidden) {
-        this.isHidden = false;
-      }
-    }
-    this.lastScrollTop = scrollTop;
+
+  async openCreateNav(ev: any) {
+    const popover = await this.popover.create({
+      component: MenuCriacaoComponent,
+      event: ev,
+      translucent: true,
+      animated: false,
+      cssClass: 'menu-criacao-popover',
+    });
+    await popover.present();
   }
 }
