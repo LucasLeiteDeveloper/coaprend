@@ -8,13 +8,18 @@ const contentController = require("../controllers/contentController");
 
 // route of rooms
 router.post("/room", authenticateToken, contentController.createContentRoom);
+router.patch('/room/:roomId', authenticateToken, contentController.updateRoom);
 
 // posts routes
 router.post("/posts", authenticateToken, contentController.createPost);
-router.get("/rooms/:roomId/posts", authenticateToken, contentController.getPostsForRoom);
+router.patch("/posts/:postId", authenticateToken, contentController.updatePost);
+router.get("/posts/search", authenticateToken, contentController.searchGlobalPosts);
+router.get("room/:roomid/posts", authenticateToken, contentController.getPostsForRoom);
+
 
 // tasks routes
 router.post("/tasks", authenticateToken, contentController.createTask);
-router.get("/rooms/:roomId/tasks", authenticateToken, contentController.getTasksForRoom);
+router.patch("/tasks/:taskId", authenticateToken, contentController.updateTask);
+router.get("/room/:roomId/tasks", authenticateToken, contentController.getTasksForRoom);
 
 module.exports = router;
