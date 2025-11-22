@@ -6,14 +6,20 @@ import { Observable } from 'rxjs';
 export class TaskService {
   constructor(private api: ApiService) {}
 
+  // Buscar todas as tarefas
   getAll(): Observable<any> {
     return this.api.get('tasks');
   }
 
+  // Buscar tarefas dentro de um intervalo de datas (SEMANA)
+  getTasksByDateRange(start: string, end: string): Observable<any> {
+    return this.api.get(`tasks/date-range?start=${start}&end=${end}`);
+  }
+
+  // Criar tarefa com anexos
   createFormData(payload: any, files: File[]): Observable<any> {
     const form = new FormData();
 
-    // Mapeamento correto para o backend
     form.append('titulo', payload.title);
     form.append('descricao', payload.description);
     form.append('data_limite', payload.deadline);
@@ -22,7 +28,7 @@ export class TaskService {
       form.append('sala_id', payload.room_id);
     }
 
-    // Tags (opções)
+    // Tags
     if (payload.options && payload.options.length > 0) {
       payload.options.forEach((tag: string, index: number) => {
         form.append(`tags[${index}]`, tag);
@@ -39,6 +45,7 @@ export class TaskService {
     return this.api.post('tasks', form);
   }
 
+  // Atualizar tarefa
   updateFormData(id: number, payload: any, files?: File[]): Observable<any> {
     const form = new FormData();
 
@@ -62,6 +69,7 @@ export class TaskService {
     return this.api.put(`tasks/${id}`, form);
   }
 
+  // Excluir tarefa
   delete(id: number): Observable<any> {
     return this.api.delete(`tasks/${id}`);
   }
