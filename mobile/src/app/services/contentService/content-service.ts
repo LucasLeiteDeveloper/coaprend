@@ -33,6 +33,9 @@ export class ContentService {
 
     return this.http.post<any>(`${this.apiUrl}/room`, data, { headers }).toPromise();
   }
+  updateRoom(roomId: string, data: any){
+    return this.http.patch(`${this.apiUrl}/room/${roomId}`, data, { headers: this.getAuthHeaders() });
+  }
 
   // methods for posts
   async getPosts(roomId: string): Promise<any[] | undefined> {
@@ -45,6 +48,9 @@ export class ContentService {
 
     return this.http.post(`${this.apiUrl}/posts`, data, { headers }).toPromise();
   }
+  async updatePost(postId: string, data: any){
+    return this.http.patch(`${this.apiUrl}/posts/${postId}`, data, { headers: this.getAuthHeaders() });
+  }
 
   //tasks methods
   async getTasks(roomId: string): Promise<any[] | undefined> {
@@ -56,5 +62,14 @@ export class ContentService {
     const headers = this.getAuthHeaders();
 
     return this.http.post(`${this.apiUrl}/tasks`, data, { headers }).toPromise();
+  }
+  async updateTask(taskId: string, data: any) {
+    return this.http.patch(`${this.apiUrl}/tasks/${taskId}`, data, { headers: this.getAuthHeaders() });
+  }
+
+
+  // GLOBAL SEARCH
+  searchPost(query: string){
+    return this.http.get(`${this.apiUrl}/posts/search?q=${query}`, { headers: this.getAuthHeaders() });
   }
 }
