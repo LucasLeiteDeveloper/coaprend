@@ -8,6 +8,7 @@ Thumbs.db
 # Regras do Backend (Laravel)
 # -----------------
 # Arquivos de log e cache do Laravel.
+backend/config/credenciais-firebase.json
 backend/*.log
 backend/.phpunit.result.cache
 backend/.fleet

@@ -64,7 +64,7 @@ const routes: Routes = [
 
   // PROFILE PAGE //
   {
-    path: 'profile/:id',
+    path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
   },
   {

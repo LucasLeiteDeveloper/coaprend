@@ -46,21 +46,3 @@
     border-bottom: 2px solid var(--color-primary);
   }
 }
-
-ion-footer {
-  nav {
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    height: 100%;
-    align-items: center;
-
-    ion-tab-button {
-      border-top: var(--border-thickness) solid var(--color-border);
-    }
-
-    .active-tab {
-      border-top: 2px solid var(--ion-color-primary);
-    }
-  }
-}

@@ -7,7 +7,8 @@ const routes: Routes = [
   {
     path: '',
     component: ProfilePage
-  },  {
+  },
+  {
     path: 'saved',
     loadChildren: () => import('./saved/saved.module').then( m => m.SavedPageModule)
   },

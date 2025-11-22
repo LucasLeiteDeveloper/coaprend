@@ -1,19 +1,19 @@
-<ion-header [class.hidden]="scroll.isHidden">
-  <ion-toolbar slot="start" class="content-container">
-    <div class="header-class" [routerLink]="'/class-select'">
-      <div>
-        <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="/>
-        <p>(class.name)</p>
-      </div>
-      <ion-icon name="chevron-forward-outline"></ion-icon>
+<ion-header>
+    <div class="header-top content-container">
+        <class-selector></class-selector>
+        <div class="header-search">
+            <ion-icon name="pricetag-outline"></ion-icon>
+            <ion-icon name="search-outline"></ion-icon>
+        </div>
     </div>
-    <div slot="end" class="header-options">
-      <ion-icon name="pricetag-outline" id="trigger-button"></ion-icon>
-      <ion-icon name="search-outline"></ion-icon>
-    </div>
-  </ion-toolbar>
 </ion-header>
 
+<<<<<<< HEAD
+<div class="header-nav content-container">
+    <button>Postagens</button>
+    <button>Tarefas</button>
+    <button>Calendário</button>
+=======
 <ion-popover trigger="trigger-button">
   <ng-template>
     <ion-content class="ion-padding">Mostrar as tags aqui</ion-content>
@@ -21,49 +21,29 @@
 </ion-popover>
 
 <div class="header-nav">
-  <a
-    [class.selected]="selectedTab == 'posts'"
-    [routerLink]="['/class', classId, 'posts']"
-    (click)="onTabChange('posts')"
-  >
-    Postagens
-  </a>
-
-  <a
-    [class.selected]="selectedTab == 'tasks'"
-    [routerLink]="['/class', classId, 'tasks']"
-    (click)="onTabChange('tasks')"
-  >
-    Tarefas
-  </a>
-
-  <a
-     [class.selected]="selectedTab == 'calendar'"
-    [routerLink]="['/class', classId, 'calendar']"
-    (click)="onTabChange('calendar')"
-  >
-    Calendário
-  </a>
+  <a [class.selected]="selectedTab == 'posts'" [routerLink]="['/class', classId, 'posts']" (click)="onTabChange('posts')">Postagens</a>
+  <a [class.selected]="selectedTab == 'tasks'" [routerLink]="['/class', classId, 'tasks']" (click)="onTabChange('tasks')">Tarefas</a>
+  <a [class.selected]="selectedTab == 'calendar'" [routerLink]="['/class', classId, 'calendar']" (click)="onTabChange('calendar')">Calendário</a>
+>>>>>>> 0854b6e2dae8446c05e62a58c4749a5bfea3bab4
 </div>
 
-<ion-content [scrollEvents]="true" (ionScroll)="scroll.onContentScroll($event)">
-  <main class="content-container">
-    <router-outlet></router-outlet>
-  </main>
+<ion-content class="ion-padding" [scrollEvents]="true" (ionScroll)="scroll.onContentScroll($event)">
+  <router-outlet></router-outlet>
 </ion-content>
 
+<<<<<<< HEAD
+<ion-footer>
+
+=======
 <ion-footer [class.hidden]="scroll.isHidden">
   <nav>
-    <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'post']" class="active-tab">
+    <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'post']" class="selected">
       <ion-icon name="school" style="color: var(--ion-color-primary);"></ion-icon>
       <ion-label>Salas</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="criar" (click)="openCreateNav($event)">
-      <ion-icon
-        name="add-circle"
-        style="font-size: 40px; color: var(--ion-color-primary);"
-      ></ion-icon>
+      <ion-icon name="add-circle" style="font-size: 40px; color: var(--ion-color-primary);"></ion-icon>
       <ion-label style="display: none;">Criar</ion-label>
     </ion-tab-button>
 
@@ -72,4 +52,5 @@
       <ion-label>Você</ion-label>
     </ion-tab-button>
   </nav>
+>>>>>>> 0854b6e2dae8446c05e62a58c4749a5bfea3bab4
 </ion-footer>
