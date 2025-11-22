@@ -1,42 +1,40 @@
-<ion-header [class.hidden]="isHidden" style="border-bottom: 1px solid gray;">
-    <div class="header-top">
-        <div class="header-search">
-            <ion-icon name="settings-outline" [routerLink]="['/profile', 'profileId', 'settings']"></ion-icon>
-            <ion-icon name="bookmark-outline" [routerLink]="['/profile', 'profileId', 'saved']"></ion-icon>
-            <ion-icon name="search-outline"></ion-icon>
-        </div>
+<ion-header [class.hidden]="scroll.isHidden" style="border-bottom: 1px solid gray;">
+  <ion-toolbar slot="start" class="content-container">
+    <div slot="end" class="header-options">
+      <ion-icon name="settings-outline" [routerLink]="['/profile', 'profileId', 'settings']"></ion-icon>
+      <ion-icon name="bookmark-outline" [routerLink]="['/profile', 'profileId', 'saved']"></ion-icon>
+      <ion-icon name="search-outline"></ion-icon>
     </div>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content [scrollEvents]="true" (ionScroll)="onContentScroll($event)">
-    <main class="content-container" style="margin-top: var(--spacing-m);">
-        <div class="profile">
-          <img src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg">
-          <h2>Nome do Usuário</h2>
-          <h3>@ do Usuário</h3>
-        </div>
-        <post-card [post]="postExample"></post-card>
-        <post-card [post]="postExample"></post-card>
-        <post-card [post]="postExample"></post-card>
-        <post-card [post]="postExample"></post-card>
-    </main>
+<ion-content class="ion-padding" [scrollEvents]="true" (ionScroll)="scroll.onContentScroll($event)">
+  <div class="profile">
+    <img src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg">
+    <h2>Nome do Usuário</h2>
+    <h3>@ do Usuário</h3>
+  </div>
+  <post-card [post]="postExample"></post-card>
+  <post-card [post]="postExample"></post-card>
+  <post-card [post]="postExample"></post-card>
+  <post-card [post]="postExample"></post-card>
 </ion-content>
 
-<ion-footer [class.hidden]="isHidden">
-    <nav>
-        <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'tasks']">
-            <ion-icon name="school-outline"></ion-icon>
-            <ion-label>Salas</ion-label>
-        </ion-tab-button>
+<ion-footer [class.hidden]="scroll.isHidden">
+  <nav>
+    <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'posts']">
+      <ion-icon name="school-outline"></ion-icon>
+      <ion-label>Salas</ion-label>
+    </ion-tab-button>
 
-        <ion-tab-button tab="criar">
-            <ion-icon name="add-circle" style="font-size: 40px; color: var(--ion-color-primary);"></ion-icon>
-            <ion-label style="display: none;">Criar</ion-label>
-        </ion-tab-button>
+    <ion-tab-button tab="criar" (click)="openCreateNav($event)">
+      <ion-icon name="add-circle" style="font-size: 40px; color: var(--ion-color-primary);"></ion-icon>
+      <ion-label style="display: none;">Criar</ion-label>
+    </ion-tab-button>
 
-        <ion-tab-button tab="perfil" [routerLink]="['/profile']" class="active-tab">
-            <ion-icon name="person" style="color: var(--ion-color-primary);"></ion-icon>
-            <ion-label>Você</ion-label>
-        </ion-tab-button>
-    </nav>
+    <ion-tab-button tab="perfil" [routerLink]="['/profile', 'profileId']" class="selected">
+      <ion-icon name="person" style="color: var(--ion-color-primary);"></ion-icon>
+      <ion-label>Você</ion-label>
+    </ion-tab-button>
+  </nav>
 </ion-footer>
