@@ -12,6 +12,8 @@ const authController = require('../controllers/authController');
 router.get('/profile', authenticateToken, authController.getUserProfile);
 // update the profile
 router.patch('/profile', authenticateToken, authController.updateUserProfile);
+//update the settings 
+router.patch("/settings", authenticateToken, authController.updateUserSettings);
 // create a new profile
 router.post('/register', authController.registerUser);
 //route to be called after the login
