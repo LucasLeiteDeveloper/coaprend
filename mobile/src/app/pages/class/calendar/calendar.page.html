@@ -17,4 +17,19 @@
         <ion-icon name="chevron-down-outline"></ion-icon>
     </ion-button>
 </div>
-  
+  <ion-list *ngIf="weeklyTasks.length > 0">
+  <ion-list-header>
+    <ion-label>Tarefas desta Semana</ion-label>
+  </ion-list-header>
+
+  <ion-item *ngFor="let task of weeklyTasks">
+    <ion-label>
+      <h2>{{ task.titulo }}</h2>
+      <p>Entrega: {{ task.data_limite | date:'dd/MM/yyyy' }}</p>
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+<ion-item *ngIf="weeklyTasks.length === 0">
+  <ion-label>Nenhuma tarefa nesta semana.</ion-label>
+</ion-item>
