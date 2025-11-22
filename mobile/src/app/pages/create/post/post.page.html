@@ -1,19 +1,13 @@
 <ion-header class="subpage-header">
   <ion-toolbar class="content-container">
-    <ion-back-button
-      slot="start"
-      icon="chevron-back-outline"
-      color="dark"
-      text="">
+    <ion-back-button slot="start" icon="chevron-back-outline" aria-label="Voltar" color="dark" text="">
     </ion-back-button>
     <ion-title>Criar Post</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form class="content-container grid-spacing-m">
-
-    <!-- TÍTULO -->
+<ion-content class="ion-padding">
+  <form class="grid-spacing-m">
     <ion-input
       type="text"
       placeholder="Digite aqui"
@@ -24,7 +18,6 @@
       style="border-bottom: 1px solid gray;">
     </ion-input>
 
-    <!-- CONTEÚDO -->
     <ion-textarea
       placeholder="Digite aqui"
       label="Conteúdo"
@@ -34,80 +27,33 @@
       name="content">
     </ion-textarea>
 
-    <!-- INPUT DE IMAGEM (ESCONDIDO) -->
     <input
       type="file"
       accept="image/*"
       hidden
       #fileInput
       (change)="onFileSelected($event)" />
-
   </form>
 </ion-content>
 
-<!-- BOTÕES NA BARRA INFERIOR -->
-<ion-fab
-  vertical="bottom"
-  horizontal="end"
-  slot="fixed"
-  [activated]="true"
-  style="display: flex; align-items: end; gap: 8px;">
-
-  <!-- CALENDÁRIO (placeholder por enquanto) -->
-  <div style="
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 32px;
-      height: 32px;
-      background-color: #E6E6E6;
-      border-radius: 16px;">
-    <ion-icon name="calendar-outline" style="font-size: 20px; color: black;"></ion-icon>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" style="display: flex; align-items: end; gap: 8px;">
+  <div class="fab-secondary-button" aria-label="Atrelhar a uma data">
+    <ion-icon name="calendar-outline" aria-hidden="true" class="icon-s"></ion-icon>
   </div>
 
-  <!-- TAGS (placeholder por enquanto) -->
-  <div style="
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 32px;
-      height: 32px;
-      background-color: #E6E6E6;
-      border-radius: 16px;">
-    <ion-icon name="pricetag-outline" style="font-size: 20px; color: black;"></ion-icon>
+  <div class="fab-secondary-button" aria-label="Adicionar imagens" (click)="fileInput.click()">
+    <ion-icon name="image-outline" aria-hidden="true" class="icon-s"></ion-icon>
   </div>
 
-  <!-- IMAGEM (abre input escondido) -->
-  <div
-    (click)="fileInput.click()"
-    style="
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 32px;
-      height: 32px;
-      background-color: #E6E6E6;
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: pointer;">
-    <img
-      src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612"
-      style="width: 100%; height: 100%; object-fit: cover;" />
+  <div class="fab-secondary-button" aria-label="Adicionar Tags">
+    <ion-icon name="pricetag-outline" aria-hidden="true" class="icon-s"></ion-icon>
   </div>
 
-  <!-- BOTÃO PRINCIPAL (+) PARA CRIAR O POST -->
-  <div
-    (click)="createPost()"
-    style="
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 48px;
-      aspect-ratio: 1/1;
-      background-color: var(--ion-color-primary);
-      border-radius: 24px;
-      cursor: pointer;">
-    <ion-icon name="add" style="font-size: 32px; color: white;"></ion-icon>
-  </div>
+  <button class="fab-secondary-button" aria-label="Selecionar a sala">
+    <ion-icon name="school-outline" aria-hidden="true" class="icon-s"></ion-icon>
+  </button>
 
+  <button class="fab-primary-button" aria-label="Publicar a tarefa" (click)="createPost()">
+    <ion-icon name="add" aria-hidden="true" class="icon-m"></ion-icon>
+  </button>
 </ion-fab>
