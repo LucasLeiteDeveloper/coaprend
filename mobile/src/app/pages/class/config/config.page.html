@@ -6,17 +6,25 @@
 </ion-header>
 
 <ion-content>
-  <ion-list-header>Basico</ion-list-header>
+  <ion-list-header>Básico</ion-list-header>
   <ion-list [inset]="true">
-    <ion-item [button]="true">Nome da sala</ion-item>
-    <ion-item [button]="true">Foto da sala</ion-item>
+    <ion-item button (click)="editName()">Nome da sala</ion-item>
+    <ion-item button (click)="editPhoto()">Foto da sala</ion-item>
+    <ion-item button (click)="editDescription()">Descrição da sala</ion-item>
   </ion-list>
+
   <ion-list-header>Organização</ion-list-header>
   <ion-list [inset]="true">
-    <ion-item [button]="true">Tags</ion-item>
+    <ion-item button (click)="openTags()">Tags</ion-item>
   </ion-list>
+
   <ion-list-header>Permissões</ion-list-header>
   <ion-list [inset]="true">
-    <ion-item [button]="true">Usuários</ion-item>
+    <ion-item button (click)="openUsers()">Usuários</ion-item>
+  </ion-list>
+
+  <ion-list-header>Convite</ion-list-header>
+  <ion-list [inset]="true">
+    <ion-item button (click)="showInviteCode()">Código de convite</ion-item>
   </ion-list>
 </ion-content>
