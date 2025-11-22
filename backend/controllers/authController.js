@@ -169,3 +169,21 @@ exports.getUserProfile = async (req, res) => {
         return res.status(500).json({ error: "Erro interno no servidor ao buscar perfil" })
     }
 }
+
+// UPDATING user settings
+exports.updateUserSettings = async (req, res) => {
+    try {
+        // gets the uid and the settings to be updated
+        const uid = req.user.uid;        
+        const { settings } = req.body;
+
+        // chceking the existence
+        if (!settings) return res.status(400).json({ error: "Configurações não enviadas!" });
+
+        // create a reference to the collection of users
+        const userRef = db.collection('users').doc(uid);
+    } catch(error) {
+        console.error("Erro ao atualizar as configurações: ", error);
+        return res.status(500).json({ error: "Erro interno!" });
+    }
+}
