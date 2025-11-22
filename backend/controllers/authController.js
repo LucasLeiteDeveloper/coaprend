@@ -182,6 +182,12 @@ exports.updateUserSettings = async (req, res) => {
 
         // create a reference to the collection of users
         const userRef = db.collection('users').doc(uid);
+
+        await userRef.update({
+            settings: settings
+        });
+
+        return res.status(200).json({ message: "Configurações salvas!" });
     } catch(error) {
         console.error("Erro ao atualizar as configurações: ", error);
         return res.status(500).json({ error: "Erro interno!" });
