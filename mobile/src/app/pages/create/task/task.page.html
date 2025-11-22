@@ -1,42 +1,51 @@
 
 <ion-header class="subpage-header">
   <ion-toolbar class="content-container">
-    <ion-back-button slot="start" icon="chevron-back-outline" color="dark" text=""></ion-back-button>
+    <ion-back-button slot="start" icon="chevron-back-outline" aria-label="Voltar" color="dark" text=""></ion-back-button>
     <ion-title>Criar Tarefa</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <form class="grid-spacing-m">
+    <ion-input
+      type="date"
+      placeholder="Digite aqui"
+      label="Data Limite*"
+      labelPlacement="stacked"
+      [(ngModel)]="deadline"
+      name="deadline"
+      style="border-bottom: 1px solid gray;">
+    </ion-input>
 
-  <!-- TÍTULO -->
-  <ion-item>
-    <ion-label position="floating">Título *</ion-label>
-    <ion-input [(ngModel)]="title"></ion-input>
-  </ion-item>
+    <ion-input
+      type="text"
+      placeholder="Digite aqui"
+      label="Título*"
+      labelPlacement="stacked"
+      [(ngModel)]="title"
+      name="title"
+      style="border-bottom: 1px solid gray;">
+    </ion-input>
 
-  <!-- DESCRIÇÃO -->
-  <ion-item>
-    <ion-label position="floating">Descrição *</ion-label>
-    <ion-textarea rows="6" [(ngModel)]="description"></ion-textarea>
-  </ion-item>
+    <ion-textarea
+      position="stacked"
+      placeholder="Digite aqui"
+      label="Conteúdo"
+      labelPlacement="stacked"
+      [autoGrow]="true"
+      [(ngModel)]="description"
+      name="description">
+    </ion-textarea>
 
-  <!-- DATA LIMITE -->
-  <ion-item>
-    <ion-label>Data limite *</ion-label>
-    <ion-datetime
-      presentation="date"
-      [(ngModel)]="deadline">
-    </ion-datetime>
-  </ion-item>
-
-  <!-- TAG COLOR -->
+  <!-- TAG COLOR
   <ion-item>
     <ion-label>Cor da tag</ion-label>
     <ion-input type="color" [(ngModel)]="tagColor"></ion-input>
-  </ion-item>
+  </ion-item> -->
 
   <!-- TAGS -->
-  <ion-list>
+  <!-- <ion-list>
     <ion-item>
       <ion-input placeholder="Adicionar tag" [(ngModel)]="newTag"></ion-input>
       <ion-button slot="end" (click)="addTag()">+</ion-button>
@@ -46,10 +55,10 @@
       {{ t }}
       <ion-icon name="close" (click)="removeTag(i)"></ion-icon>
     </ion-chip>
-  </ion-list>
+  </ion-list> -->
 
   <!-- ANEXOS -->
-  <ion-item>
+  <!-- <ion-item>
     <ion-label>Anexos</ion-label>
     <input type="file" multiple (change)="onFileSelected($event)" />
   </ion-item>
@@ -59,16 +68,20 @@
       {{ file.name }}
       <ion-icon name="close" (click)="removeAttachment(i)"></ion-icon>
     </ion-chip>
-  </div>
-
-  <!-- BOTÃO ENVIAR -->
-  <ion-button
-    expand="block"
-    color="primary"
-    [disabled]="isSubmitting"
-    (click)="submit()">
-    Criar tarefa
-  </ion-button>
-
+  </div> -->
+  </form>
 </ion-content>
 
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" style="display: flex; align-items: end; gap: 8px;">
+  <button class="fab-secondary-button" aria-label="Adicionar Tags">
+    <ion-icon name="pricetag-outline" aria-hidden="true" class="icon-s"></ion-icon>
+  </button>
+
+  <button class="fab-secondary-button" aria-label="Selecionar a sala">
+    <ion-icon name="school-outline" aria-hidden="true" class="icon-s"></ion-icon>
+  </button>
+
+  <button class="fab-primary-button" aria-label="Publicar a tarefa">
+    <ion-icon name="add" aria-hidden="true" class="icon-m"></ion-icon>
+  </button>
+</ion-fab>

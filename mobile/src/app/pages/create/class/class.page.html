@@ -1,6 +1,6 @@
 <ion-header class="subpage-header">
   <ion-toolbar class="content-container">
-    <ion-back-button slot="start" icon="chevron-back-outline" color="dark" text=""></ion-back-button>
+    <ion-back-button slot="start" icon="chevron-back-outline" aria-label="Voltar" color="dark" text=""></ion-back-button>
     <ion-title>Criar Sala</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,7 +17,7 @@
 </ion-content>
 
 <ion-fab vertical="bottom" horizontal="end" slot="fixed" [activated]="true" style="display: flex; align-items: end; gap: 8px;">
-  <div style="display: flex; justify-content: center; align-items: center; width: 48px; aspect-ratio: 1/1; background-color: var(--ion-color-primary); border-radius: 24px;">
-    <ion-icon name="add" style="font-size: 32px; color: white;"></ion-icon>
-  </div>
+  <button class="fab-primary-button" aria-label="Criar a sala">
+    <ion-icon name="add" aria-hidden="true" class="icon-m"></ion-icon>
+  </button>
 </ion-fab>
