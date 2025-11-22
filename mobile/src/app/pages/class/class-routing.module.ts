@@ -21,11 +21,12 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'post',
+        redirectTo: 'posts',
         pathMatch: 'full',
       },
     ],
-  },  {
+  },
+  {
     path: 'config',
     loadChildren: () => import('./config/config.module').then( m => m.ConfigPageModule)
   },

@@ -46,6 +46,14 @@ ion-footer {
     box-shadow: 0 0 0 !important;
 }
 
+ion-header.hidden {
+  display: none;
+}
+
+ion-footer.hidden {
+  display: none;
+}
+
 .content-container {
     width: calc(100% - 32px);
     max-width: 600px;
@@ -62,15 +70,6 @@ ion-footer {
     gap: var(--spacing-m);
 }
 
-.primary-btn {
-    height: 52px;
-    background-color: var(--color-primary);
-    border: 0;
-    border-radius: 100px;
-    color: white;
-    font-weight: bold;
-}
-
 hr {
     display: block;
     height: 1px;
@@ -80,13 +79,57 @@ hr {
     padding: 0;
 }
 
+ion-toolbar {
+    --background: #ffffff;
+    --color: #000000;
+    --opacity: 0;
+
+    --border-width: 0;
+    --border-style: none;
+
+    --min-height: 48px;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+}
+
 .subpage-header {
-    border-bottom: 1px solid gray;
-    
-    div {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        margin: 0 16px;
-    }
+  border-bottom: 1px solid gray;
+}
+
+.fab-primary-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  aspect-ratio: 1/1;
+  background-color: var(--ion-color-primary);
+  border-radius: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+.fab-secondary-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: #E6E6E6;
+  border-radius: 16px;
+}
+
+.header-options {
+  display: grid;
+  grid-auto-flow: column;
+  gap: var(--spacing-s);
+}
+
+.icon-s {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-m {
+  width: 24px;
+  height: 24px;
 }

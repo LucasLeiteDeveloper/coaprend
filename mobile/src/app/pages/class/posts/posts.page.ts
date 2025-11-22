@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from 'src/app/services/postService/post'; // caminho do seu service
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
+import { PostService } from 'src/app/services/postService/post';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -9,43 +8,31 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./posts.page.scss'],
   standalone: false,
 })
-
 export class PostsPage implements OnInit {
-  posts: any = "";
+  posts: any[] = [];
 
   constructor(
     private postService: PostService,
-    private sanitizer: DomSanitizer,
-    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit() {
+    // Agora usando a API real
     this.loadPosts();
   }
 
   loadPosts() {
-    this.http.get("assets/posts-data.json").subscribe({
-      next: (data) => {
-        this.posts = data;
+    this.postService.getAll().subscribe({
+      next: (res) => {
+        this.posts = res;
       },
       error: (err) => {
-        console.error('Erro ao carregar os posts:', err);
+        console.error('Erro ao carregar posts:', err);
       }
     });
   }
 
-  // loadPosts() {
-  //   this.postService.getAll().subscribe({
-  //     next: (res) => {
-  //       this.posts = res.map((p: any) => ({
-  //         ...p,
-  //         options: p.options ? JSON.parse(p.options) : [],
-  //       }));
-  //       console.log('Posts carregados:', this.posts);
-  //     },
-  //     error: (err) => {
-  //       console.error('Erro ao carregar posts:', err);
-  //     },
-  //   });
-  // }
+  openPost(id: number) {
+    this.router.navigate(['/class/post', id]);
+  }
 }

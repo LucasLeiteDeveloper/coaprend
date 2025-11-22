@@ -1,0 +1,21 @@
+<ion-header class="subpage-header">
+  <ion-toolbar class="content-container">
+    <ion-back-button
+      slot="start"
+      icon="chevron-back-outline"
+      color="dark"
+      text="">
+    </ion-back-button>
+    <ion-title>Configurações</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list-header>Aparencia</ion-list-header>
+  <ion-list [inset]="true">
+    <ion-item [button]="true">Text Size</ion-item>
+    <ion-item>
+      <ion-toggle justify="space-between">Bold Text</ion-toggle>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -43,6 +43,7 @@ export class ClassPage implements OnInit {
       component: MenuCriacaoComponent,
       event: ev,
       translucent: true,
+      animated: false,
       cssClass: 'menu-criacao-popover',
     });
     await popover.present();

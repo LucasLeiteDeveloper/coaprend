@@ -6,41 +6,71 @@ import { Observable } from 'rxjs';
 export class TaskService {
   constructor(private api: ApiService) {}
 
+  // Buscar todas as tarefas
   getAll(): Observable<any> {
-    return this.api.get('posts');
+    return this.api.get('tasks');
   }
 
-  createFormData(payload: any, file?: File): Observable<any> {
+  // Buscar tarefas dentro de um intervalo de datas (SEMANA)
+  getTasksByDateRange(start: string, end: string): Observable<any> {
+    return this.api.get(`tasks/date-range?start=${start}&end=${end}`);
+  }
+
+  // Criar tarefa com anexos
+  createFormData(payload: any, files: File[]): Observable<any> {
     const form = new FormData();
-    form.append('title', payload.title);
-    form.append('type', payload.type);
-    if (payload.content) form.append('content', payload.content);
-    form.append('tag_color', payload.tag_color);
-    if (payload.options) {
-      payload.options.forEach((opt: string, i: number) => {
-        form.append(`options[${i}]`, opt);
+
+    form.append('titulo', payload.title);
+    form.append('descricao', payload.description);
+    form.append('data_limite', payload.deadline);
+
+    if (payload.room_id) {
+      form.append('sala_id', payload.room_id);
+    }
+
+    // Tags
+    if (payload.options && payload.options.length > 0) {
+      payload.options.forEach((tag: string, index: number) => {
+        form.append(`tags[${index}]`, tag);
       });
     }
-    if (file) form.append('image', file);
-    return this.api.post('posts', form);
-  }
 
-  updateFormData(id: number, payload: any, file?: File): Observable<any> {
-    const form = new FormData();
-    if (payload.title) form.append('title', payload.title);
-    if (payload.type) form.append('type', payload.type);
-    if (payload.content) form.append('content', payload.content);
-    if (payload.tag_color) form.append('tag_color', payload.tag_color);
-    if (payload.options) {
-      payload.options.forEach((opt: string, i: number) => {
-        form.append(`options[${i}]`, opt);
+    // Anexos múltiplos
+    if (files && files.length > 0) {
+      files.forEach((file) => {
+        form.append('anexos[]', file);
       });
     }
-    if (file) form.append('image', file);
-    return this.api.put(`posts/${id}`, form);
+
+    return this.api.post('tasks', form);
   }
 
+  // Atualizar tarefa
+  updateFormData(id: number, payload: any, files?: File[]): Observable<any> {
+    const form = new FormData();
+
+    if (payload.title) form.append('titulo', payload.title);
+    if (payload.description) form.append('descricao', payload.description);
+    if (payload.deadline) form.append('data_limite', payload.deadline);
+    if (payload.room_id) form.append('sala_id', payload.room_id);
+
+    if (payload.options) {
+      payload.options.forEach((tag: string, index: number) => {
+        form.append(`tags[${index}]`, tag);
+      });
+    }
+
+    if (files && files.length > 0) {
+      files.forEach((file) => {
+        form.append('anexos[]', file);
+      });
+    }
+
+    return this.api.put(`tasks/${id}`, form);
+  }
+
+  // Excluir tarefa
   delete(id: number): Observable<any> {
-    return this.api.delete(`posts/${id}`);
+    return this.api.delete(`tasks/${id}`);
   }
 }

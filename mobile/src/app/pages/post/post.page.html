@@ -1,15 +1,21 @@
 <ion-header class="subpage-header">
-  <div class="content-container">
+  <ion-toolbar class="content-container">
     <ion-back-button slot="start" icon="chevron-back-outline" color="dark" text=""></ion-back-button>
     <ion-title>Post</ion-title>
-  </div>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <main class="content-container">
-    <post-card [post]="post" [multiPosts]="false"></post-card>
 
-    <ion-button expand="block" (click)="generateContent()">
+    <!-- Evita erro enquanto o post carrega -->
+    <post-card *ngIf="post" [post]="post" [multiPosts]="false"></post-card>
+
+    <ion-button 
+      expand="block" 
+      (click)="generateContent()" 
+      [disabled]="!post || isLoading"
+    >
       <ion-icon slot="start" name="bulb-outline"></ion-icon>
       Gerar Questionário
     </ion-button>
@@ -26,5 +32,7 @@
       </ion-card-header>
       <ion-card-content [innerHTML]="resultText"></ion-card-content>
     </ion-card>
+
   </main>
 </ion-content>
+
