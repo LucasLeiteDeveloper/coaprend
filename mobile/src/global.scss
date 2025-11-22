@@ -37,13 +37,24 @@
 @import "@ionic/angular/css/palettes/dark.system.css";
 
 ion-header {
-    height: 48px;
-    box-shadow: 0 0 0 !important;
+  height: 48px;
+  box-shadow: 0 0 0 !important;
 }
 
 ion-footer {
-    height: 50px;
-    box-shadow: 0 0 0 !important;
+  nav {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    ion-tab-button {
+      border-top: var(--border-thickness) solid var(--color-border);
+    }
+
+    ion-tab-button.selected {
+      border-top: 2px solid var(--ion-color-primary);
+    }
+  }
 }
 
 ion-header.hidden {
@@ -68,6 +79,11 @@ ion-footer.hidden {
 .grid-spacing-m {
     display: grid;
     gap: var(--spacing-m);
+}
+
+.grid-spacing-s {
+    display: grid;
+    gap: var(--spacing-s);
 }
 
 hr {
@@ -122,6 +138,11 @@ ion-toolbar {
   display: grid;
   grid-auto-flow: column;
   gap: var(--spacing-s);
+
+  ion-icon {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .icon-s {

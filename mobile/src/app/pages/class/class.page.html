@@ -21,49 +21,24 @@
 </ion-popover>
 
 <div class="header-nav">
-  <a
-    [class.selected]="selectedTab == 'posts'"
-    [routerLink]="['/class', classId, 'posts']"
-    (click)="onTabChange('posts')"
-  >
-    Postagens
-  </a>
-
-  <a
-    [class.selected]="selectedTab == 'tasks'"
-    [routerLink]="['/class', classId, 'tasks']"
-    (click)="onTabChange('tasks')"
-  >
-    Tarefas
-  </a>
-
-  <a
-     [class.selected]="selectedTab == 'calendar'"
-    [routerLink]="['/class', classId, 'calendar']"
-    (click)="onTabChange('calendar')"
-  >
-    Calendário
-  </a>
+  <a [class.selected]="selectedTab == 'posts'" [routerLink]="['/class', classId, 'posts']" (click)="onTabChange('posts')">Postagens</a>
+  <a [class.selected]="selectedTab == 'tasks'" [routerLink]="['/class', classId, 'tasks']" (click)="onTabChange('tasks')">Tarefas</a>
+  <a [class.selected]="selectedTab == 'calendar'" [routerLink]="['/class', classId, 'calendar']" (click)="onTabChange('calendar')">Calendário</a>
 </div>
 
-<ion-content [scrollEvents]="true" (ionScroll)="scroll.onContentScroll($event)">
-  <main class="content-container">
-    <router-outlet></router-outlet>
-  </main>
+<ion-content class="ion-padding" [scrollEvents]="true" (ionScroll)="scroll.onContentScroll($event)">
+  <router-outlet></router-outlet>
 </ion-content>
 
 <ion-footer [class.hidden]="scroll.isHidden">
   <nav>
-    <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'post']" class="active-tab">
+    <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'post']" class="selected">
       <ion-icon name="school" style="color: var(--ion-color-primary);"></ion-icon>
       <ion-label>Salas</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="criar" (click)="openCreateNav($event)">
-      <ion-icon
-        name="add-circle"
-        style="font-size: 40px; color: var(--ion-color-primary);"
-      ></ion-icon>
+      <ion-icon name="add-circle" style="font-size: 40px; color: var(--ion-color-primary);"></ion-icon>
       <ion-label style="display: none;">Criar</ion-label>
     </ion-tab-button>
 
