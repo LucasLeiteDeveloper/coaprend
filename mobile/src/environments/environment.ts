@@ -4,13 +4,12 @@
 
 // firebase config
 export const firebaseConfig = {
-  apiKey: "AIzaSyA434_HMqg_eKrt5I6RUbj-z4lATronsOg",
-  authDomain: "coaprend-bb2ca.firebaseapp.com",
-  projectId: "coaprend-bb2ca",
-  storageBucket: "coaprend-bb2ca.firebasestorage.app",
-  messagingSenderId: "691529444081",
-  appId: "1:691529444081:web:8b93ede890a70c326a5750",
-  measurementId: "G-GXG8VCF2RW"
+  apiKey: "AIzaSyCBa0KnJmPbnEZW7QfmerGmgG-Hr5rO0oY",
+  authDomain: "coaprend-desenvolvimento.firebaseapp.com",
+  projectId: "coaprend-desenvolvimento",
+  storageBucket: "coaprend-desenvolvimento.firebasestorage.app",
+  messagingSenderId: "433352263753",
+  appId: "1:433352263753:web:23ec20c97bc8f786d61798"
 }
 
 
