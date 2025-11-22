@@ -7,17 +7,36 @@
 
 <ion-content [fullscreen]="true">
   <form class="content-container">
-		<ion-input
-			type="text"
-			placeholder="Digite aqui"
-			label="Nome da Sala"
-			labelPlacement="stacked"
-		></ion-input>
-	</form>
+    <ion-input
+      type="text"
+      placeholder="Digite aqui"
+      label="Nome da Sala"
+      labelPlacement="stacked"
+      [(ngModel)]="className"
+      name="className"
+    ></ion-input>
+  </form>
 </ion-content>
 
-<ion-fab vertical="bottom" horizontal="end" slot="fixed" [activated]="true" style="display: flex; align-items: end; gap: 8px;">
-  <div style="display: flex; justify-content: center; align-items: center; width: 48px; aspect-ratio: 1/1; background-color: var(--ion-color-primary); border-radius: 24px;">
+<ion-fab
+  vertical="bottom"
+  horizontal="end"
+  slot="fixed"
+  [activated]="true"
+  style="display: flex; align-items: end; gap: 8px;"
+  (click)="createClass()"
+>
+  <div
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 48px;
+      aspect-ratio: 1/1;
+      background-color: var(--ion-color-primary);
+      border-radius: 24px;
+    "
+  >
     <ion-icon name="add" style="font-size: 32px; color: white;"></ion-icon>
   </div>
 </ion-fab>
