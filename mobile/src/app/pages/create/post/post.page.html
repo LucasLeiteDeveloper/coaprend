@@ -42,15 +42,45 @@
 
 </ion-content>
 
-<ion-fab vertical="bottom" horizontal="end" slot="fixed" style="display: flex; align-items: end; gap: 8px;">
-  <button class="fab-secondary-button" aria-label="Atrelhar a uma data">
-    <ion-icon name="calendar-outline" aria-hidden="true" class="icon-s"></ion-icon>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed"
+         style="display: flex; align-items: end; gap: 8px;">
+
+  <!-- Botão calendário -->
+  <div class="fab-secondary-button"
+       aria-label="Atrelar a uma data"
+       (click)="noop()">
+    <ion-icon name="calendar-outline" class="icon-s"></ion-icon>
+  </div>
+
+  <!-- Botão imagens -->
+  <div class="fab-secondary-button"
+       aria-label="Adicionar imagens"
+       (click)="fileInput.click()">
+    <ion-icon name="image-outline" class="icon-s"></ion-icon>
+  </div>
+
+  <!-- Botão tags -->
+  <div class="fab-secondary-button"
+       aria-label="Adicionar Tags"
+       (click)="noop()">
+    <ion-icon name="pricetag-outline" class="icon-s"></ion-icon>
+  </div>
+
+  <!-- Botão selecionar sala -->
+  <button class="fab-secondary-button"
+          aria-label="Selecionar a sala"
+          (click)="noop()">
+    <ion-icon name="school-outline" class="icon-s"></ion-icon>
   </button>
 
-  <button class="fab-secondary-button" aria-label="Adicionar imagens" (click)="fileInput.click()">
-    <ion-icon name="image-outline" aria-hidden="true" class="icon-s"></ion-icon>
+  <!-- Botão publicar -->
+  <button class="fab-primary-button"
+          aria-label="Publicar a tarefa"
+          (click)="createPost()">
+    <ion-icon name="add" class="icon-m"></ion-icon>
   </button>
 
+<<<<<<< HEAD
   <button class="fab-secondary-button" aria-label="Adicionar Tags" (click)="openTextModal('Teste', 'text')">
     <ion-icon name="pricetag-outline" aria-hidden="true" class="icon-s"></ion-icon>
   </button>
@@ -69,4 +99,6 @@
     <ion-icon name="add" class="icon-m"></ion-icon>
   </button>
 
+=======
+>>>>>>> d8c7326 (html create post changes)
 </ion-fab>
