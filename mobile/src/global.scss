@@ -154,3 +154,17 @@ ion-toolbar {
   width: 24px;
   height: 24px;
 }
+
+.tags-container {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: var(--spacing-s);
+
+  ion-icon {
+    padding: var(--spacing-xs);
+    background-color: blue;
+    color: white;
+    border-radius: var(--border-radius-s);
+  }
+}
