@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../apiService/api-service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ClassService {
@@ -9,55 +9,86 @@ export class ClassService {
 
   constructor(private api: ApiService) {}
 
-  // Criar sala
+  // -------------------------------------------------------------
+  // 🟢 Criar sala
+  // -------------------------------------------------------------
   createClass(payload: any): Observable<any> {
     return this.api.post('classes', payload);
   }
 
-  // Todas as salas do usuário
+  // -------------------------------------------------------------
+  // 🔵 Todas as salas do usuário
+  // -------------------------------------------------------------
   getMyClasses(): Observable<any> {
     return this.api.get('classes/my');
   }
 
-  // Entrar via código
+  // -------------------------------------------------------------
+  // 🟣 Entrar via código
+  // -------------------------------------------------------------
   joinClass(code: string): Observable<any> {
     return this.api.post('classes/join', { code });
   }
 
-  // Sair da sala
+  // -------------------------------------------------------------
+  // 🟥 Sair da sala
+  // -------------------------------------------------------------
   leaveClass(id: number): Observable<any> {
     return this.api.delete(`classes/${id}/leave`);
   }
 
-  // Obter dados de uma sala específica
+  // -------------------------------------------------------------
+  // 🔵 Obter dados completos de uma sala
+  // -------------------------------------------------------------
   getClassById(id: number): Observable<any> {
     return this.api.get(`classes/${id}`);
   }
 
-  // Regenerar o código para compartilhar
+  // -------------------------------------------------------------
+  // 🟡 Regenerar código
+  // -------------------------------------------------------------
   regenerateCode(id: number): Observable<any> {
     return this.api.post(`classes/${id}/regenerate-code`, {});
   }
 
-  // -------------------------------------------------------------------------
-  // 🔵 NOVO: Pegar sala atual do usuário (definida no backend)
-  // -------------------------------------------------------------------------
-  getCurrentUserClass(): Observable<any> {
-    return this.api.get('classes/current'); 
-    // rota padrão: GET /classes/current → retorna a sala atual do usuário
+  // -------------------------------------------------------------
+  // 🟢 Atualizar nome da sala
+  // -------------------------------------------------------------
+  updateClassName(id: number, name: string): Observable<any> {
+    return this.api.put(`classes/${id}/name`, { name });
   }
 
-  // -------------------------------------------------------------------------
-  // 🔵 NOVO: Trocar sala ativa (backend)
-  // -------------------------------------------------------------------------
+  // -------------------------------------------------------------
+  // 🟣 Atualizar foto da sala
+  // -------------------------------------------------------------
+  updateClassImage(id: number, imageBase64: string): Observable<any> {
+    return this.api.put(`classes/${id}/image`, { image: imageBase64 });
+  }
+
+  // -------------------------------------------------------------
+  // 🟥 Excluir sala
+  // -------------------------------------------------------------
+  deleteClass(id: number): Observable<any> {
+    return this.api.delete(`classes/${id}`);
+  }
+
+  // -------------------------------------------------------------
+  // 🔵 Definir sala atual do usuário
+  // -------------------------------------------------------------
   setCurrentClass(id: number): Observable<any> {
     return this.api.post(`classes/${id}/set-current`, {});
-    // rota padrão: POST /classes/{id}/set-current
   }
 
-  // -------------------------------------------------------------------------
-  // 🔵 OPCIONAL: salvar sala ativa no localStorage
-  // -------------------------------------------------------------------------
+  // -------------------------------------------------------------
+  // 🔵 Buscar sala atual
+  // -------------------------------------------------------------
+  getCurrentUserClass(): Observable<any> {
+    return this.api.get('classes/current');
+  }
+
+  // -------------------------------------------------------------
+  // 💾 LocalStorage – controle opcional
+  // -------------------------------------------------------------
   saveLocalCurrentClass(classObj: any) {
     localStorage.setItem(this.CURRENT_CLASS_KEY, JSON.stringify(classObj));
   }
