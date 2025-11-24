@@ -6,23 +6,139 @@
 </ion-header>
 
 <ion-content>
+
+  <!-- ======================================================
+       CÓDIGO DE CONVITE
+  ======================================================= -->
+  <ion-list-header>Convite</ion-list-header>
+  <ion-list [inset]="true">
+
+    <ion-item>
+      <ion-label>
+        Código: <strong>{{ inviteCode }}</strong>
+      </ion-label>
+
+      <ion-button fill="clear" (click)="copyInviteCode()">
+        <ion-icon name="copy-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button fill="clear" (click)="regenerateCode()">
+        <ion-icon name="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+  </ion-list>
+
+
+  <!-- ======================================================
+       DADOS DA SALA
+  ======================================================= -->
   <ion-list-header>Sala</ion-list-header>
   <ion-list [inset]="true">
-    <ion-item [button]="true">Alterar nome</ion-item>
-    <ion-item [button]="true">Alterar foto de perfil</ion-item>
+
+    <!-- Alterar nome -->
+    <ion-item [button]="true" (click)="showNameEditor = !showNameEditor">
+      <ion-label>Alterar nome</ion-label>
+    </ion-item>
+
+    <ion-item lines="full" *ngIf="showNameEditor">
+      <ion-label position="stacked">Nome da sala</ion-label>
+      <ion-input [(ngModel)]="newName"></ion-input>
+    </ion-item>
+
+    <ion-item button detail *ngIf="showNameEditor" (click)="updateName()">
+      <ion-label>Salvar nome</ion-label>
+    </ion-item>
+
+
+    <!-- Alterar foto -->
+    <ion-item [button]="true" (click)="showImagePicker = !showImagePicker">
+      <ion-label>Alterar foto de perfil</ion-label>
+    </ion-item>
+
+    <ion-item lines="full" *ngIf="showImagePicker">
+      <ion-label position="stacked">Selecionar nova foto</ion-label>
+      <input type="file" accept="image/*" (change)="onImageSelected($event)" />
+    </ion-item>
+
+    <ion-item button detail *ngIf="showImagePicker" (click)="updatePhoto()">
+      <ion-label>Salvar foto</ion-label>
+    </ion-item>
+
   </ion-list>
+
+
+
+  <!-- ======================================================
+       TAGS
+  ======================================================= -->
   <ion-list-header>Organização</ion-list-header>
   <ion-list [inset]="true">
-    <ion-item [button]="true">Tags</ion-item>
-    <ion-item [button]="true">Permissões</ion-item>
+
+    <!-- Toggle -->
+    <ion-item [button]="true" (click)="showTagEditor = !showTagEditor">
+      <ion-label>Tags</ion-label>
+    </ion-item>
+
+    <!-- Editor de tags -->
+    <ng-container *ngIf="showTagEditor">
+
+      <!-- Lista de tags existentes -->
+      <ion-list-header>Tags da sala</ion-list-header>
+
+      <ion-item *ngFor="let tag of tags">
+        <ion-label>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span 
+              [style.background]="tag.color"
+              style="width:14px; height:14px; border-radius:50%; display:inline-block;">
+            </span>
+            {{ tag.name }}
+          </div>
+        </ion-label>
+
+        <ion-button fill="clear" color="danger" (click)="deleteTag(tag.id)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <!-- Criar nova tag -->
+      <ion-list-header>Criar nova tag</ion-list-header>
+
+      <ion-item lines="full">
+        <ion-label position="stacked">Nova tag</ion-label>
+        <ion-input [(ngModel)]="newTagName"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>Cor</ion-label>
+        <input type="color" [(ngModel)]="newTagColor" style="width:40px;">
+      </ion-item>
+
+      <ion-item button detail (click)="createTag()">
+        <ion-label>Criar</ion-label>
+      </ion-item>
+
+    </ng-container>
+
   </ion-list>
+
+
+
+  <!-- ======================================================
+       MAIS
+  ======================================================= -->
   <ion-list-header>Mais</ion-list-header>
   <ion-list [inset]="true">
-    <ion-item [button]="true">
+
+    <ion-item [button]="true" (click)="deleteClass()">
       <ion-label color="danger">Excluir</ion-label>
     </ion-item>
-    <ion-item [button]="true">
+
+    <ion-item [button]="true" (click)="leaveClass()">
       <ion-label color="danger">Sair</ion-label>
     </ion-item>
+
   </ion-list>
+
 </ion-content>
