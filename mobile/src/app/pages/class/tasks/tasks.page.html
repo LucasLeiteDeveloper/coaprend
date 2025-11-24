@@ -1,12 +1,53 @@
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
-<task-card [task]="taskExample"></task-card>
+<ion-header class="subpage-header">
+  <ion-toolbar class="content-container">
+    <ion-back-button slot="start" icon="chevron-back-outline" color="dark" text=""></ion-back-button>
+    <ion-title>Tarefas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Nenhuma tarefa -->
+  <div *ngIf="tasks.length === 0" class="empty-box">
+    <ion-icon name="document-outline"></ion-icon>
+    <p>Nenhuma tarefa encontrada</p>
+  </div>
+
+  <!-- Lista de tarefas -->
+  <ion-list>
+    <ion-card *ngFor="let task of tasks">
+      <ion-card-header>
+        <ion-card-title>{{ task.titulo }}</ion-card-title>
+        <ion-card-subtitle>
+          Data limite: {{ task.data_limite | date:'dd/MM/yyyy' }}
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p class="descricao">
+          {{ task.descricao || 'Sem descrição...' }}
+        </p>
+
+        <div class="anexos">
+          <ion-icon name="attach-outline"></ion-icon>
+          <span>{{ task.anexos?.length || 0 }} anexo(s)</span>
+        </div>
+
+        <div class="buttons">
+          <ion-button size="small" fill="outline" (click)="viewTask(task.id)">
+            Visualizar
+          </ion-button>
+
+          <ion-button size="small" color="warning" fill="outline" (click)="editTask(task.id)">
+            Editar
+          </ion-button>
+
+          <ion-button size="small" color="danger" fill="outline" (click)="confirmDelete(task.id)">
+            Excluir
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+</ion-content>

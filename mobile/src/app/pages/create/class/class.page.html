@@ -17,10 +17,12 @@
       style="border-bottom: 1px solid gray;"
     ></ion-input>
 
+    <!-- Input de arquivo escondido -->
     <input
       type="file"
       id="file-upload"
       style="display: none"
+      (change)="setImage($event)"
     />
 
     <ion-item lines="none" style="
@@ -33,6 +35,20 @@
       <ion-button fill="clear" (click)="openFileDialog()">
         <ion-icon slot="icon-only" name="document-outline"></ion-icon>
       </ion-button>
+    </ion-item>
+
+    <!-- Tags (opcional) -->
+    <ion-item lines="none" *ngIf="tags.length">
+      <ion-label>Tags</ion-label>
+      <ion-chip *ngFor="let t of tags; let i = index">
+        {{ t }}
+        <ion-icon name="close" (click)="removeTag(i)"></ion-icon>
+      </ion-chip>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-input placeholder="Adicionar tag" [(ngModel)]="newTag" name="newTag"></ion-input>
+      <ion-button slot="end" (click)="addTag()">+</ion-button>
     </ion-item>
   </form>
 </ion-content>

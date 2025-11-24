@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/services/taskService/task';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-task',
@@ -9,16 +10,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   standalone: false,
 })
 export class TaskPage implements OnInit {
-  title: string = '';
-  description: string = '';
-  deadline: string = '';
-  tagColor: string = '#000000';
-
+  title = '';
+  description = '';
+  deadline = '';
+  
   roomId!: number;
 
   tags: string[] = [];
-  newTag: string = '';
-
   attachments: File[] = [];
 
   isSubmitting = false;
@@ -26,64 +24,99 @@ export class TaskPage implements OnInit {
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
     this.roomId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
-  addTag() {
-    if (!this.newTag.trim()) return;
-    this.tags.push(this.newTag.trim());
-    this.newTag = '';
+  /* --------------------- TAGS ---------------------- */
+  async openTagPrompt() {
+    const alert = await this.alertCtrl.create({
+      header: 'Adicionar Tag',
+      inputs: [{ name: 'tag', type: 'text', placeholder: 'Digite a tag' }],
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Adicionar',
+          handler: (data) => {
+            if (data.tag.trim()) this.tags.push(data.tag.trim());
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
-  removeTag(index: number) {
-    this.tags.splice(index, 1);
+  removeTag(i: number) {
+    this.tags.splice(i, 1);
+  }
+
+  /* --------------------- ANEXOS ---------------------- */
+  openFilePicker() {
+    (document.getElementById('fileInput') as HTMLInputElement).click();
   }
 
   onFileSelected(event: any) {
-    const files = event.target.files;
-    for (let f of files) {
-      this.attachments.push(f);
-    }
+    const files = Array.from(event.target.files) as File[];
+    this.attachments.push(...files);
   }
 
   removeAttachment(i: number) {
     this.attachments.splice(i, 1);
   }
 
+  /* --------------------- SALA ---------------------- */
+  async selectRoom() {
+    const alert = await this.alertCtrl.create({
+      header: 'Selecionar Sala',
+      inputs: [
+        { name: 'room', type: 'number', placeholder: 'ID da Sala', value: this.roomId }
+      ],
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'OK',
+          handler: data => {
+            this.roomId = Number(data.room);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  /* --------------------- SUBMIT ---------------------- */
   submit() {
-    if (!this.title.trim() || !this.description.trim() || !this.deadline) {
-      alert('Preencha todos os campos obrigatórios.');
+    if (!this.title.trim() || !this.deadline) {
+      alert('Preencha pelo menos título e data limite.');
       return;
     }
 
-    this.isSubmitting = true;
-
     const payload = {
       title: this.title,
-      type: 'task',
-      content: this.description,
-      tag_color: this.tagColor,
-      options: this.tags,
+      description: this.description,
+      deadline: this.deadline,
       room_id: this.roomId,
-      deadline: this.deadline
+      options: this.tags
     };
 
-    this.taskService
-      .createFormData(payload, this.attachments)
-      .subscribe({
-        next: () => {
-          this.isSubmitting = false;
-          this.router.navigate(['/class', this.roomId]);
-        },
-        error: (err) => {
-          console.error(err);
-          this.isSubmitting = false;
-          alert('Erro ao criar tarefa.');
-        },
-      });
+    this.isSubmitting = true;
+
+    this.taskService.createFormData(payload, this.attachments).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+        this.router.navigate(['/class', this.roomId]);
+      },
+      error: (err) => {
+        console.error(err);
+        this.isSubmitting = false;
+        alert('Erro ao criar tarefa.');
+      }
+    });
   }
 }

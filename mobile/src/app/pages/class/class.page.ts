@@ -3,6 +3,7 @@ import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuCriacaoComponent } from 'src/app/components/menu-criacao/menu-criacao.component';
 import { HideOnScrollService } from 'src/app/services/hideOnScrollService/hide-on-scroll-service';
+import { BehaviorSubject } from 'rxjs';
 import { TagService } from 'src/app/services/tagService/tag';
 
 @Component({
@@ -11,51 +12,51 @@ import { TagService } from 'src/app/services/tagService/tag';
   styleUrls: ['./class.page.scss'],
   standalone: false,
 })
-
 export class ClassPage implements OnInit {
   public selectedTab: string = "";
-  public classId: any;
-  public tags: any;
+  public classId!: number;
+  public tags: any[] = [];
+
+  // BehaviorSubject para notificar filhos sobre as tags selecionadas
+  public tagFilter$ = new BehaviorSubject<number[]>([]);
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private popoverCtrl: PopoverController,
     public scroll: HideOnScrollService,
-    public tag: TagService,
+    private tagService: TagService
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
-      this.classId = params.get('id');
+      const idParam = params.get('id');
+      if (!idParam) return;
+      this.classId = Number(idParam);
+
+      // Agora que temos classId, buscar tags reais da sala
+      this.loadTags();
     });
+
     this.selectedTab = this.router.url.split('/')[3];
-    // this.tags = this.tag.getTagsByClass(this.classId);
-    this.tags = [
-      {
-        id: 1,
-        icon: "pricetag-outline",
-        text: "Oi",
-        color: "blue",
-        selected: false,
-      },
-      {
-        id: 2,
-        icon: "pricetag-outline",
-        text: "Oi2",
-        color: "red",
-        selected: false,
-      },
-      {
-        id: 3,
-        icon: "pricetag-outline",
-        text: "Oi3",
-        color: "yellow",
-        selected: false,
-      }
-    ];
   }
-  
+
+  private loadTags() {
+    this.tagService.getTagsByClass(this.classId).subscribe({
+      next: (tags) => {
+        // Inicializa a propriedade `selected` como false para todas
+        this.tags = tags.map((t: any) => ({ ...t, selected: false }));
+      },
+      error: (err) => {
+        console.error('Erro ao carregar tags da sala:', err);
+      }
+    });
+  }
+
+  get selectedTags(): number[] {
+    return this.tags.filter(t => t.selected).map(t => t.id);
+  }
+
   onSelectClass(id: any) {
     this.classId = id;
     this.router.navigate(['/class', this.classId, 'post']);
@@ -76,14 +77,16 @@ export class ClassPage implements OnInit {
     await popover.present();
   }
 
-  selectTag(id: any) {
-    const tagElement = document.getElementById("tag"+id);
-    if (!tagElement?.classList.contains('selected')) {
-      tagElement?.classList.add("selected");
-      this.tags.find((tag: any) => tag.id == id).selected = true;
-    } else {
-      tagElement?.classList.remove("selected");
-      this.tags.find((tag: any) => tag.id == id).selected = false;
-    }
+  selectTag(id: number) {
+    const tag = this.tags.find(t => t.id === id);
+    if (!tag) return;
+
+    tag.selected = !tag.selected;
+
+    const tagElement = document.getElementById("tag" + id);
+    tagElement?.classList.toggle("selected", tag.selected);
+
+    // Notifica os filhos sobre as tags selecionadas
+    this.tagFilter$.next(this.selectedTags);
   }
 }
