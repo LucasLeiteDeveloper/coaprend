@@ -6,19 +6,11 @@
 </ion-header>
 
 <ion-content>
-
-  <!-- Pull to refresh -->
-  <ion-refresher slot="fixed" (ionRefresh)="loadTasks($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
-  <!-- Caso não tenha tarefas -->
+  
   <div *ngIf="tasks.length === 0" class="empty-box">
     <ion-icon name="document-outline"></ion-icon>
     <p>Nenhuma tarefa encontrada</p>
   </div>
-
-  <!-- Lista -->
   <ion-list>
     <ion-card *ngFor="let task of tasks">
       <ion-card-header>
