@@ -36,6 +36,9 @@ export class ContentService {
   updateRoom(roomId: string, data: any){
     return this.http.patch(`${this.apiUrl}/room/${roomId}`, data, { headers: this.getAuthHeaders() });
   }
+  deleteRoom(roomId: string){
+    return this.http.delete(`${this.apiUrl}/room/${roomId}`, { headers: this.getAuthHeaders() }).toPromise();
+  }
 
   // methods for posts
   async getPosts(roomId: string): Promise<any[] | undefined> {
@@ -50,6 +53,9 @@ export class ContentService {
   }
   async updatePost(postId: string, data: any){
     return this.http.patch(`${this.apiUrl}/posts/${postId}`, data, { headers: this.getAuthHeaders() });
+  }
+  deletePost(postId: string){
+    return this.http.delete(`${this.apiUrl}/posts/${postId}`, { headers: this.getAuthHeaders() }).toPromise();
   }
 
   //tasks methods
@@ -66,10 +72,25 @@ export class ContentService {
   async updateTask(taskId: string, data: any) {
     return this.http.patch(`${this.apiUrl}/tasks/${taskId}`, data, { headers: this.getAuthHeaders() });
   }
+  deleteTask(taskId: string){
+    return this.http.delete(`${this.apiUrl}/tasks/${taskId}`, { headers: this.getAuthHeaders() }).toPromise();
+  }
 
 
-  // GLOBAL SEARCH
+  // SEARCH
   searchPost(query: string){
-    return this.http.get(`${this.apiUrl}/posts/search?q=${query}`, { headers: this.getAuthHeaders() });
+    return this.http.get(`${this.apiUrl}/posts/search?q=${query}`, { headers: this.getAuthHeaders() }).toPromise();
+  }
+  searchByTag(tag: string){
+    // calls /api/content/posts/tags/search?tag=value
+    return this.http.get<any[]>(`${this.apiUrl}/posts/tags/search?tag=${tag}`, { headers: this.getAuthHeaders() }).toPromise();
+  }
+
+  // NOTIFICATIONS
+  getNotifications(){
+    return this.http.get<any[]>(`${this.apiUrl}/notifications`, { headers: this.getAuthHeaders() }).toPromise();
+  }
+  markNotificationRead(id: string){
+    return this.http.patch(`${this.apiUrl}/notifications/${id}/read`, { headers: this.getAuthHeaders()}).toPromise();
   }
 }
