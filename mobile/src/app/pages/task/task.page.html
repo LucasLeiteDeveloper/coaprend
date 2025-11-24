@@ -5,9 +5,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  
-  <div *ngIf="tasks.length === 0" class="empty-box">
+<ion-content class="ion-padding">
+  <task-card [task]="taskExample" [multiTasks]="false"></task-card>
+  <!-- <div *ngIf="tasks.length === 0" class="empty-box">
     <ion-icon name="document-outline"></ion-icon>
     <p>Nenhuma tarefa encontrada</p>
   </div>
@@ -45,6 +45,6 @@
         </div>
       </ion-card-content>
     </ion-card>
-  </ion-list>
+  </ion-list> -->
 
 </ion-content>
