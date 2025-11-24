@@ -21,7 +21,10 @@ export class TagService {
   // 🟢 Criar nova tag na sala
   // POST /classes/:id/tags
   // -------------------------------------------------------------
-  createTag(classId: number, payload: { name: string; color: string }): Observable<any> {
+  createTag(
+    classId: number,
+    payload: { name: string; color: string }
+  ): Observable<any> {
     return this.api.post(`classes/${classId}/tags`, payload);
   }
 
@@ -29,7 +32,11 @@ export class TagService {
   // 🟡 Editar tag
   // PUT /classes/:id/tags/:tagId
   // -------------------------------------------------------------
-  updateTag(classId: number, tagId: number, payload: any): Observable<any> {
+  updateTag(
+    classId: number,
+    tagId: number,
+    payload: { name?: string; color?: string }
+  ): Observable<any> {
     return this.api.put(`classes/${classId}/tags/${tagId}`, payload);
   }
 
@@ -39,5 +46,31 @@ export class TagService {
   // -------------------------------------------------------------
   deleteTag(classId: number, tagId: number): Observable<any> {
     return this.api.delete(`classes/${classId}/tags/${tagId}`);
+  }
+
+  // -------------------------------------------------------------
+  // 🔥 NOVO — Remover TODAS as tags da sala
+  // DELETE /classes/:id/tags
+  // -------------------------------------------------------------
+  clearAllTags(classId: number): Observable<any> {
+    return this.api.delete(`classes/${classId}/tags`);
+  }
+
+  // -------------------------------------------------------------
+  // 🔄 NOVO — Reordenar tags (drag & drop)
+  // POST /classes/:id/tags/reorder
+  // body: [ID das tags na nova ordem]
+  // -------------------------------------------------------------
+  reorderTags(classId: number, orderedTagIds: number[]): Observable<any> {
+    return this.api.post(`classes/${classId}/tags/reorder`, { order: orderedTagIds });
+  }
+
+  // -------------------------------------------------------------
+  // ⚡ NOVO — Atualizar várias tags de uma vez (batch)
+  // PUT /classes/:id/tags
+  // body: array de objetos de tag
+  // -------------------------------------------------------------
+  updateManyTags(classId: number, tags: any[]): Observable<any> {
+    return this.api.put(`classes/${classId}/tags`, { tags });
   }
 }
