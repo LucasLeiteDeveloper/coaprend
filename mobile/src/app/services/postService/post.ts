@@ -31,6 +31,9 @@ export class PostService {
       return [{ content: 'Erro ao carregar conteúdo.' }];
     }
   }
+getPostsByDateRange(start: string, end: string) {
+  return this.api.get(`posts/range?start=${start}&end=${end}`);
+}
 
   /**
    * Faz o parse seguro do campo 'options'
@@ -62,6 +65,9 @@ export class PostService {
     if (file) form.append('image', file);
     return this.api.post('posts', form);
   }
+  search(text: string) {
+  return this.api.get(`posts/search?text=${text}`);
+}
 
   /**
    * Atualiza uma postagem existente

@@ -9,17 +9,25 @@
 <ion-content class="ion-padding">
   <div *ngIf="inputType == 'text'">
     <ion-input
-    type="text"
-    placeholder="Digite aqui"
-    label="Digite aqui"
-    labelPlacement="stacked"
+      [(ngModel)]="inputValue"
+      type="text"
+      placeholder="Digite aqui"
+      label="Digite aqui"
+      labelPlacement="stacked"
     ></ion-input>
   </div>
   <div *ngIf="inputType == 'calendar'">
     <ion-input
-    type="calendar"
-    label="Selecione a data"
-    labelPlacement="stacked"
+      [(ngModel)]="inputValue"
+      type="calendar"
+      label="Selecione a data"
+      labelPlacement="stacked"
     ></ion-input>
   </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="full" (click)="confirm()">Confirmar</ion-button>
+  </ion-toolbar>
+</ion-footer>
