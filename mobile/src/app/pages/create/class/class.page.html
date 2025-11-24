@@ -5,16 +5,35 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <form class="content-container">
+<ion-content class="ion-padding">
+  <form class="grid-spacing-m">
     <ion-input
       type="text"
       placeholder="Digite aqui"
-      label="Nome da Sala"
+      label="Nome da Sala*"
       labelPlacement="stacked"
       [(ngModel)]="className"
       name="className"
+      style="border-bottom: 1px solid gray;"
     ></ion-input>
+
+    <input
+      type="file"
+      id="file-upload"
+      style="display: none"
+    />
+
+    <ion-item lines="none" style="
+      --padding-bottom: 0;
+      --padding-end: 0;
+      --padding-start: 0;
+      --padding-top: 0;
+    ">
+      <ion-label style="font-size: var(--text-m);">Imagem da sala</ion-label>
+      <ion-button fill="clear" (click)="openFileDialog()">
+        <ion-icon slot="icon-only" name="document-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
   </form>
 </ion-content>
 

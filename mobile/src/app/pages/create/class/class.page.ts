@@ -11,6 +11,14 @@ import { ClassService } from 'src/app/services/classService/class';
 })
 export class CreateClassPage {
   className: string = '';
+  public openFileDialog = () => {
+   (document as any).getElementById("file-upload").click();
+  };
+
+  public setImage = (_event: any) => {
+    let f = _event.target.files![0];
+    console.log(f)
+  }
 
   constructor(
     private classService: ClassService,
