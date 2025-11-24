@@ -11,14 +11,11 @@ import { ClassService } from 'src/app/services/classService/class';
 })
 export class CreateClassPage {
   className: string = '';
-  public openFileDialog = () => {
-   (document as any).getElementById("file-upload").click();
-  };
+  imageFile?: File;
 
-  public setImage = (_event: any) => {
-    let f = _event.target.files![0];
-    console.log(f)
-  }
+  // Tags
+  tags: string[] = [];
+  newTag: string = '';
 
   constructor(
     private classService: ClassService,
@@ -26,18 +23,49 @@ export class CreateClassPage {
     private router: Router
   ) {}
 
+  // Abrir seletor de arquivo
+  public openFileDialog = () => {
+    (document as any).getElementById("file-upload").click();
+  };
+
+  // Selecionar imagem
+  public setImage = (_event: any) => {
+    const f = _event.target.files![0];
+    if (f) this.imageFile = f;
+  };
+
+  // Adicionar tag
+  addTag() {
+    if (!this.newTag.trim()) return;
+    this.tags.push(this.newTag.trim());
+    this.newTag = '';
+  }
+
+  // Remover tag
+  removeTag(index: number) {
+    this.tags.splice(index, 1);
+  }
+
+  // Criar sala
   async createClass() {
     if (!this.className.trim()) {
       this.showToast('O nome da sala é obrigatório.');
       return;
     }
 
-    const payload = {
-      nome: this.className,
-      descricao: '',
-    };
+    const form = new FormData();
+    form.append('nome', this.className);
+    form.append('descricao', '');
+    
+    if (this.imageFile) {
+      form.append('imagem', this.imageFile);
+    }
 
-    this.classService.createClass(payload).subscribe({
+    if (this.tags.length > 0) {
+      this.tags.forEach((t, i) => form.append(`tags[${i}]`, t));
+    }
+
+    this.classService.createClass(form).subscribe({
       next: async () => {
         await this.showToast('Sala criada com sucesso!');
         this.router.navigate(['/class']);
@@ -49,6 +77,7 @@ export class CreateClassPage {
     });
   }
 
+  // Toast utilitário
   async showToast(msg: string) {
     const toast = await this.toastController.create({
       message: msg,
@@ -58,4 +87,3 @@ export class CreateClassPage {
     await toast.present();
   }
 }
-

@@ -1,4 +1,3 @@
-
 <ion-header class="subpage-header">
   <ion-toolbar class="content-container">
     <ion-back-button slot="start" icon="chevron-back-outline" aria-label="Voltar" color="dark" text=""></ion-back-button>
@@ -8,9 +7,10 @@
 
 <ion-content class="ion-padding">
   <form class="grid-spacing-m">
+
+    <!-- DATA LIMITE -->
     <ion-input
       type="date"
-      placeholder="Digite aqui"
       label="Data Limite*"
       labelPlacement="stacked"
       [(ngModel)]="deadline"
@@ -18,74 +18,67 @@
       style="border-bottom: 1px solid gray;">
     </ion-input>
 
+    <!-- TÍTULO -->
     <ion-input
       type="text"
-      placeholder="Digite aqui"
       label="Título*"
       labelPlacement="stacked"
       [(ngModel)]="title"
       name="title"
+      placeholder="Digite aqui"
       style="border-bottom: 1px solid gray;">
     </ion-input>
 
+    <!-- DESCRIÇÃO -->
     <ion-textarea
-      position="stacked"
-      placeholder="Digite aqui"
       label="Conteúdo"
       labelPlacement="stacked"
+      placeholder="Digite aqui"
       [autoGrow]="true"
       [(ngModel)]="description"
       name="description">
     </ion-textarea>
 
-  <!-- TAG COLOR
-  <ion-item>
-    <ion-label>Cor da tag</ion-label>
-    <ion-input type="color" [(ngModel)]="tagColor"></ion-input>
-  </ion-item> -->
+    <!-- INPUT DE ARQUIVO (ESCONDIDO) -->
+    <input type="file" id="fileInput" style="display:none" multiple (change)="onFileSelected($event)">
+  </form>
 
-  <!-- TAGS -->
-  <!-- <ion-list>
-    <ion-item>
-      <ion-input placeholder="Adicionar tag" [(ngModel)]="newTag"></ion-input>
-      <ion-button slot="end" (click)="addTag()">+</ion-button>
-    </ion-item>
-
-    <ion-chip *ngFor="let t of tags; let i = index">
-      {{ t }}
-      <ion-icon name="close" (click)="removeTag(i)"></ion-icon>
-    </ion-chip>
-  </ion-list> -->
-
-  <!-- ANEXOS -->
-  <!-- <ion-item>
-    <ion-label>Anexos</ion-label>
-    <input type="file" multiple (change)="onFileSelected($event)" />
-  </ion-item>
-
+  <!-- LISTA DE ANEXOS -->
   <div class="ion-padding" *ngFor="let file of attachments; let i = index">
     <ion-chip>
       {{ file.name }}
       <ion-icon name="close" (click)="removeAttachment(i)"></ion-icon>
     </ion-chip>
-  </div> -->
-  </form>
+  </div>
+
+  <!-- LISTA DE TAGS -->
+  <ion-chip *ngFor="let t of tags; let i = index">
+    {{ t }}
+    <ion-icon name="close" (click)="removeTag(i)"></ion-icon>
+  </ion-chip>
+
 </ion-content>
 
 <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="display: flex; align-items: end; gap: 8px;">
-  <button class="fab-secondary-button" aria-label="Adicionar imagens">
-    <ion-icon name="image-outline" aria-hidden="true" class="icon-s"></ion-icon>
-  </button>
-  
-  <button class="fab-secondary-button" aria-label="Adicionar Tags">
-    <ion-icon name="pricetag-outline" aria-hidden="true" class="icon-s"></ion-icon>
+
+  <!-- ANEXOS -->
+  <button class="fab-secondary-button" aria-label="Adicionar imagens" (click)="openFilePicker()">
+    <ion-icon name="image-outline" class="icon-s"></ion-icon>
   </button>
 
-  <button class="fab-secondary-button" aria-label="Selecionar a sala">
-    <ion-icon name="school-outline" aria-hidden="true" class="icon-s"></ion-icon>
+  <!-- TAGS -->
+  <button class="fab-secondary-button" aria-label="Adicionar Tags" (click)="openTagPrompt()">
+    <ion-icon name="pricetag-outline" class="icon-s"></ion-icon>
   </button>
 
-  <button class="fab-primary-button" aria-label="Publicar a tarefa">
-    <ion-icon name="add" aria-hidden="true" class="icon-m"></ion-icon>
+  <!-- SELECIONAR SALA -->
+  <button class="fab-secondary-button" aria-label="Selecionar a sala" (click)="selectRoom()">
+    <ion-icon name="school-outline" class="icon-s"></ion-icon>
   </button>
+
+  <!-- PUBLICAR -->
+  <button class="fab-primary-button" aria-label="Publicar a tarefa" (click)="submit()">
+    <ion-icon name="add" class="icon-m"></ion-icon>
+  </button>
+
 </ion-fab>
