@@ -59,18 +59,15 @@
     <ion-icon name="image-outline" class="icon-s"></ion-icon>
   </div>
 
-  <!-- Botão tags -->
-  <div class="fab-secondary-button"
-       aria-label="Adicionar Tags"
-       (click)="noop()">
-    <ion-icon name="pricetag-outline" class="icon-s"></ion-icon>
-  </div>
-
   <!-- Botão selecionar sala -->
   <button class="fab-secondary-button"
           aria-label="Selecionar a sala"
           (click)="noop()">
     <ion-icon name="school-outline" class="icon-s"></ion-icon>
+  </button>
+
+  <button class="fab-secondary-button" aria-label="Adicionar Tags" (click)="openTextModal('Teste', 'text')">
+    <ion-icon name="pricetag-outline" aria-hidden="true" class="icon-s"></ion-icon>
   </button>
 
   <!-- Botão publicar -->

@@ -91,4 +91,15 @@ export class PostPage {
     });
     toast.present();
   }
+
+  async openTextModal(title: string, inputType: string) {
+    const modal = await this.modal.create({
+      component: InputModalComponent,
+      componentProps: { 
+        title: title,
+        inputType: inputType,
+      }
+    });
+    modal.present();
+  }
 }
