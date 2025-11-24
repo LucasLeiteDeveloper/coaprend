@@ -1,9 +1,47 @@
 <ion-header class="subpage-header">
   <ion-toolbar class="content-container">
-    <ion-back-button slot="start" icon="chevron-back-outline" aria-label="Voltar" color="dark" text=""></ion-back-button>
+    <ion-back-button
+      slot="start"
+      icon="chevron-back-outline"
+      aria-label="Voltar"
+      color="dark"
+      text="">
+    </ion-back-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-searchbar></ion-searchbar>
+
+  <!-- Barra de busca -->
+  <ion-searchbar
+    placeholder="Buscar posts e tarefas..."
+    (ionInput)="onSearch($event)">
+  </ion-searchbar>
+
+  <!-- Resultados de Posts -->
+  <div *ngIf="postsResultados.length > 0">
+    <h3>Posts</h3>
+    <ion-list>
+      <ion-item *ngFor="let post of postsResultados">
+        <ion-label>
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.content }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- Resultados de Tasks -->
+  <div *ngIf="tasksResultados.length > 0">
+    <h3>Tarefas</h3>
+    <ion-list>
+      <ion-item *ngFor="let tk of tasksResultados">
+        <ion-label>
+          <h2>{{ tk.title }}</h2>
+          <p>{{ tk.description }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
 </ion-content>

@@ -40,38 +40,59 @@
     (change)="onFileSelected($event)"
   />
 
+  <!-- MODAL DO CALENDÁRIO -->
+  <ion-modal [isOpen]="showCalendar" (didDismiss)="showCalendar = false">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Selecionar data</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="showCalendar = false">Fechar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        <ion-datetime
+          presentation="date"
+          [(ngModel)]="postDate">
+        </ion-datetime>
+
+        <ion-button expand="block" (click)="confirmDate()">
+          Confirmar
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>
 
+<!-- FAB -->
 <ion-fab vertical="bottom" horizontal="end" slot="fixed"
          style="display: flex; align-items: end; gap: 8px;">
 
-  <!-- Botão calendário -->
+  <!-- Calendário -->
   <div class="fab-secondary-button"
        aria-label="Atrelar a uma data"
-       (click)="noop()">
+       (click)="openCalendar()">
     <ion-icon name="calendar-outline" class="icon-s"></ion-icon>
   </div>
 
-  <!-- Botão imagens -->
+  <!-- Imagens -->
   <div class="fab-secondary-button"
        aria-label="Adicionar imagens"
        (click)="fileInput.click()">
     <ion-icon name="image-outline" class="icon-s"></ion-icon>
   </div>
 
-  <!-- Botão tags -->
-  <button class="fab-secondary-button" aria-label="Adicionar Tags" (click)="openTextModal('Teste', 'text')">
-    <ion-icon name="pricetag-outline" aria-hidden="true" class="icon-s"></ion-icon>
-  </button>
-
-  <!-- Botão selecionar sala -->
+  <!-- Tags -->
   <button class="fab-secondary-button"
-          aria-label="Selecionar a sala"
-          (click)="noop()">
-    <ion-icon name="school-outline" class="icon-s"></ion-icon>
+          aria-label="Adicionar Tags"
+          (click)="openTagSelector()">
+    <ion-icon name="pricetag-outline" class="icon-s"></ion-icon>
   </button>
 
-  <!-- Botão publicar -->
+  <!-- Publicar -->
   <button class="fab-primary-button"
           aria-label="Publicar a tarefa"
           (click)="createPost()">
