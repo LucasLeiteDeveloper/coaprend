@@ -6,7 +6,7 @@
       color="dark"
       text="">
     </ion-back-button>
-    <ion-title>Configurações</ion-title>
+    <ion-title color="dark">Configurações</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,7 +19,7 @@
   <ion-list-header>Aparencia</ion-list-header>
   <ion-list [inset]="true">
     <ion-item>
-      <ion-toggle justify="space-between">Modo escuro</ion-toggle>
+      <ion-toggle justify="space-between" [(ngModel)]="paletteToggle" (ionChange)="toggleChange($event)">Modo escuro</ion-toggle>
     </ion-item>
     <ion-item>
       <ion-toggle justify="space-between">Aumentar espaçamento</ion-toggle>
