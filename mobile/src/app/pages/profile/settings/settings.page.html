@@ -11,11 +11,26 @@
 </ion-header>
 
 <ion-content>
+  <ion-list-header>Perfil</ion-list-header>
+  <ion-list [inset]="true">
+    <ion-item [button]="true">Alterar nome</ion-item>
+    <ion-item [button]="true">Alterar foto de perfil</ion-item>
+  </ion-list>
   <ion-list-header>Aparencia</ion-list-header>
   <ion-list [inset]="true">
-    <ion-item [button]="true">Text Size</ion-item>
     <ion-item>
-      <ion-toggle justify="space-between">Bold Text</ion-toggle>
+      <ion-toggle justify="space-between">Modo escuro</ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-toggle justify="space-between">Aumentar espaçamento</ion-toggle>
+    </ion-item>
+  </ion-list>
+  <ion-list-header>Mais</ion-list-header>
+  <ion-list [inset]="true">
+    <ion-item [button]="true">Politica de privacidade</ion-item>
+    <ion-item [button]="true">Termos de uso</ion-item>
+    <ion-item [button]="true">
+      <ion-label color="danger">Sair</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
