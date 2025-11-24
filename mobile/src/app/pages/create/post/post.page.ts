@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PostService } from 'src/app/services/postService/post';
-import { ToastController, NavController } from '@ionic/angular';
-
+import { ToastController, NavController, ModalController } from '@ionic/angular';
+import { InputModalComponent } from 'src/app/components/input-modal/input-modal.component';
 @Component({
   selector: 'app-post-create',
   templateUrl: './post.page.html',
@@ -20,7 +20,8 @@ export class PostPage {
   constructor(
     private postService: PostService,
     private toastCtrl: ToastController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private modal: ModalController,
   ) {}
 
   // chamada ao clicar no FAB (+)
@@ -61,6 +62,17 @@ export class PostPage {
       color: 'primary'
     });
     toast.present();
+  }
+
+  async openTextModal(title: string, inputType: string) {
+    const modal = await this.modal.create({
+      component: InputModalComponent,
+      componentProps: { 
+        title: title,
+        inputType: inputType,
+      }
+    });
+    modal.present();
   }
 }
 
