@@ -46,3 +46,52 @@
     border-bottom: 2px solid var(--color-primary);
   }
 }
+
+.tag-selector {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: scroll;
+  gap: 8px;
+
+  .tag-option {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: initial;
+    border-radius: 5px;
+    border: 1px solid blue;
+    height: fit-content;
+    padding: 8px;
+
+    ion-icon {
+      margin: 0;
+      padding: 0;
+    }
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  .tag-option.selected {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: blue;
+    border-radius: 5px;
+    height: fit-content;
+    padding: 8px;
+
+    ion-icon {
+      margin: 0;
+      padding: 0;
+    }
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
