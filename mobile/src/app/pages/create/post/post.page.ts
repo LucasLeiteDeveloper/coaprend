@@ -9,13 +9,17 @@ import { ToastController, NavController } from '@ionic/angular';
   standalone: false,
 })
 export class PostPage {
+
   title: string = '';
   content: string = '';
   image?: File;
 
-  // campos obrigatórios exigidos pelo backend
+  postDate: string | null = null; // data opcional
+
+  // showDateSelector = false; // <-- desativado por enquanto
+
   type: string = 'text';
-  tag_color: string = '#3B82F6'; // azul padrão (pode mudar)
+  tag_color: string = '#3B82F6';
 
   constructor(
     private postService: PostService,
@@ -23,19 +27,43 @@ export class PostPage {
     private navCtrl: NavController
   ) {}
 
-  // chamada ao clicar no FAB (+)
+  ngOnInit() {}
+
+  // Função neutra para impedir erros enquanto os componentes ainda não existem
+  noop() {}
+
+  /*
+  toggleDateSelector() {
+    this.showDateSelector = !this.showDateSelector;
+  }
+
+  onDateSelected(date: string) {
+    this.postDate = date;
+    this.showDateSelector = false;
+  }
+
+  onCancelDate() {
+    this.showDateSelector = false;
+  }
+  */
+
   createPost() {
     if (!this.title) {
       this.showToast('O título é obrigatório!');
       return;
     }
 
+    const finalDate =
+      this.postDate ??
+      new Date().toISOString().split('T')[0]; // data atual caso nenhuma seja escolhida
+
     const payload = {
       title: this.title,
       content: this.content,
       type: this.type,
       tag_color: this.tag_color,
-      options: [], // por enquanto vazio
+      options: [],
+      date: finalDate, // <-- incluído no registro
     };
 
     this.postService.createFormData(payload, this.image).subscribe({
@@ -63,4 +91,3 @@ export class PostPage {
     toast.present();
   }
 }
-
