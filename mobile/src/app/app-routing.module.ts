@@ -71,6 +71,11 @@ const routes: Routes = [
     path: 'class-select',
     loadChildren: () => import('./pages/class-select/class-select.module').then( m => m.ClassSelectPageModule)
   },
+  {
+    path: 'create/profile',
+    loadChildren: () => import('./pages/create/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+
 
 ];
 
