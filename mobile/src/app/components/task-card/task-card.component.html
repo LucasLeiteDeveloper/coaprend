@@ -1,7 +1,7 @@
 <article class="task-card"> 
     <div class="task-card-main">
-        <ion-checkbox></ion-checkbox>
-        <div class="task-card-content"> 
+        <ion-checkbox *ngIf="multiTasks"></ion-checkbox>
+        <div class="task-card-content" [routerLink]="['/task/0']"> 
             <p class="task-text">{{ task.dueDate }}</p>
             <h2>{{ task.title }}</h2>
         </div>
@@ -13,4 +13,5 @@
         </div>
     </div>
 </article>
-<hr>
+<p *ngIf="!multiTasks">{{ task.content }}</p>
+<hr *ngIf="multiTasks">

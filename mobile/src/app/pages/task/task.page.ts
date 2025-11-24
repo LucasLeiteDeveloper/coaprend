@@ -11,6 +11,11 @@ import { AlertController, LoadingController, NavController } from '@ionic/angula
 export class TaskPage implements OnInit {
   tasks: any[] = [];
   loading: HTMLIonLoadingElement | null = null;
+  public taskExample: {} = {
+    title: 'Post de teste',
+    dueDate: '25/10/2025',
+    content: "Lorem"
+  };
 
   constructor(
     private taskService: TaskService,
