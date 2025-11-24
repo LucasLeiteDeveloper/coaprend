@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class SettingsPage implements OnInit {
-paletteToggle = false;
+  paletteToggle = false;
 
-  constructor() {}
+  constructor(
+    public actionConfirm: ActionSheetController,
+  ) {}
 
   ngOnInit() {
     // Use matchMedia to check the user preference
@@ -38,4 +41,26 @@ paletteToggle = false;
   toggleDarkPalette(shouldAdd: boolean) {
     document.documentElement.classList.toggle('ion-palette-dark', shouldAdd);
   }
+
+  async canDismiss() {
+    const actionSheet = await this.actionConfirm.create({
+      header: 'Deseja mesmo sair?',
+      buttons: [
+        {
+          text: 'Sim',
+          role: 'confirm',
+        },
+        {
+          text: 'Não',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    actionSheet.present();
+
+    const { role } = await actionSheet.onWillDismiss();
+
+    return role === 'confirm';
+  };
 }

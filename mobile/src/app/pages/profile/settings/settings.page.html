@@ -30,7 +30,7 @@
     <ion-item [button]="true" [routerLink]="['/policy']">Politica de privacidade</ion-item>
     <ion-item [button]="true">Termos de uso</ion-item>
     <ion-item [button]="true">
-      <ion-label color="danger">Sair</ion-label>
+      <ion-label color="danger" (click)="canDismiss()">Sair</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
