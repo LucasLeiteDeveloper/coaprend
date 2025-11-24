@@ -1,12 +1,18 @@
 <ion-header class="subpage-header">
   <ion-toolbar class="content-container">
-    <ion-back-button slot="start" icon="chevron-back-outline" aria-label="Voltar" color="dark" text="">
+    <ion-back-button
+      slot="start"
+      icon="chevron-back-outline"
+      aria-label="Voltar"
+      color="dark"
+      text="">
     </ion-back-button>
     <ion-title>Criar Post</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding grid-spacing-m">
+
   <ion-input
     type="text"
     placeholder="Digite aqui"
@@ -16,6 +22,7 @@
     name="title"
     style="border-bottom: 1px solid gray;">
   </ion-input>
+
   <ion-textarea
     placeholder="Digite aqui"
     label="Conteúdo*"
@@ -24,6 +31,7 @@
     [(ngModel)]="content"
     name="content">
   </ion-textarea>
+
   <input
     type="file"
     accept="image/*"
@@ -31,26 +39,45 @@
     #fileInput
     (change)="onFileSelected($event)"
   />
+
 </ion-content>
 
-<ion-fab vertical="bottom" horizontal="end" slot="fixed" style="display: flex; align-items: end; gap: 8px;">
-  <button class="fab-secondary-button" aria-label="Atrelhar a uma data">
-    <ion-icon name="calendar-outline" aria-hidden="true" class="icon-s"></ion-icon>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed"
+         style="display: flex; align-items: end; gap: 8px;">
+
+  <!-- Botão calendário -->
+  <div class="fab-secondary-button"
+       aria-label="Atrelar a uma data"
+       (click)="noop()">
+    <ion-icon name="calendar-outline" class="icon-s"></ion-icon>
+  </div>
+
+  <!-- Botão imagens -->
+  <div class="fab-secondary-button"
+       aria-label="Adicionar imagens"
+       (click)="fileInput.click()">
+    <ion-icon name="image-outline" class="icon-s"></ion-icon>
+  </div>
+
+  <!-- Botão tags -->
+  <div class="fab-secondary-button"
+       aria-label="Adicionar Tags"
+       (click)="noop()">
+    <ion-icon name="pricetag-outline" class="icon-s"></ion-icon>
+  </div>
+
+  <!-- Botão selecionar sala -->
+  <button class="fab-secondary-button"
+          aria-label="Selecionar a sala"
+          (click)="noop()">
+    <ion-icon name="school-outline" class="icon-s"></ion-icon>
   </button>
 
-  <button class="fab-secondary-button" aria-label="Adicionar imagens" (click)="fileInput.click()">
-    <ion-icon name="image-outline" aria-hidden="true" class="icon-s"></ion-icon>
+  <!-- Botão publicar -->
+  <button class="fab-primary-button"
+          aria-label="Publicar a tarefa"
+          (click)="createPost()">
+    <ion-icon name="add" class="icon-m"></ion-icon>
   </button>
 
-  <button class="fab-secondary-button" aria-label="Adicionar Tags">
-    <ion-icon name="pricetag-outline" aria-hidden="true" class="icon-s"></ion-icon>
-  </button>
-
-  <button class="fab-secondary-button" aria-label="Selecionar a sala">
-    <ion-icon name="school-outline" aria-hidden="true" class="icon-s"></ion-icon>
-  </button>
-
-  <button class="fab-primary-button" aria-label="Publicar a tarefa" (click)="createPost()">
-    <ion-icon name="add" aria-hidden="true" class="icon-m"></ion-icon>
-  </button>
 </ion-fab>
