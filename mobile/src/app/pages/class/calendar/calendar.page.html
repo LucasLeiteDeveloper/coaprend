@@ -17,8 +17,10 @@
     </ion-button>
 </section>
 
-<!-- VISUALIZAÇÃO DAS TAREFAS -->
+<!-- LISTA SEMANAL -->
 <ion-list *ngIf="!showingDayOnly">
+
+    <!-- TAREFAS -->
     <ion-item *ngFor="let task of tasksOfWeek">
         <ion-label>
             <h2>{{ task.titulo }}</h2>
@@ -26,14 +28,37 @@
             <p>Entrega: {{ task.data_limite | date:'dd/MM/yyyy' }}</p>
         </ion-label>
     </ion-item>
+
+    <!-- POSTS -->
+    <ion-item *ngFor="let post of postsOfWeek">
+        <ion-label>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+            <p>Postado em: {{ post.date | date:'dd/MM/yyyy' }}</p>
+        </ion-label>
+    </ion-item>
+
 </ion-list>
 
+<!-- LISTA POR DIA SELECIONADO -->
 <ion-list *ngIf="showingDayOnly">
+
+    <!-- TAREFAS -->
     <ion-item *ngFor="let task of tasksOfSelectedDay">
-    <ion-label>
-        <h2>{{ task.titulo }}</h2>
-        <p>{{ task.descricao }}</p>
-        <p>Entrega: {{ task.data_limite | date:'dd/MM/yyyy' }}</p>
-    </ion-label>
+        <ion-label>
+            <h2>{{ task.titulo }}</h2>
+            <p>{{ task.descricao }}</p>
+            <p>Entrega: {{ task.data_limite | date:'dd/MM/yyyy' }}</p>
+        </ion-label>
     </ion-item>
+
+    <!-- POSTS -->
+    <ion-item *ngFor="let post of postsOfSelectedDay">
+        <ion-label>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+            <p>Postado em: {{ post.date | date:'dd/MM/yyyy' }}</p>
+        </ion-label>
+    </ion-item>
+
 </ion-list>

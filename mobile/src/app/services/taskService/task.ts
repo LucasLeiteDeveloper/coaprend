@@ -45,6 +45,10 @@ export class TaskService {
     return this.api.post('tasks', form);
   }
 
+  search(text: string) {
+  return this.api.get(`posts/search?text=${text}`);
+}
+
   // Atualizar tarefa
   updateFormData(id: number, payload: any, files?: File[]): Observable<any> {
     const form = new FormData();
