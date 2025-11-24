@@ -1,4 +1,5 @@
 const { db } = require("../config/db"); //gets the firestore
+const { sendNotification } = require("../utils/notificationHelper");
 
 /* create a new room of content on Firestore
 the req.user.uid will be send from authenticateToken*/
@@ -121,6 +122,19 @@ exports.createTask = async (req, res) => {
 
         const newTaskRef = await db.collection('tasks').add(taskData);
 
+        //gets the room members
+        const roomDoc = await db.collection.doc(roomId).get();
+
+        if(roomDoc.exists){
+            const members = roomDoc.data().membersId || [];
+
+            memebers.forEach(memberUid => {
+                if(memberUid !== req.user.uid){
+                    sendNotification(memberUid, "Nova Tarefa", `Tarefa ${title} criada na sala.`, "task");
+                }
+            })
+        }
+
         return res.status(201).json({
             message: "Tarefa criada com sucesso!",
             taskId: newTaskRef.id
@@ -235,7 +249,7 @@ exports.updateTask = async (req, res) => {
     }
 }
 
-// search POSTS (by word)
+// search POSTS
 exports.searchGlobalPosts = async (req, res) => {
     try {
         const { q } = req.query; // gets ?q=word
@@ -265,5 +279,89 @@ exports.searchGlobalPosts = async (req, res) => {
     } catch (error) {
         console.error("Erro na busca:", error);
         return res.status(500).json({ error: "Erro interno na busca." });
+    }
+}
+
+exports.searchPostsByTags = async (req, res) => {
+    try{
+        const { tag } = req.query;
+
+        if (!tag) return res.status(400).json({ error: "Tag obrigatória" });
+
+        const postRef = db.collection('posts');
+        const snapshot = await postRef.where('tags', 'array-contains', tag.toLowerCase())
+
+        if (snapshot.empty) return res.status(200).json([]);
+
+        const posts = snapshot.docs.map(doc => ( { id: doc.id, ...doc.data() } ));
+
+        return res.status(200).json(posts);
+    } catch(error){
+        console.error("Erro ao buscar tags: ", error);
+        return res.status(500).json({ error: "Erro interno!" });
+    }
+}
+
+// DELETE FUNCTIONS
+exports.deleteRoom = async (req, res) => {
+    try {
+        const { roomId } = req.params;
+        const userId = req.user.uid;
+
+        const roomRef = db.collection('room').doc(roomId);
+        const doc = await roomRef.get();
+
+        if(!doc.exists) return res.status(404).json({ error: "Sala não encontrada!" });
+
+        if(doc.data().creatorUid !== userId) return res.status(403).json({ error: "Sem permissão!" });
+
+        await roomRef.delete();
+
+        return res.status(200).json({ message: "Sala deletada!" });
+    } catch(error){
+        console.error("Erro ao deletar sala: ", error);
+        return res.status(500).json({ error: "Erro interno!" });
+    }
+}
+
+exports.deletePost = async (req, res) => {
+    try {
+        const { postId } = req.params;
+        const userId = req.user.uid;
+
+        const postRef = db.collection('room').doc(postId);
+        const doc = await postRef.get();
+
+        if(!doc.exists) return res.status(404).json({ error: "Sala não encontrada!" });
+
+        if(doc.data().creatorUid !== userId) return res.status(403).json({ error: "Sem permissão!" });
+
+        await postRef.delete();
+
+        return res.status(200).json({ message: "Sala deletada!" });
+    } catch(error){
+        console.error("Erro ao deletar sala: ", error);
+        return res.status(500).json({ error: "Erro interno!" });
+    }
+}
+
+exports.deleteTask = async(req, res) => {
+    try {
+        const { taskId } = req.params;
+        const userId = req.user.uid;
+
+        const taskRef = db.collection('room').doc(taskId);
+        const doc = await taskRef.get();
+
+        if(!doc.exists) return res.status(404).json({ error: "Sala não encontrada!" });
+
+        if(doc.data().creatorUid !== userId) return res.status(403).json({ error: "Sem permissão!" });
+
+        await taskRef.delete();
+
+        return res.status(200).json({ message: "Sala deletada!" });
+    } catch(error){
+        console.error("Erro ao deletar sala: ", error);
+        return res.status(500).json({ error: "Erro interno!" });
     }
 }
