@@ -17,17 +17,9 @@
 <ion-popover trigger="trigger-button">
   <ng-template>
     <div class="ion-padding tag-selector">
-      <div class="tag-option">
-        <ion-icon name="pricetag-outline"></ion-icon>
-        <p>Português</p>
-      </div>
-      <div class="tag-option">
-        <ion-icon name="pricetag-outline"></ion-icon>
-        <p>Português</p>
-      </div>
-      <div class="tag-option">
-        <ion-icon name="pricetag-outline"></ion-icon>
-        <p>Português</p>
+      <div *ngFor="let tag of tags" class="tag-option" [class]="tag.color" [class.selected]="tag.selected" [id]="['tag' + tag.id]" (click)="selectTag(tag.id)">
+        <ion-icon [name]="tag.icon"></ion-icon>
+        <p>{{ tag.text }}</p>
       </div>
     </div>
   </ng-template>
