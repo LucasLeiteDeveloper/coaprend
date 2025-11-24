@@ -6,17 +6,23 @@
 </ion-header>
 
 <ion-content>
-  <ion-list-header>Basico</ion-list-header>
+  <ion-list-header>Sala</ion-list-header>
   <ion-list [inset]="true">
-    <ion-item [button]="true">Nome da sala</ion-item>
-    <ion-item [button]="true">Foto da sala</ion-item>
+    <ion-item [button]="true">Alterar nome</ion-item>
+    <ion-item [button]="true">Alterar foto de perfil</ion-item>
   </ion-list>
   <ion-list-header>Organização</ion-list-header>
   <ion-list [inset]="true">
     <ion-item [button]="true">Tags</ion-item>
+    <ion-item [button]="true">Permissões</ion-item>
   </ion-list>
-  <ion-list-header>Permissões</ion-list-header>
+  <ion-list-header>Mais</ion-list-header>
   <ion-list [inset]="true">
-    <ion-item [button]="true">Usuários</ion-item>
+    <ion-item [button]="true">
+      <ion-label color="danger">Excluir</ion-label>
+    </ion-item>
+    <ion-item [button]="true">
+      <ion-label color="danger">Sair</ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>

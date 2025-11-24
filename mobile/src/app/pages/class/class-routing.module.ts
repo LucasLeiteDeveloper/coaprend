@@ -30,7 +30,10 @@ const routes: Routes = [
     path: 'config',
     loadChildren: () => import('./config/config.module').then( m => m.ConfigPageModule)
   },
-
+  {
+    path: 'search',
+    loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
+  },
 ];
 
 @NgModule({
