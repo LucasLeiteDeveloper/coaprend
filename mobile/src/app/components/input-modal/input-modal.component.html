@@ -1,0 +1,25 @@
+<ion-header class="subpage-header">
+  <ion-toolbar class="content-container">
+    <ion-buttons slot="start">
+      <ion-button slot="icon-only" aria-label="Voltar" fill="clear" (click)="cancel()">teste</ion-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div *ngIf="inputType == 'text'">
+    <ion-input
+    type="text"
+    placeholder="Digite aqui"
+    label="Digite aqui"
+    labelPlacement="stacked"
+    ></ion-input>
+  </div>
+  <div *ngIf="inputType == 'calendar'">
+    <ion-input
+    type="calendar"
+    label="Selecione a data"
+    labelPlacement="stacked"
+    ></ion-input>
+  </div>
+</ion-content>
