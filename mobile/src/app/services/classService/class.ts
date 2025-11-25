@@ -26,9 +26,11 @@ export class ClassService {
   // -------------------------------------------------------------
   // 🟣 Entrar via código
   // -------------------------------------------------------------
-  joinClass(code: string): Observable<any> {
-    return this.api.post('classes/join', { code });
-  }
+joinClass(code: string): Observable<any> {
+    // A API deve retornar o objeto da sala que o usuário acabou de entrar.
+    // TODO: Plugar API real
+    return this.api.post('classes/join', { code });
+  }
 
   // -------------------------------------------------------------
   // 🟥 Sair da sala

@@ -4,16 +4,19 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root'
 })
 export class ApiService {
-  private BASE_URL = "localhost:8000";
+  // CORREÇÃO: Usar environment.apiUrl para a URL base, garantindo que a URL seja:
+  // http://localhost:8000/api
+  private BASE_URL = environment.apiUrl; 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-  get(endpoint: string): Observable<any> {
-    return this.http.get(`${this.BASE_URL}/${endpoint}`);
-  }
+  get(endpoint: string): Observable<any> {
+    // Agora, a requisição será para: http://localhost:8000/api/classes/my
+    return this.http.get(`${this.BASE_URL}/${endpoint}`);
+  }
 
   post(endpoint: string, data: any): Observable<any> {
     if (data instanceof FormData) {
