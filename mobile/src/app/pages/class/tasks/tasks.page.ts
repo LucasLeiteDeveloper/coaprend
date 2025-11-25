@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/services/taskService/task';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { ClassPage } from '../class.page';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-task',
@@ -10,8 +11,8 @@ import { ClassPage } from '../class.page';
   standalone: false,
 })
 export class TasksPage implements OnInit {
-  tasks: any[] = [];
-  filteredTasks: any[] = [];
+  tasks: any;
+  filteredTasks: any;
   loading: HTMLIonLoadingElement | null = null;
 
   constructor(
@@ -19,7 +20,8 @@ export class TasksPage implements OnInit {
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private navCtrl: NavController,
-    private classPage: ClassPage
+    private classPage: ClassPage,
+    private http: HttpClient,
   ) {}
 
   async ngOnInit() {
@@ -32,38 +34,49 @@ export class TasksPage implements OnInit {
   }
 
   async loadTasks(event?: any) {
-    if (!event) {
-      this.loading = await this.loadingCtrl.create({ message: 'Carregando tarefas...' });
-      await this.loading.present();
-    }
-
-    this.taskService.getAll().subscribe({
-      next: async (res) => {
-        this.tasks = res?.data || res || [];
+    this.http.get("assets/task-data.json").subscribe({
+      next: (data) => {
+        this.tasks = data;
         this.applyTagFilter();
-
-        if (this.loading) await this.loading.dismiss();
-        if (event) event.target.complete();
+        this.tasks = this.filteredTasks;
+        console.log('Posts carregados:', this.tasks);
       },
-      error: async () => {
-        if (this.loading) await this.loading.dismiss();
-        if (event) event.target.complete();
-      }
+      error: (err) => {
+        console.error('Erro ao carregar posts:', err);
+      },
     });
+    // if (!event) {
+    //   this.loading = await this.loadingCtrl.create({ message: 'Carregando tarefas...' });
+    //   await this.loading.present();
+    // }
+
+    // this.taskService.getAll().subscribe({
+    //   next: async (res) => {
+    //     this.tasks = res?.data || res || [];
+    //     this.applyTagFilter();
+
+    //     if (this.loading) await this.loading.dismiss();
+    //     if (event) event.target.complete();
+    //   },
+    //   error: async () => {
+    //     if (this.loading) await this.loading.dismiss();
+    //     if (event) event.target.complete();
+    //   }
+    // });
   }
 
   private applyTagFilter() {
     const selectedTags = this.classPage.tags
       .filter((t: any) => t.selected)
-      .map((t: any) => t.text);
+      .map((t: any) => t.id);
 
     if (!selectedTags.length) {
       this.filteredTasks = [...this.tasks];
       return;
     }
 
-    this.filteredTasks = this.tasks.filter(task =>
-      task.tags?.some((t: any) => selectedTags.includes(t.name ?? t))
+    this.filteredTasks = this.tasks.filter((task: any) =>
+      task.tags?.some((t: any) => selectedTags.includes(t.id ?? t))
     );
   }
 
@@ -89,7 +102,7 @@ export class TasksPage implements OnInit {
 
   deleteTask(id: number) {
     this.taskService.delete(id).subscribe(() => {
-      this.tasks = this.tasks.filter(t => t.id !== id);
+      this.tasks = this.tasks.filter((t: any) => t.id !== id);
       this.applyTagFilter();
     });
   }

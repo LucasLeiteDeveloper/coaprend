@@ -1,19 +1,19 @@
-<ion-header class="subpage-header">
+<task-card *ngFor="let task of tasks" [task]="task"></task-card>
+
+<!-- <ion-header class="subpage-header">
   <ion-toolbar class="content-container">
     <ion-back-button slot="start" icon="chevron-back-outline" color="dark" text=""></ion-back-button>
     <ion-title>Tarefas</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding"> -->
 
-  <!-- Nenhuma tarefa -->
-  <div *ngIf="tasks.length === 0" class="empty-box">
+  <!-- <div *ngIf="tasks.length === 0" class="empty-box">
     <ion-icon name="document-outline"></ion-icon>
     <p>Nenhuma tarefa encontrada</p>
   </div>
 
-  <!-- Lista de tarefas -->
   <ion-list>
     <ion-card *ngFor="let task of tasks">
       <ion-card-header>
@@ -48,6 +48,6 @@
         </div>
       </ion-card-content>
     </ion-card>
-  </ion-list>
+  </ion-list> -->
 
-</ion-content>
+<!-- </ion-content> -->

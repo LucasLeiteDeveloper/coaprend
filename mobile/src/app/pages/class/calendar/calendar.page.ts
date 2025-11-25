@@ -95,8 +95,8 @@ export class CalendarPage implements OnInit {
 
   private applyTagFilter(): void {
     const selectedTags = this.classPage.tags
-      .filter(t => t.selected)
-      .map(t => t.text);
+      .filter((t: any) => t.selected)
+      .map((t: any) => t.text);
 
     // Filtrar tarefas da semana
     this.tasksOfSelectedDay = this.tasksOfWeek

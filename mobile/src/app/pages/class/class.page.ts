@@ -15,7 +15,14 @@ import { TagService } from 'src/app/services/tagService/tag';
 export class ClassPage implements OnInit {
   public selectedTab: string = "";
   public classId!: number;
-  public tags: any[] = [];
+  public tags: any = [
+    {
+      id: 1,
+      text: "teste",
+      color: "blue",
+      selected: false,
+    }
+  ];
 
   // BehaviorSubject para notificar filhos sobre as tags selecionadas
   public tagFilter$ = new BehaviorSubject<number[]>([]);
@@ -54,7 +61,7 @@ export class ClassPage implements OnInit {
   }
 
   get selectedTags(): number[] {
-    return this.tags.filter(t => t.selected).map(t => t.id);
+    return this.tags.filter((t: any) => t.selected).map((t: any) => t.id);
   }
 
   onSelectClass(id: any) {
@@ -78,7 +85,7 @@ export class ClassPage implements OnInit {
   }
 
   selectTag(id: number) {
-    const tag = this.tags.find(t => t.id === id);
+    const tag = this.tags.find((t: any) => t.id === id);
     if (!tag) return;
 
     tag.selected = !tag.selected;
@@ -86,7 +93,6 @@ export class ClassPage implements OnInit {
     const tagElement = document.getElementById("tag" + id);
     tagElement?.classList.toggle("selected", tag.selected);
 
-    // Notifica os filhos sobre as tags selecionadas
     this.tagFilter$.next(this.selectedTags);
   }
 }

@@ -6,7 +6,8 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ng-container *ngIf="task; else loadingTpl">
+  <task-card *ngIf="task" [task]="task" [multiTasks]="false"></task-card>
+  <!-- <ng-container *ngIf="task; else loadingTpl">
 
     <ion-card>
       <ion-card-header>
@@ -18,17 +19,14 @@
 
       <ion-card-content>
 
-        <!-- DESCRIÇÃO -->
         <p>{{ task.description || 'Sem descrição.' }}</p>
 
-        <!-- TAGS -->
         <div *ngIf="task.tags?.length" style="margin-top:12px;">
           <ion-chip *ngFor="let tg of task.tags">
             {{ tg.name ?? tg }}
           </ion-chip>
         </div>
 
-        <!-- ANEXOS -->
         <div *ngIf="task.attachments?.length" style="margin-top:16px;">
           <p><strong>Anexos</strong></p>
 
@@ -43,7 +41,6 @@
           </ion-list>
         </div>
 
-        <!-- CRIADOR (opcional) -->
         <ion-item lines="none" *ngIf="task.creator" style="margin-top:16px;">
           <ion-avatar slot="start">
             <img [src]="task.creator.avatar || task.creator.image" />
@@ -64,5 +61,5 @@
       <ion-spinner name="crescent"></ion-spinner>
       <p>Carregando tarefa...</p>
     </div>
-  </ng-template>
+  </ng-template> -->
 </ion-content>

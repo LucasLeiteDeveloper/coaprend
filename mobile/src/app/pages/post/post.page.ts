@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/postService/post';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-post',
@@ -11,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PostPage implements OnInit {
   postId: number = 0;
+  posts: any = "";
   post: any = null;
 
   isLoading: boolean = false;
@@ -21,22 +23,32 @@ export class PostPage implements OnInit {
     private postService: PostService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
+    private http: HttpClient,
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       this.postId = Number(params.get('id'));
-      this.loadPost();
     });
+    this.loadPost();
   }
 
   loadPost() {
-    this.postService.getAll().subscribe({
-      next: (res) => {
-        this.post = res.find((p: any) => p.id == this.postId);
+    this.http.get("assets/posts-data.json").subscribe({
+      next: (data) => {
+        this.posts = data;
+        this.post = this.posts.find((post: any) => post.id == this.postId);
       },
-      error: (err) => console.error('Erro ao carregar post:', err)
+      error: (err) => {
+        console.error('Erro ao carregar os posts:', err);
+      }
     });
+    // this.postService.getAll().subscribe({
+    //   next: (res) => {
+    //     this.post = res.find((p: any) => p.id == this.postId);
+    //   },
+    //   error: (err) => console.error('Erro ao carregar post:', err)
+    // });
   }
 
   async generateContent() {

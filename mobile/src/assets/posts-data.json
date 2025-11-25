@@ -3,120 +3,213 @@
     "id": 0,
     "title": "Dominando JavaScript Assíncrono: Promises, Async/Await e Tratamento de Erros",
     "content": "A programação assíncrona é fundamental no JavaScript moderno, especialmente ao lidar com requisições de rede (APIs) ou operações baseadas em tempo. Este artigo explora a progressão dos Callbacks tradicionais para as Promises modernas, oferecendo um mergulho profundo nos métodos `.then()`, `.catch()` e `.finally()`. Crucialmente, detalhamos como a sintaxe `async/await` simplifica as cadeias complexas de Promises, tornando o código assíncrono mais legível e fácil de depurar. Além disso, fornecemos melhores práticas para um tratamento de erros robusto usando blocos `try...catch` com `async/await` para evitar falhas inesperadas em suas aplicações web.",
-    "username": "Felipe Souza"
+    "username": "Felipe Souza",
+    "tags": [
+      1
+    ],
+    "date": null
   },
   {
     "id": 1,
     "title": "Uma Análise Profunda em React Hooks: useState, useEffect e Custom Hooks",
     "content": "Hooks revolucionaram o desenvolvimento de componentes funcionais no React, permitindo que funcionalidades de estado e ciclo de vida fossem utilizadas sem a necessidade de escrever classes. Começamos com o `useState` para gerenciamento de estado simples e, em seguida, exploramos o `useEffect`, que lida com efeitos colaterais como busca de dados ou manipulações manuais do DOM. O foco principal é a criação de **Custom Hooks** eficazes para reutilizar a lógica em diferentes componentes, como um hook `useFetch` ou um `useLocalStorage`, demonstrando como esse padrão melhora significativamente a modularidade e a manutenibilidade do código em aplicações de grande escala.",
-    "username": "Camila Oliveira"
+    "username": "Camila Oliveira",
+    "tags": [
+      2,
+      1
+    ],
+    "date": null
   },
   {
     "id": 2,
     "title": "Otimização de Performance Web: Estratégias para uma Pontuação Lighthouse 100/100",
     "content": "Alcançar pontuações perfeitas no Google Lighthouse exige uma abordagem abrangente para a otimização de front-end. Este guia cobre áreas críticas, incluindo a **redução de recursos que bloqueiam a renderização** (adiando CSS/JS não crítico), implementando **lazy loading** para imagens e componentes fora da área visível, e garantindo **estratégias eficientes de cache** para ativos estáticos. Também discutimos otimizações do lado do servidor, como compressão Gzip/Brotli, e o papel crucial das Core Web Vitals (LCP, FID, CLS) na definição da experiência real do usuário e no ranking de SEO.",
-    "username": "Rafael Costa"
+    "username": "Rafael Costa",
+    "tags": [
+      3,
+      2,
+      3
+    ],
+    "date": null
   },
   {
     "id": 3,
     "title": "Estruturando APIs RESTful: Guia Completo para Nomeação de Recursos e Métodos HTTP",
     "content": "Projetar uma API RESTful limpa e intuitiva é crucial para sua adoção e manutenibilidade. Este post descreve as melhores práticas para nomeação de recursos (usando plurais e substantivos claros), o uso correto dos métodos HTTP (`GET`, `POST`, `PUT`, `DELETE`, `PATCH`) e a sinalização adequada de códigos de status (por exemplo, 201 para criação, 404 para não encontrado, 400 para requisições inválidas). Também abordamos estratégias de paginação, filtragem e versionamento (`/v1/recursos`) para garantir que a API permaneça escalável ao longo do tempo.",
-    "username": "Beatriz Lima"
+    "username": "Beatriz Lima",
+    "tags": [
+      1,
+      3
+    ],
+    "date": null
   },
   {
     "id": 4,
     "title": "O Poder do TypeScript: Migrando um Pequeno Projeto JavaScript para Maior Segurança de Tipos",
     "content": "TypeScript (TS) adiciona tipagem estática ao JavaScript, reduzindo drasticamente os erros em tempo de execução e melhorando as ferramentas de desenvolvimento. Este tutorial percorre o processo de configuração de um projeto Node.js básico com TS, incluindo a configuração do `tsconfig.json`. Convertemos arquivos JS existentes, adicionando interfaces para objetos e tipos explícitos para parâmetros e valores de retorno de funções. O foco é demonstrar como o compilador TS detecta bugs comuns *antes* que o código seja executado, levando a uma base de código muito mais estável.",
-    "username": "Thiago Alves"
+    "username": "Thiago Alves",
+    "tags": [
+      2
+    ],
+    "date": null
   },
   {
     "id": 5,
     "title": "Protegendo Sua Aplicação Web: O Papel dos Headers CSP e HSTS",
     "content": "A segurança deve ser uma prioridade desde o início. Este artigo se concentra em dois headers de resposta HTTP essenciais para proteção: **Content Security Policy (CSP)** e **HTTP Strict Transport Security (HSTS)**. O CSP ajuda a mitigar o Cross-Site Scripting (XSS) definindo quais fontes de conteúdo (scripts, estilos, imagens) são confiáveis. O HSTS força o navegador a se comunicar com seu site exclusivamente via HTTPS, protegendo contra ataques de downgrade de protocolo. Mostramos exemplos de configuração para servidores web populares como Nginx e Apache.",
-    "username": "Mariana Santos"
+    "username": "Mariana Santos",
+    "tags": [
+      3,
+      1
+    ],
+    "date": null
   },
   {
     "id": 6,
     "title": "Entendendo o CSS Grid Layout: Uma Alternativa Flexível aos Frameworks",
     "content": "CSS Grid é um poderoso sistema de layout bidimensional que permite aos desenvolvedores criar layouts complexos e responsivos com código mínimo, muitas vezes eliminando a necessidade de frameworks CSS pesados. Cobrimos os conceitos centrais: `grid-template-columns`, `grid-template-rows`, `grid-area` e a útil unidade `fr`. Exemplos detalhados mostram como construir um layout de página inteiro, incluindo ajustes responsivos usando media queries especificamente direcionadas às propriedades do grid.",
-    "username": "Pedro Henrique Castro"
+    "username": "Pedro Henrique Castro",
+    "tags": [
+      1
+    ],
+    "date": null
   },
   {
     "id": 7,
     "title": "Ferramentas Modernas de Frontend: Uma Comparação entre Vite, Webpack e Parcel",
     "content": "A escolha da ferramenta de bundle/build impacta significativamente a experiência de desenvolvimento e a velocidade de construção. Esta comparação se concentra em três ferramentas líderes: **Webpack** (o padrão estabelecido e altamente configurável), **Vite** (conhecido por sua inicialização incrivelmente rápida e HMR usando Módulos ES nativos) e **Parcel** (a opção de configuração zero). Analisamos seus pontos fortes, casos de uso ideais e como eles lidam com o empacotamento de ativos (bundling) e o tree-shaking para otimização de produção.",
-    "username": "Juliana Ferreira"
+    "username": "Juliana Ferreira",
+    "tags": [
+      2,
+      3
+    ],
+    "date": "26/11/2025"
   },
   {
     "id": 8,
     "title": "Design de Esquema de Banco de Dados: Melhores Práticas para Modelagem Relacional (PostgreSQL)",
     "content": "A modelagem eficaz de banco de dados é a espinha dorsal de qualquer aplicação backend robusta. Este post detalha as melhores práticas para projetar esquemas no PostgreSQL, focando na normalização (1FN, 2FN, 3FN) para reduzir a redundância. Cobrimos chaves estrangeiras, índices para desempenho de consultas e o uso correto de tipos de dados. Um exemplo prático mostra o design do esquema para uma aplicação simples de e-commerce, destacando os relacionamentos entre Usuários, Produtos e Pedidos.",
-    "username": "Lucas Gomes"
+    "username": "Lucas Gomes",
+    "tags": [
+      1
+    ],
+    "date": null
   },
   {
     "id": 9,
     "title": "Testes Unitários em JavaScript: Usando Jest para Testar Componentes React e Funções Utilitárias",
     "content": "Escrever testes unitários eficazes é essencial para entregar software confiável. Este guia abrangente cobre a configuração do **Jest**, o framework de testes JS mais popular. Demonstramos como escrever testes para funções utilitárias puras, garantindo um comportamento determinístico. Além disso, cobrimos o teste de componentes React, usando ferramentas como `Testing Library` para focar na saída do componente e nas interações do usuário, em vez de seus detalhes de implementação interna (teste de caixa-preta).",
-    "username": "Isabela Rocha"
+    "username": "Isabela Rocha",
+    "tags": [
+      3,
+      2
+    ],
+    "date": null
   },
   {
     "id": 10,
     "title": "Introdução a Arquiteturas Serverless: Deploying de Funções com AWS Lambda",
     "content": "A computação Serverless permite que os desenvolvedores criem e executem aplicações sem gerenciar servidores, reduzindo drasticamente a sobrecarga operacional. Apresentamos os conceitos centrais de **FaaS (Function as a Service)** usando AWS Lambda. O guia inclui a configuração de uma função inicial, sua integração com o API Gateway para criar um endpoint público e a discussão sobre as vantagens de custo e escalabilidade em comparação com máquinas virtuais (VMs) tradicionais.",
-    "username": "Guilherme Siqueira"
+    "username": "Guilherme Siqueira",
+    "tags": [
+      1
+    ],
+    "date": "26/11/2025"
   },
   {
     "id": 11,
     "title": "O Processo de Build do Frontend Explicado: Do Código Fonte à Exibição no Navegador",
     "content": "Entender o que acontece quando você executa `npm run build` é a chave para depuração e otimização. Este post desmistifica o pipeline de build: **Transpilação** (por exemplo, Babel convertendo ES6+ para ES5), **Bundling** (agrupamento de módulos), **Minificação** (remoção de espaços em branco/comentários) e **Tree Shaking** (remoção de código não utilizado). Uma visualização clara ajuda a conectar essas etapas aos ativos de saída finais, otimizados e servidos ao navegador.",
-    "username": "Daniela Almeida"
+    "username": "Daniela Almeida",
+    "tags": [
+      3,
+      1
+    ],
+    "date": null
   },
   {
     "id": 12,
     "title": "Explorando os Benefícios de Monorepos em Grandes Projetos Web (Lerna/Nx)",
     "content": "Monorepos (repositórios únicos contendo múltiplos projetos distintos) estão sendo cada vez mais adotados por grandes empresas de tecnologia. Analisamos as vantagens, como **compartilhamento de código** entre pacotes, commits atômicos e ferramentas centralizadas. O artigo compara duas ferramentas líderes de monorepo, **Lerna** e **Nx**, detalhando como elas gerenciam dependências, executam tarefas em paralelo e lidam com configurações específicas de projeto de forma eficiente.",
-    "username": "Fernando Melo"
+    "username": "Fernando Melo",
+    "tags": [
+      2
+    ],
+    "date": null
   },
   {
     "id": 13,
     "title": "Técnicas Avançadas de Git: Rebase vs Merge e Rebase Interativo",
     "content": "Embora `git merge` seja comum, dominar o `git rebase` é crucial para manter um histórico de projeto limpo e linear. Este guia explica a diferença conceitual entre os dois e demonstra como usar `git rebase -i` (rebase interativo) para agrupar, reordenar ou editar commits antes de mesclar para a branch principal, tornando os pull requests muito mais limpos e fáceis de revisar.",
-    "username": "Natália Borges"
+    "username": "Natália Borges",
+    "tags": [
+      1
+    ],
+    "date": null
   },
   {
     "id": 14,
     "title": "Melhores Práticas de Acessibilidade (A11Y): Navegação por Teclado e HTML Semântico",
     "content": "Construir sites acessíveis não é apenas ético, é um requisito legal. Focamos em dois pilares: **HTML5 Semântico** (usando `<header>`, `<nav>`, `<main>`, etc., corretamente) e garantindo **navegação completa pelo teclado**. Dicas incluem gerenciar a ordem de foco usando `tabindex` e evitar armadilhas comuns que impedem que leitores de tela interpretem corretamente a estrutura da página e os elementos interativos.",
-    "username": "Ricardo Nogueira"
+    "username": "Ricardo Nogueira",
+    "tags": [
+      3
+    ],
+    "date": null
   },
   {
     "id": 15,
     "title": "Gerenciamento de Estado com Redux Toolkit (RTK): Simplificando o Boilerplate do Redux",
     "content": "O Redux é poderoso, mas muitas vezes criticado por seu boilerplate excessivo. O Redux Toolkit (RTK) simplifica imensamente o desenvolvimento Redux. Este tutorial demonstra como usar `createSlice` para definir reducers e actions em um só lugar, e como `configureStore` lida com a configuração automática da store e das ferramentas de desenvolvimento, reduzindo drasticamente o código necessário para gerenciar o estado da aplicação.",
-    "username": "Patrícia Ribeiro"
+    "username": "Patrícia Ribeiro",
+    "tags": [
+      2,
+      1,
+      2
+    ],
+    "date": "26/11/2025"
   },
   {
     "id": 16,
     "title": "Entendendo Fluxos de Autenticação: OAuth 2.0 e OpenID Connect",
     "content": "Ao integrar logins de terceiros (como Google ou Facebook), entender o OAuth 2.0 e o OpenID Connect (OIDC) é vital. Quebramos as diferenças: **OAuth 2.0** é uma estrutura de autorização (delegação de acesso), enquanto **OIDC** é uma camada de identidade construída sobre o OAuth 2.0 (autenticação de usuário). Ilustramos o fluxo comum de Código de Autorização usado para aplicações web seguras.",
-    "username": "Vinícius Morais"
+    "username": "Vinícius Morais",
+    "tags": [
+      3
+    ],
+    "date": null
   },
   {
     "id": 17,
     "title": "Construindo Formulários Dinâmicos em Vue.js com a Composition API",
     "content": "A Composition API do Vue 3 oferece uma maneira flexível de gerenciar lógica de formulário complexa. Este artigo demonstra a configuração de estado de formulário reativo usando `ref` e `reactive`, a implementação de lógica de validação personalizada e o uso de composables (funções reutilizáveis) para abstrair recursos relacionados a formulários, como o tratamento do estado de envio e a exibição de erros, resultando em código de componente mais limpo e legível.",
-    "username": "Gabriela Nunes"
+    "username": "Gabriela Nunes",
+    "tags": [
+      1,
+      2
+    ],
+    "date": null
   },
   {
     "id": 18,
     "title": "O Poder das Propriedades CSS Personalizadas (Variáveis CSS)",
     "content": "Variáveis CSS (`--cor-primaria: #3498db;`) são uma virada de jogo para a estilização, oferecendo uma maneira de evitar pré-processadores para gerenciamento simples de variáveis. Este post mostra como definir variáveis globais em `:root`, aplicá-las a componentes e, de forma mais poderosa, alterá-las dinamicamente usando JavaScript para implementar modos escuros ou troca de temas sem manipulação do DOM ou excessiva alternância de classes.",
-    "username": "André Luiz Pinto"
+    "username": "André Luiz Pinto",
+    "tags": [
+      3,
+      1
+    ],
+    "date": null
   },
   {
     "id": 19,
     "title": "Escalando Seu Backend: Implementando Cache com Redis para Descarregar o Banco de Dados",
     "content": "O desempenho do banco de dados geralmente se torna o gargalo à medida que o tráfego cresce. Exploramos como a integração de um armazenamento de dados em memória como o **Redis** pode melhorar significativamente os tempos de resposta, implementando cache para dados acessados com frequência, mas que mudam lentamente. Cobrimos o padrão **Cache-Aside** e estratégias para invalidação de cache (TTL) para garantir a consistência dos dados.",
-    "username": "Sonia Martins"
+    "username": "Sonia Martins",
+    "tags": [
+      2,
+      3
+    ],
+    "date": null
   }
 ]

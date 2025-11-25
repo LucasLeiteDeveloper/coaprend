@@ -1,0 +1,195 @@
+[
+  {
+    "id": 0,
+    "dueDate": "26/11/2025",
+    "title": "Configurar Ambiente de Desenvolvimento Local",
+    "content": "Instalar Node.js, npm, VS Code e as extensões essenciais. Clonar o repositório principal e rodar 'npm install' para garantir que todas as dependências estejam instaladas.",
+    "tags": [
+      1,
+      3
+    ]
+  },
+  {
+    "id": 1,
+    "dueDate": "27/11/2025",
+    "title": "Criar Componente de Login",
+    "content": "Desenvolver o componente de interface de usuário para a tela de login. Deve incluir campos para email e senha e um botão de submissão. Usar React Hooks para gerenciar o estado do formulário.",
+    "tags": [
+      2
+    ]
+  },
+  {
+    "id": 2,
+    "dueDate": "28/11/2025",
+    "title": "Implementar Autenticação via API",
+    "content": "Integrar o componente de login com o endpoint da API de autenticação. Usar 'fetch' ou 'axios' com 'async/await' e garantir tratamento de erros robusto para status 401 e 500.",
+    "tags": [
+      3,
+      1
+    ]
+  },
+  {
+    "id": 3,
+    "dueDate": "29/11/2025",
+    "title": "Escrever Testes Unitários para Utilitários",
+    "content": "Usar Jest para cobrir 100% das funções de utilidade (helper functions) do projeto, como validação de email e formatação de data.",
+    "tags": [
+      2,
+      1
+    ]
+  },
+  {
+    "id": 4,
+    "dueDate": "30/11/2025",
+    "title": "Revisar Design do Esquema do Banco de Dados",
+    "content": "Analisar o modelo relacional atual do PostgreSQL e verificar se a normalização está correta. Focar nos índices para otimizar consultas de alto volume (tabela 'pedidos').",
+    "tags": [
+      3
+    ]
+  },
+  {
+    "id": 5,
+    "dueDate": "01/12/2025",
+    "title": "Otimizar Imagens e Assets Estáticos",
+    "content": "Comprimir todas as imagens e configurar o lazy loading para assets abaixo da dobra (fold) para melhorar a pontuação do Lighthouse em desempenho.",
+    "tags": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": 6,
+    "dueDate": "02/12/2025",
+    "title": "Criar Custom Hook para Requisição de Dados",
+    "content": "Desenvolver um 'useFetch' custom hook para centralizar a lógica de busca de dados, incluindo estados de loading e erro, e reutilizar em múltiplos componentes.",
+    "tags": [
+      3,
+      2,
+      1
+    ]
+  },
+  {
+    "id": 7,
+    "dueDate": "03/12/2025",
+    "title": "Configurar Redux Toolkit para Gerenciamento de Estado",
+    "content": "Usar 'createSlice' do RTK para gerenciar o estado do usuário (autenticado/não autenticado) e as preferências de tema da aplicação. Remover boilerplate desnecessário.",
+    "tags": [
+      1
+    ]
+  },
+  {
+    "id": 8,
+    "dueDate": "04/12/2025",
+    "title": "Refatorar CSS para Variáveis Personalizadas",
+    "content": "Substituir valores de cores e tamanhos de fonte repetidos no CSS por Propriedades Personalizadas (Variáveis CSS) definidas no seletor ':root'.",
+    "tags": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": 9,
+    "dueDate": "05/12/2025",
+    "title": "Implementar Padrão Cache-Aside com Redis",
+    "content": "Integrar Redis no backend (Node.js) para cache de resultados de consultas pesadas de produtos, descarregando o banco de dados principal. Definir um TTL apropriado.",
+    "tags": [
+      1
+    ]
+  },
+  {
+    "id": 10,
+    "dueDate": "06/12/2025",
+    "title": "Revisão de Acessibilidade (A11Y) do Formulário",
+    "content": "Garantir que todos os formulários possam ser navegados e submetidos usando apenas o teclado. Verificar a semântica correta das tags HTML5 e 'tabindex'.",
+    "tags": [
+      3
+    ]
+  },
+  {
+    "id": 11,
+    "dueDate": "07/12/2025",
+    "title": "Migração Parcial para TypeScript (5 Arquivos)",
+    "content": "Migrar 5 arquivos utilitários de JavaScript para TypeScript. Adicionar tipos explícitos para parâmetros e retornos e criar interfaces para os objetos de dados.",
+    "tags": [
+      2,
+      1
+    ]
+  },
+  {
+    "id": 12,
+    "dueDate": "08/12/2025",
+    "title": "Estruturar API RESTful para Recurso 'Produtos'",
+    "content": "Garantir o uso correto dos métodos HTTP (GET, POST, PUT, DELETE) e nomeação plural para o endpoint '/produtos'. Implementar paginação e filtragem básica.",
+    "tags": [
+      3
+    ]
+  },
+  {
+    "id": 13,
+    "dueDate": "09/12/2025",
+    "title": "Configurar Pipeline de Build com Vite",
+    "content": "Migrar a configuração de build atual (Webpack) para Vite, aproveitando a velocidade de Módulos ES nativos e o HMR (Hot Module Replacement) para um desenvolvimento mais rápido.",
+    "tags": [
+      1,
+      3
+    ]
+  },
+  {
+    "id": 14,
+    "dueDate": "10/12/2025",
+    "title": "Implementar CSS Grid Layout para Dashboard",
+    "content": "Redesenhar o layout da página do dashboard usando CSS Grid para criar uma estrutura bidimensional responsiva e complexa, eliminando o uso de 'float' ou classes de framework.",
+    "tags": [
+      2,
+      3
+    ]
+  },
+  {
+    "id": 15,
+    "dueDate": "11/12/2025",
+    "title": "Revisar e Limpar Histórico do Git",
+    "content": "Usar 'git rebase -i' na feature branch antes de mesclar para a 'main'. Agrupar commits menores em commits lógicos maiores para um histórico limpo.",
+    "tags": [
+      1
+    ]
+  },
+  {
+    "id": 16,
+    "dueDate": "12/12/2025",
+    "title": "Desenvolver Função Serverless (AWS Lambda)",
+    "content": "Criar uma função AWS Lambda simples para processar o upload de arquivos. Integrar com API Gateway para criar um endpoint público e testar a escalabilidade.",
+    "tags": [
+      3,
+      2
+    ]
+  },
+  {
+    "id": 17,
+    "dueDate": "13/12/2025",
+    "title": "Adicionar Header Content Security Policy (CSP)",
+    "content": "Configurar o header de resposta HTTP CSP para mitigar XSS. Definir as fontes confiáveis para scripts, estilos e fontes externas.",
+    "tags": [
+      1
+    ]
+  },
+  {
+    "id": 18,
+    "dueDate": "14/12/2025",
+    "title": "Otimizar Bundling e Tree Shaking",
+    "content": "Analisar o bundle final de produção e ajustar a configuração de build (Vite/Webpack) para garantir que o tree shaking esteja removendo corretamente o código não utilizado.",
+    "tags": [
+      2
+    ]
+  },
+  {
+    "id": 19,
+    "dueDate": "15/12/2025",
+    "title": "Documentar Processo de Monorepo (Nx/Lerna)",
+    "content": "Elaborar um guia para a equipe sobre como usar as ferramentas de monorepo (Nx ou Lerna) para gerenciar dependências e executar comandos em múltiplos pacotes.",
+    "tags": [
+      3,
+      1,
+      2
+    ]
+  }
+]

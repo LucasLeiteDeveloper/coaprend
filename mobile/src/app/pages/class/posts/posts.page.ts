@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/postService/post';
 import { Router } from '@angular/router';
 import { ClassPage } from '../class.page';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-posts',
@@ -10,13 +11,14 @@ import { ClassPage } from '../class.page';
   standalone: false,
 })
 export class PostsPage implements OnInit {
-  posts: any[] = [];
-  filteredPosts: any[] = [];
+  posts: any;
+ filteredPosts: any[] = [];
 
   constructor(
     private postService: PostService,
     private router: Router,
-    private classPage: ClassPage
+    private classPage: ClassPage,
+    private http: HttpClient,
   ) {}
 
   ngOnInit() {
@@ -29,29 +31,41 @@ export class PostsPage implements OnInit {
   }
 
   loadPosts() {
-    this.postService.getAll().subscribe({
-      next: (res) => {
-        this.posts = res?.data || res || [];
+    this.http.get("assets/posts-data.json").subscribe({
+      next: (data) => {
+        this.posts = data;
         this.applyTagFilter();
+        this.posts = this.filteredPosts;
+        console.log('Posts carregados:', this.posts);
       },
       error: (err) => {
         console.error('Erro ao carregar posts:', err);
-      }
+      },
     });
   }
+  //   this.postService.getAll().subscribe({
+  //     next: (res) => {
+  //       this.posts = res?.data || res || [];
+  //       this.applyTagFilter();
+  //     },
+  //     error: (err) => {
+  //       console.error('Erro ao carregar posts:', err);
+  //     }
+  //   });
+  // }
 
   private applyTagFilter() {
     const selectedTags = this.classPage.tags
       .filter((t: any) => t.selected)
-      .map((t: any) => t.text);
+      .map((t: any) => t.id);
 
     if (!selectedTags.length) {
       this.filteredPosts = [...this.posts];
       return;
     }
 
-    this.filteredPosts = this.posts.filter(post =>
-      post.tags?.some((t: any) => selectedTags.includes(t.name ?? t))
+    this.filteredPosts = this.posts.filter((post: any) =>
+      post.tags?.some((t: any) => selectedTags.includes(t.id ?? t))
     );
   }
 
