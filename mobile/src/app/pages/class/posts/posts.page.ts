@@ -12,7 +12,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PostsPage implements OnInit {
   posts: any;
- filteredPosts: any[] = [];
+  filteredPosts: any[] = [];
+  public tags: any;
 
   constructor(
     private postService: PostService,

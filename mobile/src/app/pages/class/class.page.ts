@@ -5,6 +5,7 @@ import { MenuCriacaoComponent } from 'src/app/components/menu-criacao/menu-criac
 import { HideOnScrollService } from 'src/app/services/hideOnScrollService/hide-on-scroll-service';
 import { BehaviorSubject } from 'rxjs';
 import { TagService } from 'src/app/services/tagService/tag';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-class',
@@ -15,14 +16,7 @@ import { TagService } from 'src/app/services/tagService/tag';
 export class ClassPage implements OnInit {
   public selectedTab: string = "";
   public classId!: number;
-  public tags: any = [
-    {
-      id: 1,
-      text: "teste",
-      color: "blue",
-      selected: false,
-    }
-  ];
+  public tags: any;
 
   // BehaviorSubject para notificar filhos sobre as tags selecionadas
   public tagFilter$ = new BehaviorSubject<number[]>([]);
@@ -32,7 +26,8 @@ export class ClassPage implements OnInit {
     private router: Router,
     private popoverCtrl: PopoverController,
     public scroll: HideOnScrollService,
-    private tagService: TagService
+    private tagService: TagService,
+    private http: HttpClient,
   ) {}
 
   ngOnInit() {
@@ -49,15 +44,24 @@ export class ClassPage implements OnInit {
   }
 
   private loadTags() {
-    this.tagService.getTagsByClass(this.classId).subscribe({
-      next: (tags) => {
-        // Inicializa a propriedade `selected` como false para todas
-        this.tags = tags.map((t: any) => ({ ...t, selected: false }));
+    this.http.get("assets/class-data.json").subscribe({
+      next: (data: any) => {
+        this.tags = data[0].tags;
+        console.log('Posts carregados:', this.tags);
       },
       error: (err) => {
-        console.error('Erro ao carregar tags da sala:', err);
-      }
+        console.error('Erro ao carregar posts:', err);
+      },
     });
+    // this.tagService.getTagsByClass(this.classId).subscribe({
+    //   next: (tags) => {
+    //     // Inicializa a propriedade `selected` como false para todas
+    //     this.tags = tags.map((t: any) => ({ ...t, selected: false }));
+    //   },
+    //   error: (err) => {
+    //     console.error('Erro ao carregar tags da sala:', err);
+    //   }
+    // });
   }
 
   get selectedTags(): number[] {

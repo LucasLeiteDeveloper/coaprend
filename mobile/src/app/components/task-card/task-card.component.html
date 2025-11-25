@@ -7,8 +7,7 @@
         </div>
     </div>
     <div class="tags-container">
-        <ion-icon name="file-tray-stacked-outline" aria-hidden="true"></ion-icon>
-        <ion-icon name="file-tray-stacked-outline" aria-hidden="true"></ion-icon>
+        <ion-icon *ngFor="let tag of displayTags" [class]="tag.color" [id]="['tag' + tag.id]" [name]="tag.icon" aria-hidden="true"></ion-icon>
     </div>
 </article>
 <p *ngIf="!multiTasks">{{ task.content }}</p>

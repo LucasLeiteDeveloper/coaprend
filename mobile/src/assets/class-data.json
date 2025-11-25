@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "name": "3IFEM",
+    "tags": [
+        {
+            "id": 1,
+            "text": "Matéria 1",
+            "color": "blue",
+            "icon": "chatbubble-outline",
+            "selected": false
+        },
+        {
+            "id": 2,
+            "text": "Matéria 2",
+            "color": "red",
+            "icon": "bulb-outline",
+            "selected": false
+        },
+        {
+            "id": 3,
+            "text": "Matéria 3",
+            "color": "yellow",
+            "icon": "cloudy-outline",
+            "selected": false
+        }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "3IFEM",
+    "tags": [
+        {
+            "id": 2,
+            "text": "Matéria 1",
+            "color": "blue",
+            "icon": "",
+            "selected": false
+        }
+    ]
+  }
+]

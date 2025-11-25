@@ -163,8 +163,20 @@ ion-toolbar {
 
   ion-icon {
     padding: var(--spacing-xs);
-    background-color: blue;
+    background-color: var(--color);
     color: white;
     border-radius: var(--border-radius-s);
+  }
+
+  ion-icon.blue {
+    --color: #0033ff;
+  }
+
+  ion-icon.red {
+    --color: #ffe600;
+  }
+
+  ion-icon.yellow {
+    --color: #ff0000;
   }
 }
