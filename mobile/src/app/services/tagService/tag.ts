@@ -1,13 +1,25 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../apiService/api-service';
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TagService {
+  private tagClickedSource = new Subject<void>();
 
   constructor(private api: ApiService) {}
+
+  // Observable que os componentes podem assinar para receber notificações.
+  tagClicked$ = this.tagClickedSource.asObservable();
+
+  /**
+   * Método que a Página Principal chama para notificar a subpágina.
+   */
+  notifyTagClicked(): void {
+    this.tagClickedSource.next();
+  }
 
   // -------------------------------------------------------------
   // 🔵 Buscar tags de uma sala

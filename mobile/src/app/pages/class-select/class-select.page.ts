@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular'; // Adicionei LoadingController
 import { ClassService } from 'src/app/services/classService/class';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-class-select',
@@ -11,13 +12,14 @@ import { Router } from '@angular/router';
 })
 export class ClassSelectPage implements OnInit {
   
-  public classes: any[] = [];
+  public classes: any;
 
   constructor(
     private alertCtrl: AlertController, // Renomeado para evitar conflito com a propriedade
     private classService: ClassService,
     private router: Router,
-    private loadingCtrl: LoadingController, // Injeção do LoadingController
+    private loadingCtrl: LoadingController,
+    private http: HttpClient, // Injeção do LoadingController
   ) {}
 
   ngOnInit() {
@@ -25,16 +27,28 @@ export class ClassSelectPage implements OnInit {
   }
 
   // 🔹 Carrega todas as salas do usuário
-  loadClasses() {
-    this.classService.getMyClasses().subscribe({
-      next: (res) => {
-        this.classes = res;
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
-  }
+//   loadClasses() {
+// //     this.classService.getMyClasses().subscribe({
+// //       next: (res) => {
+// //         this.classes = res;
+// //       },
+// //       error: (err) => {
+// //         console.error(err);
+// //       }
+// //     });
+//   }
+
+loadClasses() {
+  this.http.get("assets/class-data.json").subscribe({
+    next: (data) => {
+      this.classes = data;
+      console.log('Class carregados:', this.classes);
+    },
+    error: (err) => {
+      console.error('Erro ao carregar class:', err);
+    },
+  });
+}
 
   // 🔹 Sair da sala
   async exitClassAlert(name: string, id: number) {
