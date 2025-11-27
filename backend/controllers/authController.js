@@ -27,6 +27,20 @@ exports.registerUser = async (req, res) => {
     if(!uid || !name || !email || !username) return res.status(400).json({ error: "Essential data (uid, name or email) not send!" });
 
     try {
+        // e-mail validation
+        const emailSnapshot = await db.collection('users')
+                                    .where('email', '===', email)
+                                    .limit(1)
+                                    .get();
+        if(!emailSnapshot.empty) return res.status(400).json({ error: "E-mail já cadastrado!" });
+
+        // username validation
+        const usernameSnapshot = await db.collection('users')
+                                    .where('username', '===', username)
+                                    .limit(1)
+                                    .get();
+        if(!usernameSnapshot.empty) return res.status(400).json({ error: "Nome de usuário já cadastrado!" });
+
         //formating the dt_birthday
         let dt_birthdayFormated = parseDateStringToUTC(dt_birthday)
 
@@ -39,7 +53,7 @@ exports.registerUser = async (req, res) => {
             dt_birthday: dt_birthdayFormated,
             imgAccount: null,
             bio: 'new user coaprend',
-            username: username, //check if exist some @
+            username: username, 
             createdAt: new Date()
         });
 
