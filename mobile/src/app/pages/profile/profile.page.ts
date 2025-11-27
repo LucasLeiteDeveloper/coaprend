@@ -20,7 +20,10 @@ export class ProfilePage implements OnInit {
   };
 
   public isLoading: boolean = false;
-  public profileData!: UserProfile;
+  public profileData: UserProfile = {
+    name: '',
+    email: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
