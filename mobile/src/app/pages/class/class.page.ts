@@ -3,8 +3,9 @@ import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuCriacaoComponent } from 'src/app/components/menu-criacao/menu-criacao.component';
 import { HideOnScrollService } from 'src/app/services/hideOnScrollService/hide-on-scroll-service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { TagService } from 'src/app/services/tagService/tag';
+import { ContentService } from 'src/app/services/contentService/content-service';
 
 @Component({
   selector: 'app-class',
@@ -14,13 +15,15 @@ import { TagService } from 'src/app/services/tagService/tag';
 })
 export class ClassPage implements OnInit {
   public selectedTab: string = "";
-  public classId!: number;
+  public classId!: string | null;
   public tags: any[] = [];
+  public classData!: any;
 
   // BehaviorSubject para notificar filhos sobre as tags selecionadas
   public tagFilter$ = new BehaviorSubject<number[]>([]);
 
   constructor(
+    private contentService: ContentService,
     private route: ActivatedRoute,
     private router: Router,
     private popoverCtrl: PopoverController,
@@ -28,29 +31,27 @@ export class ClassPage implements OnInit {
     private tagService: TagService
   ) {}
 
-  ngOnInit() {
-    this.route.paramMap.subscribe((params) => {
-      const idParam = params.get('id');
-      if (!idParam) return;
-      this.classId = Number(idParam);
+  async ngOnInit() {
+    console.log("Route Snapshot: ", this.route.snapshot);
+    console.log("ParamMap: ", this.route.snapshot.paramMap);
+    console.log("Todos: ", this.route.snapshot.params);
+    this.classId = this.route.snapshot.params['id'];
 
-      // Agora que temos classId, buscar tags reais da sala
-      this.loadTags();
-    });
+    await this.loadData(this.classId);
 
     this.selectedTab = this.router.url.split('/')[3];
   }
 
+  async loadData(id: string | null){
+    if(!id) return;
+    const response = await this.contentService.getClassDetails(id);
+    
+    this.classData = response;
+    console.log(this.classData);
+  }
+
   private loadTags() {
-    this.tagService.getTagsByClass(this.classId).subscribe({
-      next: (tags) => {
-        // Inicializa a propriedade `selected` como false para todas
-        this.tags = tags.map((t: any) => ({ ...t, selected: false }));
-      },
-      error: (err) => {
-        console.error('Erro ao carregar tags da sala:', err);
-      }
-    });
+    
   }
 
   get selectedTags(): number[] {
