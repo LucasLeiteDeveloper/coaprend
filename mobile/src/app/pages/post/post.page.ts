@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from 'src/app/services/postService/post';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { PostService } from 'src/app/services/postService/post';
+import { PostInterface } from 'src/app/services/postService/post';
 
 @Component({
   selector: 'app-post',
@@ -11,44 +11,22 @@ import { HttpClient } from '@angular/common/http';
   standalone: false
 })
 export class PostPage implements OnInit {
-  postId: number = 0;
-  posts: any = "";
-  post: any = null;
+  private postId!: string;
+  public post!: PostInterface;
 
-  isLoading: boolean = false;
-  showResult: boolean = false;
-  resultText: SafeHtml = '';
+  public isLoading: boolean = false;
+  public showResult: boolean = false;
+  public resultText: SafeHtml = '';
 
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private http: HttpClient,
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params) => {
-      this.postId = Number(params.get('id'));
-    });
-    this.loadPost();
-  }
-
-  loadPost() {
-    this.http.get("assets/posts-data.json").subscribe({
-      next: (data) => {
-        this.posts = data;
-        this.post = this.posts.find((post: any) => post.id == this.postId);
-      },
-      error: (err) => {
-        console.error('Erro ao carregar os posts:', err);
-      }
-    });
-    // this.postService.getAll().subscribe({
-    //   next: (res) => {
-    //     this.post = res.find((p: any) => p.id == this.postId);
-    //   },
-    //   error: (err) => console.error('Erro ao carregar post:', err)
-    // });
+    this.postId = this.route.snapshot.paramMap.get('id')!;
+    this.post = this.postService.get.byPostId(this.postId)!;
   }
 
   async generateContent() {

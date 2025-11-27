@@ -8,6 +8,10 @@ export class PostService {
   constructor(private api: ApiService) {}
 
   public readonly get = {
+    byPostId: (id: string) => {
+      
+    },
+
     byClassId: (id: string): Observable<any> => {
       const posts = this.api.get('posts').pipe(
         map((posts: any[]) =>
@@ -71,4 +75,13 @@ export class PostService {
     if (file) form.append('image', file);
     return this.api.put(`posts/${id}`, form);
   }
+}
+
+export interface PostInterface {
+  id: string;
+  title: string;
+  content: string;
+  username: string;
+  tags: string[];
+  date: null;
 }
