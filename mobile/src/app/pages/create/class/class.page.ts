@@ -13,7 +13,6 @@ export class CreateClassPage {
   className: string = '';
   imageFile?: File;
 
-  // Tags
   tags: string[] = [];
   newTag: string = '';
 
@@ -23,30 +22,25 @@ export class CreateClassPage {
     private router: Router
   ) {}
 
-  // Abrir seletor de arquivo
   public openFileDialog = () => {
     (document as any).getElementById("file-upload").click();
   };
 
-  // Selecionar imagem
   public setImage = (_event: any) => {
     const f = _event.target.files![0];
     if (f) this.imageFile = f;
   };
 
-  // Adicionar tag
   addTag() {
     if (!this.newTag.trim()) return;
     this.tags.push(this.newTag.trim());
     this.newTag = '';
   }
 
-  // Remover tag
   removeTag(index: number) {
     this.tags.splice(index, 1);
   }
 
-  // Criar sala
   async createClass() {
     if (!this.className.trim()) {
       this.showToast('O nome da sala é obrigatório.');
@@ -77,7 +71,6 @@ export class CreateClassPage {
     });
   }
 
-  // Toast utilitário
   async showToast(msg: string) {
     const toast = await this.toastController.create({
       message: msg,
