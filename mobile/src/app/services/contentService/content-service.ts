@@ -27,26 +27,43 @@ export class ContentService {
     return new HttpHeaders().set("Authorization", `Bearer ${idToken}`);
   }
 
-  // method for rooms
-  async createRoom(data: { title: string, description: string }): Promise<any>{
+  
+  // METHODS FOR CLASSES
+  async createClass(data: { title: string, decription?: string, icon?: string, tags?: string[] }): Promise<any> {
     const headers = this.getAuthHeaders();
 
-    return this.http.post<any>(`${this.apiUrl}/room`, data, { headers }).toPromise();
+    return this.http.post<any>(`${this.apiUrl}/class`, data, { headers }).toPromise();
   }
-  updateRoom(roomId: string, data: any){
-    return this.http.patch(`${this.apiUrl}/room/${roomId}`, data, { headers: this.getAuthHeaders() });
+  async enterClass(code: string): Promise<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.post<any>(`${this.apiUrl}/class/enter`, { code }, { headers }).toPromise();
   }
-  deleteRoom(roomId: string){
-    return this.http.delete(`${this.apiUrl}/room/${roomId}`, { headers: this.getAuthHeaders() }).toPromise();
+  async getClassDetails(classId: string): Promise<any>{
+    const headers = this.getAuthHeaders();
+    return this.http.get<any>(`${this.apiUrl}/class/${classId}`, { headers }).toPromise()
   }
+  async getUserClasses(): Promise<any[] | undefined> {
+    const headers = this.getAuthHeaders();
+
+    return this.http.get<any[] | undefined>(`${this.apiUrl}/classes/my`, {headers}).toPromise();
+  }
+  async updateClass(classId: string, data: any): Promise<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.patch(`${this.apiUrl}/class/${classId}`, data, { headers }).toPromise();
+  }
+  async deleteClass(classId: string): Promise<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.delete<any>(`${this.apiUrl}/class/${classId}`, { headers }).toPromise();
+  }
+
 
   // methods for posts
-  async getPosts(roomId: string): Promise<any[] | undefined> {
+  async getPosts(classId: string): Promise<any[] | undefined> {
     const headers = this.getAuthHeaders();
 
-    return this.http.get<any[]>(`${this.apiUrl}/rooms/${roomId}/posts`, { headers }).toPromise();
+    return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/posts`, { headers }).toPromise();
   }
-  async createPost(data: { title: string, roomId: string, texts: string[] }): Promise<any> {
+  async createPost(data: { title: string, classId: string, texts: string[] }): Promise<any> {
     const headers = this.getAuthHeaders();
 
     return this.http.post(`${this.apiUrl}/posts`, data, { headers }).toPromise();
@@ -59,12 +76,12 @@ export class ContentService {
   }
 
   //tasks methods
-  async getTasks(roomId: string): Promise<any[] | undefined> {
+  async getTasks(classId: string): Promise<any[] | undefined> {
     const headers = this.getAuthHeaders();
 
-    return this.http.get<any[]>(`${this.apiUrl}/rooms/${roomId}/tasks`, { headers }).toPromise();
+    return this.http.get<any[]>(`${this.apiUrl}/classs/${classId}/tasks`, { headers }).toPromise();
   }
-  async createTask(data: { title: string, roomId: string, last_date: string }): Promise<any>{
+  async createTask(data: { title: string, classId: string, last_date: string }): Promise<any>{
     const headers = this.getAuthHeaders();
 
     return this.http.post(`${this.apiUrl}/tasks`, data, { headers }).toPromise();
