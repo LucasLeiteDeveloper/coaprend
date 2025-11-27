@@ -41,7 +41,7 @@ export class SearchPage implements OnInit {
     }
 
     // 🔍 chama backend para posts
-    this.postService.search(text).subscribe((res: any) => {
+    this.postService.get.byWord(text).subscribe((res: any) => {
       this.postsResultados = res.posts ?? res ?? [];
     });
 

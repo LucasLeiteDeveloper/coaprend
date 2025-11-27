@@ -3,53 +3,42 @@ import { ApiService } from '../apiService/api-service';
 import { Observable, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
+
 export class PostService {
   constructor(private api: ApiService) {}
 
-  /**
-   * Obtém todas as postagens da API e faz o parse dos campos JSON (items, options)
-   */
-  getAll(): Observable<any> {
-    return this.api.get('posts').pipe(
-      map((posts: any[]) =>
-        posts.map(post => ({
-          ...post,
-          items: this.parseItems(post.items),
-          options: this.parseOptions(post.options),
-        }))
-      )
-    );
+  public readonly get = {
+    byClassId: (id: string): Observable<any> => {
+      const posts = this.api.get('posts').pipe(
+        map((posts: any[]) =>
+          posts.map(post => ({
+            ...post,
+            items: post.item,
+            options: post.options,
+          }))
+        )
+      );
+      return posts;
+    },
+
+    byUserId: (id: string) => {
+      
+    },
+
+    byDateRange: (firstDate: string, lastDate: string): Observable<any> => {
+      return this.api.get(`posts/range?start=${firstDate}&end=${lastDate}`);
+    },
+
+    byWord: (text: string): Observable<any> => {
+      return this.api.get(`posts/search?text=${text}`);
+    },
   }
 
-  /**
-   * Faz o parse seguro do campo 'items'
-   */
-  private parseItems(items: string): any[] {
-    try {
-      return JSON.parse(items);
-    } catch {
-      return [{ content: 'Erro ao carregar conteúdo.' }];
-    }
-  }
-getPostsByDateRange(start: string, end: string) {
-  return this.api.get(`posts/range?start=${start}&end=${end}`);
-}
-
-  /**
-   * Faz o parse seguro do campo 'options'
-   */
-  private parseOptions(options: string): string[] {
-    try {
-      return JSON.parse(options);
-    } catch {
-      return [];
-    }
+  public delete(id: number): Observable<any> {
+    return this.api.delete(`posts/${id}`);
   }
 
-  /**
-   * Cria uma nova postagem com suporte a upload de imagem e opções
-   */
-  createFormData(payload: any, file?: File): Observable<any> {
+  public create(payload: any, file?: File): Observable<any> {
     const form = new FormData();
     form.append('title', payload.title);
     form.append('type', payload.type);
@@ -65,14 +54,8 @@ getPostsByDateRange(start: string, end: string) {
     if (file) form.append('image', file);
     return this.api.post('posts', form);
   }
-  search(text: string) {
-  return this.api.get(`posts/search?text=${text}`);
-}
 
-  /**
-   * Atualiza uma postagem existente
-   */
-  updateFormData(id: number, payload: any, file?: File): Observable<any> {
+  public update(id: number, payload: any, file?: File): Observable<any> {
     const form = new FormData();
     if (payload.title) form.append('title', payload.title);
     if (payload.type) form.append('type', payload.type);
@@ -87,12 +70,5 @@ getPostsByDateRange(start: string, end: string) {
 
     if (file) form.append('image', file);
     return this.api.put(`posts/${id}`, form);
-  }
-
-  /**
-   * Exclui uma postagem pelo ID
-   */
-  delete(id: number): Observable<any> {
-    return this.api.delete(`posts/${id}`);
   }
 }

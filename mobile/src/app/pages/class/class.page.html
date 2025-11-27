@@ -1,15 +1,15 @@
 <ion-header [class.hidden]="scroll.isHidden">
-  <ion-toolbar slot="start" class="content-container">
-    <div class="header-class" [routerLink]="'/class-select'">
+  <ion-toolbar class="content-container">
+    <div slot="start" class="header-class" [routerLink]="'/class-select'">
       <div>
         <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="/>
         <p>3IFEM</p>
       </div>
-      <ion-icon name="chevron-forward-outline"></ion-icon>
+      <ion-icon name="chevron-forward-outline"/>
     </div>
     <div slot="end" class="header-options">
-      <ion-icon name="pricetag-outline" id="trigger-button"></ion-icon>
-      <ion-icon name="search-outline" [routerLink]="['/class', classId, 'search']"></ion-icon>
+      <ion-icon name="pricetag-outline" id="trigger-button"/>
+      <ion-icon name="search-outline" [routerLink]="['/class', classId, 'search']"/>
     </div>
   </ion-toolbar>
 </ion-header>
@@ -18,7 +18,7 @@
   <ng-template>
     <div class="ion-padding tag-selector">
       <div *ngFor="let tag of tags" class="tag-option" [class]="tag.color" [class.selected]="tag.selected" [id]="['tag' + tag.id]" (click)="selectTag($event.target, tag.id)">
-        <ion-icon [name]="tag.icon"></ion-icon>
+        <ion-icon [name]="tag.icon"/>
         <p>{{ tag.text }}</p>
       </div>
     </div>
@@ -38,17 +38,17 @@
 <ion-footer [class.hidden]="scroll.isHidden">
   <nav>
     <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'post']" class="selected">
-      <ion-icon name="school" style="color: var(--ion-color-primary);"></ion-icon>
+      <ion-icon name="school" style="color: var(--ion-color-primary);"/>
       <ion-label>Salas</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="criar" (click)="openCreateNav($event)">
-      <ion-icon name="add-circle" style="font-size: 40px; color: var(--ion-color-primary);"></ion-icon>
+      <ion-icon name="add-circle" style="font-size: 40px; color: var(--ion-color-primary);"/>
       <ion-label style="display: none;">Criar</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="perfil" [routerLink]="['/profile', 'profileId']">
-      <ion-icon name="person-outline"></ion-icon>
+      <ion-icon name="person-outline"/>
       <ion-label>Você</ion-label>
     </ion-tab-button>
   </nav>

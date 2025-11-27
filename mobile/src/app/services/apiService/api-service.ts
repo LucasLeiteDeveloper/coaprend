@@ -9,7 +9,9 @@ import { environment } from 'src/environments/environment';
 export class ApiService {
   // CORREÇÃO: Usar environment.apiUrl para a URL base, garantindo que a URL seja:
   // http://localhost:8000/api
-  private BASE_URL = environment.apiUrl; 
+//   private BASE_URL = environment.apiUrl; 
+  private BASE_URL = "http://localhost:8000/api"; 
+
 
   constructor(private http: HttpClient) {}
 

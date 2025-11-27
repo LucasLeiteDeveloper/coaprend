@@ -11,7 +11,7 @@ import { ToastController, NavController } from '@ionic/angular';
 })
 export class ConfigPage implements OnInit {
 
-  classId!: number;
+  classId!: string;
   classData: any = {};
   inviteCode = '';
 
@@ -48,14 +48,15 @@ export class ConfigPage implements OnInit {
   // ============================
 
   loadClassData() {
-    this.classService.getCurrentUserClass().subscribe({
+    const classId = this.classService.get.currentClassId()
+    this.classService.get.byClassId(classId).subscribe({
       next: (data) => {
         this.classData = data;
         this.classId = data.id;
         this.inviteCode = data.invite_code;
         this.newName = data.name;
 
-        this.loadTags();
+        // this.loadTags();
       },
       error: () => this.showToast('Erro ao carregar dados da sala.')
     });
@@ -71,7 +72,7 @@ export class ConfigPage implements OnInit {
   }
 
   regenerateCode() {
-    this.classService.regenerateCode(this.classId).subscribe({
+    this.classService.update.inviteLinkById(this.classId).subscribe({
       next: (res) => {
         this.inviteCode = res.invite_code;
         this.showToast('Novo código gerado.');
@@ -87,7 +88,7 @@ export class ConfigPage implements OnInit {
   updateName() {
     const payload = { name: this.newName };
 
-this.classService.updateClassName(this.classId, this.newName).subscribe({
+this.classService.update.nameById(this.classId, this.newName).subscribe({
   next: () => this.showToast('Nome atualizado!'),
   error: () => this.showToast('Erro ao atualizar nome.')
 });
@@ -112,7 +113,7 @@ updatePhoto() {
   reader.onload = () => {
     const base64 = (reader.result as string).split(',')[1]; // remove cabeçalho data:image/...
 
-    this.classService.updateClassImage(this.classId, base64).subscribe({
+    this.classService.update.imageById(this.classId, base64).subscribe({
       next: () => this.showToast('Foto atualizada!'),
       error: () => this.showToast('Erro ao atualizar foto.')
     });
@@ -130,12 +131,12 @@ updatePhoto() {
   // TAGS DA SALA
   // ============================
 
-  loadTags() {
-    this.tagService.getTagsByClass(this.classId).subscribe({
-      next: (tags) => this.tags = tags,
-      error: () => this.showToast('Erro ao carregar tags.')
-    });
-  }
+  // loadTags() {
+  //   this.tagService.TagsByClass(this.classId).subscribe({
+  //     next: (tags) => this.tags = tags,
+  //     error: () => this.showToast('Erro ao carregar tags.')
+  //   });
+  // }
 
   createTag() {
     if (!this.newTagName.trim()) return;
@@ -149,7 +150,7 @@ updatePhoto() {
       next: () => {
         this.newTagName = '';
         this.newTagColor = '#3B82F6';
-        this.loadTags();
+        // this.loadTags();
         this.showToast('Tag criada!');
       },
       error: () => this.showToast('Erro ao criar tag.')
@@ -165,22 +166,22 @@ updatePhoto() {
     });
   }
 
-  deleteTag(tagId: number) {
-    this.tagService.deleteTag(this.classId, tagId).subscribe({
-      next: () => {
-        this.tags = this.tags.filter(t => t.id !== tagId);
-        this.showToast('Tag removida!');
-      },
-      error: () => this.showToast('Erro ao remover tag.')
-    });
-  }
+  // deleteTag(tagId: number) {
+  //   this.tagService.deleteTag(this.classId, tagId).subscribe({
+  //     next: () => {
+  //       this.tags = this.tags.filter(t => t.id !== tagId);
+  //       this.showToast('Tag removida!');
+  //     },
+  //     error: () => this.showToast('Erro ao remover tag.')
+  //   });
+  // }
 
   // ============================
   // SAIR DA SALA
   // ============================
 
   leaveClass() {
-    this.classService.leaveClass(this.classId).subscribe({
+    this.classService.leaveById(this.classId).subscribe({
       next: () => {
         this.showToast('Você saiu da sala.');
         this.navCtrl.navigateRoot('/home');
@@ -194,7 +195,7 @@ updatePhoto() {
   // ============================
 
   deleteClass() {
-    this.classService.deleteClass(this.classId).subscribe({
+    this.classService.delete.byClassId(this.classId).subscribe({
       next: () => {
         this.showToast('Sala excluída.');
         this.navCtrl.navigateRoot('/home');

@@ -11,32 +11,32 @@ import { HttpClient } from '@angular/common/http';
   standalone: false,
 })
 export class ClassSelectPage implements OnInit {
-  
-  public classes: any;
+  
+  public classes: any;
 
-  constructor(
-    private alertCtrl: AlertController, // Renomeado para evitar conflito com a propriedade
-    private classService: ClassService,
-    private router: Router,
+  constructor(
+    private alertCtrl: AlertController, // Renomeado para evitar conflito com a propriedade
+    private classService: ClassService,
+    private router: Router,
     private loadingCtrl: LoadingController,
     private http: HttpClient, // Injeção do LoadingController
-  ) {}
+  ) {}
 
-  ngOnInit() {
-    this.loadClasses();
-  }
+  ngOnInit() {
+    this.loadClasses();
+  }
 
-  // 🔹 Carrega todas as salas do usuário
-//   loadClasses() {
-// //     this.classService.getMyClasses().subscribe({
-// //       next: (res) => {
-// //         this.classes = res;
-// //       },
-// //       error: (err) => {
-// //         console.error(err);
-// //       }
-// //     });
-//   }
+  // 🔹 Carrega todas as salas do usuário
+//   loadClasses() {
+// //     this.classService.getMyClasses().subscribe({
+// //       next: (res) => {
+// //         this.classes = res;
+// //       },
+// //       error: (err) => {
+// //         console.error(err);
+// //       }
+// //     });
+//   }
 
 loadClasses() {
   this.http.get("assets/class-data.json").subscribe({
@@ -50,53 +50,53 @@ loadClasses() {
   });
 }
 
-  // 🔹 Sair da sala
-  async exitClassAlert(name: string, id: number) {
-    const alert = await this.alertCtrl.create({
-      header: `Deseja sair de ${name}?`,
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Confirmar',
-          role: 'confirm',
-          handler: () => {
-            this.classService.leaveClass(id).subscribe({
-              next: () => this.loadClasses(),
-              error: (err) => console.error(err)
-            });
-          }
-        }
-      ]
-    });
+  // 🔹 Sair da sala
+  async exitClassAlert(name: string, id: string) {
+    const alert = await this.alertCtrl.create({
+      header: `Deseja sair de ${name}?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: () => {
+            this.classService.leaveById(id).subscribe({
+              next: () => this.loadClasses(),
+              error: (err) => console.error(err)
+            });
+          }
+        }
+      ]
+    });
 
-    await alert.present();
-  }
+    await alert.present();
+  }
 
-  // 🔹 Entrar na sala via código
-  async enterClassAlert() {
-    const alert = await this.alertCtrl.create({
-      header: `Insira o código da sala`,
-      inputs: [
-        {
-          name: 'code',
-          placeholder: 'Digite o código...',
-          attributes: {
-            required: true,
-          }
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Confirmar',
-          role: 'confirm',
-          handler: async (data) => {
+  // 🔹 Entrar na sala via código
+  async enterClassAlert() {
+    const alert = await this.alertCtrl.create({
+      header: `Insira o código da sala`,
+      inputs: [
+        {
+          name: 'code',
+          placeholder: 'Digite o código...',
+          attributes: {
+            required: true,
+          }
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: async (data) => {
                 const code = data.code?.trim();
                 if (!code) return false; // Bloqueia se vazio
 
@@ -105,7 +105,7 @@ loadClasses() {
                 });
                 await loading.present();
 
-                this.classService.joinClass(code).subscribe({
+                this.classService.joinByLink(code).subscribe({
                     next: (res) => {
                         loading.dismiss();
                         // 1. Atualizar a lista de salas
@@ -130,13 +130,13 @@ loadClasses() {
                     }
                 });
                 return true; // Mantém o alerta aberto até que a chamada termine se o código for válido
-            }
-        },
-      ]
-    });
+            }
+        },
+      ]
+    });
 
-    await alert.present();
-  }
+    await alert.present();
+  }
     
     // 💡 Função auxiliar para exibir erros (Toast ou Alert)
     async presentErrorAlert(header: string, message: string) {

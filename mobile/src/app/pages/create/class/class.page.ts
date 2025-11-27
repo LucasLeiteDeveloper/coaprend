@@ -65,7 +65,7 @@ export class CreateClassPage {
       this.tags.forEach((t, i) => form.append(`tags[${i}]`, t));
     }
 
-    this.classService.createClass(form).subscribe({
+    this.classService.create(form).subscribe({
       next: async () => {
         await this.showToast('Sala criada com sucesso!');
         this.router.navigate(['/class']);

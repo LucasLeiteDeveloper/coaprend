@@ -25,7 +25,7 @@ export class TagService {
   // 🔵 Buscar tags de uma sala
   // GET /classes/:id/tags
   // -------------------------------------------------------------
-  getTagsByClass(classId: number): Observable<any[]> {
+  getTagsByClass(classId: string): Observable<any[]> {
     return this.api.get(`classes/${classId}/tags`);
   }
 
@@ -34,7 +34,7 @@ export class TagService {
   // POST /classes/:id/tags
   // -------------------------------------------------------------
   createTag(
-    classId: number,
+    classId: string,
     payload: { name: string; color: string }
   ): Observable<any> {
     return this.api.post(`classes/${classId}/tags`, payload);
@@ -45,8 +45,8 @@ export class TagService {
   // PUT /classes/:id/tags/:tagId
   // -------------------------------------------------------------
   updateTag(
-    classId: number,
-    tagId: number,
+    classId: string,
+    tagId: string,
     payload: { name?: string; color?: string }
   ): Observable<any> {
     return this.api.put(`classes/${classId}/tags/${tagId}`, payload);
@@ -56,7 +56,7 @@ export class TagService {
   // 🔴 Excluir tag
   // DELETE /classes/:id/tags/:tagId
   // -------------------------------------------------------------
-  deleteTag(classId: number, tagId: number): Observable<any> {
+  deleteTag(classId: string, tagId: string): Observable<any> {
     return this.api.delete(`classes/${classId}/tags/${tagId}`);
   }
 
@@ -64,7 +64,7 @@ export class TagService {
   // 🔥 NOVO — Remover TODAS as tags da sala
   // DELETE /classes/:id/tags
   // -------------------------------------------------------------
-  clearAllTags(classId: number): Observable<any> {
+  clearAllTags(classId: string): Observable<any> {
     return this.api.delete(`classes/${classId}/tags`);
   }
 
@@ -73,7 +73,7 @@ export class TagService {
   // POST /classes/:id/tags/reorder
   // body: [ID das tags na nova ordem]
   // -------------------------------------------------------------
-  reorderTags(classId: number, orderedTagIds: number[]): Observable<any> {
+  reorderTags(classId: string, orderedTagIds: string[]): Observable<any> {
     return this.api.post(`classes/${classId}/tags/reorder`, { order: orderedTagIds });
   }
 
@@ -82,7 +82,7 @@ export class TagService {
   // PUT /classes/:id/tags
   // body: array de objetos de tag
   // -------------------------------------------------------------
-  updateManyTags(classId: number, tags: any[]): Observable<any> {
+  updateManyTags(classId: string, tags: any[]): Observable<any> {
     return this.api.put(`classes/${classId}/tags`, { tags });
   }
 }

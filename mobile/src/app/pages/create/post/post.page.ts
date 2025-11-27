@@ -51,7 +51,7 @@ export class PostPage {
   async loadUserClass() {
     try {
       const stored: any = await firstValueFrom(
-        this.classService.getCurrentUserClass()
+        this.classService.get.currentClassId()
       );
 
       this.userClassId = stored.id;
@@ -68,9 +68,9 @@ export class PostPage {
     if (!this.selectedClassId) return;
 
     try {
-      this.classTags = await firstValueFrom(
-        this.tagService.getTagsByClass(this.selectedClassId)
-      );
+      // this.classTags = await firstValueFrom(
+      //   this.tagService.getTagsByClass(this.selectedClassId)
+      // );
     } catch {
       console.error('Erro ao carregar tags da sala');
     }
@@ -133,7 +133,7 @@ export class PostPage {
       class_id: this.selectedClassId,
     };
 
-    this.postService.createFormData(payload, this.image).subscribe({
+    this.postService.create(payload, this.image).subscribe({
       next: () => {
         this.showToast('Post criado com sucesso!');
         this.navCtrl.back();

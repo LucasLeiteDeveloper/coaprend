@@ -81,7 +81,7 @@ export class CalendarPage implements OnInit {
     const start = this.dateToYMD(this.daysOfSelectedWeek[0]);
     const end = this.dateToYMD(this.daysOfSelectedWeek[6]);
 
-    this.postService.getPostsByDateRange(start, end).subscribe(posts => {
+    this.postService.get.byDateRange(start, end).subscribe(posts => {
       this.postsOfWeek = posts;
       this.applyTagFilter();
     });
