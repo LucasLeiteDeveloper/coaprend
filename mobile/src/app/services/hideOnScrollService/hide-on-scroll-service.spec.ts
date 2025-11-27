@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { HideOnScrollService } from './hide-on-scroll-service';
 
 describe('HideOnScrollService', () => {

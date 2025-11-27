@@ -84,7 +84,7 @@ export class PostCreatePage {
 
     this.saving = true;
 
-    this.postService.createFormData(this.post, this.selectedFile).subscribe({
+    this.postService.create(this.post, this.selectedFile).subscribe({
       next: async () => {
         const t = await this.toastCtrl.create({
           message: 'Post criado com sucesso!',
@@ -99,7 +99,7 @@ export class PostCreatePage {
         console.error(err);
         const t = await this.toastCtrl.create({
           message: 'Erro ao criar post',
-          duration: 2500,
+          duration: 2000,
           color: 'danger',
         });
         t.present();

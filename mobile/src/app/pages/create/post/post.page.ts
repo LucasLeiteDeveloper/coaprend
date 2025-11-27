@@ -44,10 +44,6 @@ export class PostPage {
     await this.loadTags();
   }
 
-  // --------------------------------------------------------------------
-  // 🔵 Carregar sala atual do usuário
-  // NÃO usa toPromise (depreciado). Usa firstValueFrom corretamente.
-  // --------------------------------------------------------------------
   async loadUserClass() {
     try {
       const stored: any = await firstValueFrom(
@@ -61,9 +57,6 @@ export class PostPage {
     }
   }
 
-  // --------------------------------------------------------------------
-  // 🟢 Carregar tags da sala selecionada
-  // --------------------------------------------------------------------
   async loadTags() {
     if (!this.selectedClassId) return;
 
@@ -76,9 +69,6 @@ export class PostPage {
     }
   }
 
-  // --------------------------------------------------------------------
-  // 📅 Abrir calendário
-  // --------------------------------------------------------------------
   openCalendar() {
     this.showCalendar = true;
   }
@@ -87,9 +77,6 @@ export class PostPage {
     this.showCalendar = false;
   }
 
-  // --------------------------------------------------------------------
-  // 🏷 Abrir seletor de tags
-  // --------------------------------------------------------------------
   async openTagSelector() {
     const modal = await this.modal.create({
       component: InputModalComponent,
@@ -110,9 +97,6 @@ export class PostPage {
     }
   }
 
-  // --------------------------------------------------------------------
-  // 📝 Criar post
-  // --------------------------------------------------------------------
   createPost() {
     if (!this.title.trim()) {
       this.showToast('O título é obrigatório!');
@@ -142,16 +126,10 @@ export class PostPage {
     });
   }
 
-  // --------------------------------------------------------------------
-  // 📁 Imagem
-  // --------------------------------------------------------------------
   onFileSelected(ev: any) {
     this.image = ev.target.files[0];
   }
 
-  // --------------------------------------------------------------------
-  // 🔔 Toast
-  // --------------------------------------------------------------------
   async showToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,

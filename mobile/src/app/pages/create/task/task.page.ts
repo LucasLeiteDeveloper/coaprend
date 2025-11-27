@@ -32,7 +32,6 @@ export class TaskPage implements OnInit {
     this.roomId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
-  /* --------------------- TAGS ---------------------- */
   async openTagPrompt() {
     const alert = await this.alertCtrl.create({
       header: 'Adicionar Tag',
@@ -55,7 +54,6 @@ export class TaskPage implements OnInit {
     this.tags.splice(i, 1);
   }
 
-  /* --------------------- ANEXOS ---------------------- */
   openFilePicker() {
     (document.getElementById('fileInput') as HTMLInputElement).click();
   }
@@ -69,7 +67,6 @@ export class TaskPage implements OnInit {
     this.attachments.splice(i, 1);
   }
 
-  /* --------------------- SALA ---------------------- */
   async selectRoom() {
     const alert = await this.alertCtrl.create({
       header: 'Selecionar Sala',
@@ -90,7 +87,6 @@ export class TaskPage implements OnInit {
     await alert.present();
   }
 
-  /* --------------------- SUBMIT ---------------------- */
   submit() {
     if (!this.title.trim() || !this.deadline) {
       alert('Preencha pelo menos título e data limite.');

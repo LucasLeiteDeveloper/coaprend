@@ -74,7 +74,7 @@ export class CreateTaskPage {
       return t.present();
     }
     this.saving = true;
-    this.postService.createFormData(this.post, this.selectedFile).subscribe({
+    this.postService.create(this.post, this.selectedFile).subscribe({
       next: async (res) => {
         const t = await this.toastCtrl.create({ message: 'Post criado com sucesso!', duration: 2000, color: 'success' });
         t.present();

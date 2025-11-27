@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { TaskService } from './task';
 
 describe('TaskService', () => {
