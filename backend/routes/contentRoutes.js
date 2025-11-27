@@ -6,12 +6,13 @@ const authenticateToken = require("../middlewares/authenticateToken");
 //get the controller
 const classController = require("../controllers/classController");
 const contentController = require("../controllers/contentController");
+const upload = require("../middlewares/uploadMiddleware");
 const notificationContoller = require("../controllers/notificationController");
 
 // route of classes 
 router.get("/classes/my", authenticateToken, classController.getUserClasses);
 router.get("/class/:classId", authenticateToken, classController.getClassDetails);
-router.post("/class", authenticateToken, classController.createClass);
+router.post("/class", authenticateToken, upload.single('icon'), classController.createClass);
 router.post("/class/enter", authenticateToken, classController.enterClass);
 router.patch("/class/:classId", authenticateToken, classController.updateClass);
 router.delete("/class/:classId", authenticateToken, classController.deleteClass);
