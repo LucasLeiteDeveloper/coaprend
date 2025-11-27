@@ -42,6 +42,7 @@ export class PostPage {
   async ngOnInit() {
     await this.loadUserClass();
     await this.loadTags();
+    alert("Tesre")
   }
 
   // --------------------------------------------------------------------
