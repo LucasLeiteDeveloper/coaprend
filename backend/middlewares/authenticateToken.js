@@ -2,6 +2,8 @@
 const { auth } = require("../config/db");
 
 module.exports = async (req, res, next) => {
+    if (req.method === "OPTIONS") return next();
+    
     //check if was send all 
     if(!req.headers.authorization || !req.headers.authorization.startsWith("Bearer ")) return res.status(401).send("Não autorizado!");
 
