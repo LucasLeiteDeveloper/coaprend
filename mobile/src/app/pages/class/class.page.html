@@ -17,7 +17,7 @@
 <ion-popover trigger="trigger-button">
   <ng-template>
     <div class="ion-padding tag-selector">
-      <div *ngFor="let tag of tags" class="tag-option" [class]="tag.color" [class.selected]="tag.selected" [id]="['tag' + tag.id]" (click)="selectTag(tag.id)">
+      <div *ngFor="let tag of tags" class="tag-option" [class]="tag.color" [class.selected]="tag.selected" [id]="['tag' + tag.id]" (click)="selectTag($event.target, tag.id)">
         <ion-icon [name]="tag.icon"></ion-icon>
         <p>{{ tag.text }}</p>
       </div>
@@ -26,9 +26,9 @@
 </ion-popover>
 
 <div class="header-nav">
-  <a [class.selected]="selectedTab == 'posts'" [routerLink]="['/class', classId, 'posts']" (click)="onTabChange('posts')">Postagens</a>
-  <a [class.selected]="selectedTab == 'tasks'" [routerLink]="['/class', classId, 'tasks']" (click)="onTabChange('tasks')">Tarefas</a>
-  <a [class.selected]="selectedTab == 'calendar'" [routerLink]="['/class', classId, 'calendar']" (click)="onTabChange('calendar')">Calendário</a>
+  <a [class.selected]="selectedTab == 'posts'" [routerLink]="['/class', classId, 'posts']" (click)="selectedTab = 'posts'">Postagens</a>
+  <a [class.selected]="selectedTab == 'tasks'" [routerLink]="['/class', classId, 'tasks']" (click)="selectedTab = 'tasks'">Tarefas</a>
+  <a [class.selected]="selectedTab == 'calendar'" [routerLink]="['/class', classId, 'calendar']" (click)="selectedTab = 'calendar'">Calendário</a>
 </div>
 
 <ion-content class="ion-padding" [scrollEvents]="true" (ionScroll)="scroll.onContentScroll($event)">
