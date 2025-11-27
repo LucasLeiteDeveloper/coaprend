@@ -1,43 +1,7 @@
 const { db } = require("../config/db"); //gets the firestore
 const { sendNotification } = require("../utils/notificationHelper");
 
-/* create a new room of content on Firestore
-the req.user.uid will be send from authenticateToken*/
-exports.createContentRoom = async (req, res) => {
-    try {
-        const { title, description, icon } = req.body;
-        //come from authenticateToken
-        const creatorUid = req.user.uid;
-
-        if(!title) return res.status(400).json({ error: "O campo 'title' é obrigatório!" });
-
-        //create a new doc on firestore
-        const newRoomRef = db.collection('room').doc();
-
-        //data to insert in room
-        const roomData = {
-            title: title,
-            creatorUid: creatorUid,
-            description: description || "",
-            icon: icon || null,
-            membersId: [creatorUid]
-        };
-
-        //set the data
-        await newRoomRef.set(roomData);
-
-        return res.status(201).json({
-            message: "Sala de conteúdo criada com sucesso!",
-            roomId: newRoomRef.id,
-            data: roomData
-        });
-    } catch(error){
-        console.error("Erro ao criar sala de conteúdo: ", error);
-        return res.status(500).json({ error: "Erro interno" })
-    }
-}
-
-// create a new post in a room
+// create a new post in a class
 // route: POST /api/content/posts
 exports.createPost = async (req, res)=> {
     try {
@@ -47,13 +11,13 @@ exports.createPost = async (req, res)=> {
         //gets the nome of token 
         const username = req.user.name;
 
-        const { title, roomId, texts, images, marker } = req.body;
+        const { title, classId, texts, images, marker } = req.body;
 
-        if(!title ||  !roomId || !texts) return res.status(400).json({ error: "Campos 'title', 'roomId' e 'texts' são obrigatórios!" });
+        if(!title ||  !classId || !texts) return res.status(400).json({ error: "Campos 'title', 'classId' e 'texts' são obrigatórios!" });
 
         const postData = {
             title,
-            roomId,
+            classId,
             authorUid,
             username: username || "Usuário",
             texts: Array.isArray(texts) ? texts: [texts], // garants that texts be an array
@@ -76,18 +40,18 @@ exports.createPost = async (req, res)=> {
 }
 
 
-// list all posts of an specific room
-// route: GET /api/content/rooms/:roomId/posts
-exports.getPostsForRoom = async (req, res) => {
+// list all posts of an specific class
+// route: GET /api/content/classs/:classId/posts
+exports.getPostsForClass = async (req, res) => {
     try {
-        // get the room's id
-        const { roomId } = req.params;
+        // get the class's id
+        const { classId } = req.params;
 
         // gets a reference of collecion posts
         const postsRef = db.collection('posts');
 
-        // get the posts referenced by the roomId
-        const snapshot = await postsRef.where('roomId', '==', roomId)
+        // get the posts referenced by the classId
+        const snapshot = await postsRef.where('classId', '==', classId)
                                         .orderBy('dt_create', 'desc')
                                         .get();
 
@@ -104,31 +68,31 @@ exports.getPostsForRoom = async (req, res) => {
     }
 }
 
-// create a new task in a room
+// create a new task in a class
 // route: POST /api/content/tasks
 exports.createTask = async (req, res) => {
     try {
         // the dt_final needs to come in a string ISO
-        const { title, roomId, dt_final } = req.body;
+        const { title, classId, dt_final } = req.body;
 
-        if(!title || !roomId || !dt_final) return res.status(400).json({ error: "Campos 'title', 'roomId' e 'dt_final' são obrigatórios!" })
+        if(!title || !classId || !dt_final) return res.status(400).json({ error: "Campos 'title', 'classId' e 'dt_final' são obrigatórios!" })
 
         const taskData = {
             title,
-            roomId,
+            classId,
             dt_final: new Date(dt_final),
             finishedBy: []
         };
 
         const newTaskRef = await db.collection('tasks').add(taskData);
 
-        //gets the room members
-        const roomDoc = await db.collection.doc(roomId).get();
+        //gets the class members
+        const classDoc = await db.collection.doc(classId).get();
 
-        if(roomDoc.exists){
-            const members = roomDoc.data().membersId || [];
+        if(classDoc.exists){
+            const members = classDoc.data().membersId || [];
 
-            memebers.forEach(memberUid => {
+            members.forEach(memberUid => {
                 if(memberUid !== req.user.uid){
                     sendNotification(memberUid, "Nova Tarefa", `Tarefa ${title} criada na sala.`, "task");
                 }
@@ -145,15 +109,15 @@ exports.createTask = async (req, res) => {
     }
 }
 
-// get all tasks of an specific room
-// route: GET /api/contnet/rooms/:roomId/tasks
-exports.getTasksForRoom = async (req, res) => {
+// get all tasks of an specific class
+// route: GET /api/contnet/classs/:classId/tasks
+exports.getTasksForClass = async (req, res) => {
     try {
-        const { roomId } = req.params;
+        const { classId } = req.params;
  
-        // create a reference of taskRef and get the tasks of room
+        // create a reference of taskRef and get the tasks of class
         const taskRef = db.collection('tasks');
-        const snapshot = await taskRef.where('roomId', '==', roomId)
+        const snapshot = await taskRef.where('classId', '==', classId)
                                         .orderBy('dt_final', 'asc')
                                         .get();
 
@@ -164,36 +128,6 @@ exports.getTasksForRoom = async (req, res) => {
     } catch(error){
         console.error("Erro ao listar tarefas: ", error);
         return res.status(500).json({ error: "Erro interno" })
-    }
-}
-
-// UPDATING ROOMS
-exports.updateRoom = async (req, res)=> {
-    try {
-        const { roomId } = req.params; //gets the id of room
-        const updates = req.body; // can have title, description, icon and/or config
-        const userId = req.user.id; // get the user id
-
-        // gets a reference of the room
-        const roomRef = db.collection('room').doc(roomId);
-        const doc = await roomRef.get();
-
-        // check existence
-        if (!doc.exists) return res.status(404).json({ error: "Sala não encontrada!" });
-
-        // only the creator can edit the config
-        if (doc.data().creatorUid !== userId) return res.status(403).json({ error: "Apenas o dono da sala pode editá-la" });
-
-        // remove dangerous fields of body if exists
-        delete updates.creatorUid;
-        delete updates.id;
-
-        await roomRef.update(updates); //update only the send fields
-
-        return res.status(200).json({ message: "Sala atualizada com sucesso!" });
-    } catch(error) {
-        console.error("Erro updateRoom: ", error);
-        return res.status(500).json({ error: "Erro interno!" });
     }
 }
 
@@ -302,34 +236,12 @@ exports.searchPostsByTags = async (req, res) => {
     }
 }
 
-// DELETE FUNCTIONS
-exports.deleteRoom = async (req, res) => {
-    try {
-        const { roomId } = req.params;
-        const userId = req.user.uid;
-
-        const roomRef = db.collection('room').doc(roomId);
-        const doc = await roomRef.get();
-
-        if(!doc.exists) return res.status(404).json({ error: "Sala não encontrada!" });
-
-        if(doc.data().creatorUid !== userId) return res.status(403).json({ error: "Sem permissão!" });
-
-        await roomRef.delete();
-
-        return res.status(200).json({ message: "Sala deletada!" });
-    } catch(error){
-        console.error("Erro ao deletar sala: ", error);
-        return res.status(500).json({ error: "Erro interno!" });
-    }
-}
-
 exports.deletePost = async (req, res) => {
     try {
         const { postId } = req.params;
         const userId = req.user.uid;
 
-        const postRef = db.collection('room').doc(postId);
+        const postRef = db.collection('classes').doc(postId);
         const doc = await postRef.get();
 
         if(!doc.exists) return res.status(404).json({ error: "Sala não encontrada!" });
@@ -350,7 +262,7 @@ exports.deleteTask = async(req, res) => {
         const { taskId } = req.params;
         const userId = req.user.uid;
 
-        const taskRef = db.collection('room').doc(taskId);
+        const taskRef = db.collection('classes').doc(taskId);
         const doc = await taskRef.get();
 
         if(!doc.exists) return res.status(404).json({ error: "Sala não encontrada!" });
