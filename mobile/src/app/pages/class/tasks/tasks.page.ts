@@ -11,8 +11,8 @@ import { HttpClient } from '@angular/common/http';
   standalone: false,
 })
 export class TasksPage implements OnInit {
-  tasks: any;
-  filteredTasks: any;
+  public tasks: any;
+  public filteredTasks: any;
   loading: HTMLIonLoadingElement | null = null;
 
   constructor(
@@ -26,8 +26,6 @@ export class TasksPage implements OnInit {
 
   async ngOnInit() {
     await this.loadTasks();
-
-    // Atualiza filtro em tempo real
     this.classPage.tagFilter$.subscribe(() => {
       this.applyTagFilter();
     });
@@ -38,7 +36,6 @@ export class TasksPage implements OnInit {
       next: (data) => {
         this.tasks = data;
         this.applyTagFilter();
-        this.tasks = this.filteredTasks;
         console.log('Posts carregados:', this.tasks);
       },
       error: (err) => {
@@ -67,43 +64,15 @@ export class TasksPage implements OnInit {
 
   private applyTagFilter() {
     const selectedTags = this.classPage.tags
-      .filter((t: any) => t.selected)
-      .map((t: any) => t.id);
+      .filter((tag: any) => tag.selected == true)
+      .map((tag: any) => tag.id);
 
-    if (!selectedTags.length) {
-      this.filteredTasks = [...this.tasks];
-      return;
-    }
+    if (!selectedTags || Object.keys(selectedTags).length == 0) return;
 
-    this.filteredTasks = this.tasks.filter((task: any) =>
-      task.tags?.some((t: any) => selectedTags.includes(t.id ?? t))
-    );
-  }
+    const filteredTasks = this.tasks
+      .filter((task: any) => task.tags
+      .some((tag: any) => selectedTags.includes(tag.id ?? tag)));
 
-  viewTask(id: number) {
-    this.navCtrl.navigateForward(`/class/task/view/${id}`);
-  }
-
-  editTask(id: number) {
-    this.navCtrl.navigateForward(`/class/task/edit/${id}`);
-  }
-
-  async confirmDelete(id: number) {
-    const alert = await this.alertCtrl.create({
-      header: 'Excluir tarefa?',
-      message: 'Essa ação não pode ser desfeita.',
-      buttons: [
-        { text: 'Cancelar', role: 'cancel' },
-        { text: 'Excluir', handler: () => this.deleteTask(id) }
-      ]
-    });
-    await alert.present();
-  }
-
-  deleteTask(id: number) {
-    this.taskService.delete(id).subscribe(() => {
-      this.tasks = this.tasks.filter((t: any) => t.id !== id);
-      this.applyTagFilter();
-    });
+    this.tasks = filteredTasks;
   }
 }
