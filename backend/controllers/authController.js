@@ -115,9 +115,19 @@ exports.updateUserProfile = async (req, res) => {
 
         // inserts data per data to be updated
         const dataToUpdate = {};
+        if(updates.username) { // username validating
+            const usernameSnapshot = await db.collection('users')
+                                        .where('username', '===', username)
+                                        .get();
+
+            const isTaken = !usernameSnapshot && usernameSnapshot.docs.some(doc => doc.id !== uid);
+
+            if(isTaken) return res.status(400).json({ error: "Nome de usuário já existe" });
+
+            dataToUpdate.username = username
+        }
         if (updates.name) dataToUpdate.name = updates.name;
         if (updates.bio !== undefined) dataToUpdate.bio = updates.bio;
-        if (updates.username) dataToUpdate.username = updates.username;
         if (updates.dt_birthday) {
             dataToUpdate.dt_birthday = parseDateStringToUTC(updates.dt_birthday);
         } else if(updates.dt_birthday === '') { // if the frontend sends the date empty, saves with null
