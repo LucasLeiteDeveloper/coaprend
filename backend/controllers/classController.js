@@ -1,40 +1,6 @@
 const { db } = require("../config/db");
 const { sendNotification } = require("../utils/notificationHelper.js");
 
-async function uploadImageToFirebase(file, folder){
-    if (!file) return null;
-    
-    try {
-        const bucket = admin.storage().bucket();
-        const fileName = `${folder}/${Date.now()}_${file.originalname}`;
-        const fileUpload = bucket.file(fileName);
-
-        // Criar stream para upload
-        const stream = fileUpload.createWriteStream({
-            metadata: {
-                contentType: file.mimetype,
-            },
-        });
-
-        // Fazer upload
-        await new Promise((resolve, reject) => {
-            stream.on('error', reject);
-            stream.on('finish', resolve);
-            stream.end(file.buffer);
-        });
-
-        // Tornar o arquivo público e obter URL
-        await fileUpload.makePublic();
-        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
-        
-        return publicUrl;
-    } catch (error) {
-        console.error('Erro ao fazer upload da imagem:', error);
-        throw new Error('Falha ao fazer upload da imagem');
-    }
-}
-
-
 // function to generate unique class code
 function generateCode(){
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -56,16 +22,6 @@ exports.createClass = async (req, res) => {
         creatorUid = req.user.uid;
 
         if(!title) return res.status(400).json({ error: "O campo 'title' é obrigatório!"});
-
-        let iconUrl = null;
-        if(req.file) {
-            try {
-                iconUrl = await uploadImageToFirebase(req.file, 'class-icons');
-            } catch(uploadError){
-                console.error("Erro no upload da imagem: ", error);
-                return res.status(400).json({ error: "Erro ao fazer upload da imagem" })
-            }
-        }
 
         let processedTags = [];
         if(tags){
@@ -97,7 +53,7 @@ exports.createClass = async (req, res) => {
             title: title,
             creatorUid: creatorUid,
             description: description || "",
-            icon: iconUrl,
+            icon: icon || "",
             tags: processedTags,
             membersId: [creatorUid],
             code: classCode,

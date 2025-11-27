@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { ClassService } from 'src/app/services/classService/class';
+import { ContentService } from 'src/app/services/contentService/content-service';
 
 @Component({
   selector: 'app-create-class',
@@ -9,25 +9,20 @@ import { ClassService } from 'src/app/services/classService/class';
   styleUrls: ['./class.page.scss'],
   standalone: false,
 })
-export class CreateClassPage implements OnInit{
+export class CreateClassPage {
   classData = {
     title: '',
     description: '',
-    icon: '',
+    icon: null as File | null,
     tags: [] as string[]
   };
   newTag!: string;
 
   constructor(
-    private classService: ClassService,
+    private contentService: ContentService,
     private toastController: ToastController,
     private router: Router
   ) {}
-
-  async ngOnInit() {
-      this.showData();
-  }
-  showData(){ console.table(this.classData) }
 
   // Abrir seletor de arquivo
   public openFileDialog = () => {
@@ -36,8 +31,22 @@ export class CreateClassPage implements OnInit{
 
   // Selecionar imagem
   public setImage = (_event: any) => {
-    const f = _event.target.files![0];
-    if (f) this.classData.icon = f;
+    const file = _event.target.files![0];
+    if (file) {
+      // check if is an image
+      if(!file.type.startsWith('image/')){
+        this.showToast("Por favor, selecione apenas arquivos de imagem.");
+        return;
+      }
+
+      // check file size (5MB)
+      if(file.size > 5 * 1024 * 1024){
+        this.showToast("A imagem deve ter no máximo 5MB!");
+        return;
+      }
+
+      this.classData.icon = file;
+    }
   };
 
   // Adicionar tag
@@ -45,8 +54,6 @@ export class CreateClassPage implements OnInit{
     if (!this.newTag.trim()) return;
     this.classData.tags.push(this.newTag.trim());
     this.newTag = '';
-
-    this.showData();
   }
 
   // Remover tag
@@ -61,28 +68,29 @@ export class CreateClassPage implements OnInit{
       return;
     }
 
-    const form = new FormData();
-    form.append('nome', this.classData.title);
-    form.append('descricao', '');
-    
-    if (this.classData.icon) {
-      form.append('imagem', this.classData.icon);
-    }
+    try {
+      let iconUrl = '';
 
-    if (this.classData.tags.length > 0) {
-      this.classData.tags.forEach((t, i) => form.append(`tags[${i}]`, t));
-    }
+      if (this.classData.icon){
+        this.showToast("Salvando imagem..");
+      }
 
-    this.classService.createClass(form).subscribe({
-      next: async () => {
-        await this.showToast('Sala criada com sucesso!');
-        this.router.navigate(['/class']);
-      },
-      error: async (err) => {
-        console.error(err);
-        await this.showToast('Erro ao criar sala.');
-      },
-    });
+      const classDataToSend = {
+        title: this.classData.title.trim(),
+        description: this.classData.description.trim(),
+        icon: iconUrl,
+        tags: this.classData.tags
+      }
+
+      console.log("Enviando dados: ", classDataToSend);
+      const response = await this.contentService.createClass(classDataToSend);
+      console.log("Resposta recebida: ", response);
+
+      await this.showToast(`Sala criada com sucesso! Código: ${response.code}`);
+    } catch(error: any){
+      console.error("Erro ao criar sala: ", error);
+      this.showToast("Erro ao criar sala!");
+    };
   }
 
   // Toast utilitário

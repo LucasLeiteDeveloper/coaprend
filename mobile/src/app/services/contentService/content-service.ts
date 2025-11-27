@@ -31,7 +31,7 @@ export class ContentService {
   // METHODS FOR CLASSES
   async createClass(data: { title: string, decription?: string, icon?: string, tags?: string[] }): Promise<any> {
     const headers = this.getAuthHeaders();
-
+    
     return this.http.post<any>(`${this.apiUrl}/class`, data, { headers }).toPromise();
   }
   async enterClass(code: string): Promise<any> {
