@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/authService/auth-service';
 
 @Component({
   selector: 'app-settings',
@@ -12,6 +13,7 @@ export class SettingsPage implements OnInit {
 
   constructor(
     public actionConfirm: ActionSheetController,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -49,6 +51,9 @@ export class SettingsPage implements OnInit {
         {
           text: 'Sim',
           role: 'confirm',
+          handler: async () => {
+            await this.authService.logout();
+          }
         },
         {
           text: 'Não',
