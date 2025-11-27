@@ -73,7 +73,7 @@ export class AuthService {
       //save the token for session
       localStorage.setItem("firebaseToken", idToken);
       
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/class/0/posts']);
     } catch(error) {
       this.showToast("Erro ao cadastrar usuário!")
       console.error("Error on register: ", error);
@@ -97,7 +97,7 @@ export class AuthService {
 
       //save the idToken
       localStorage.setItem("firebaseToken", idToken);
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/class/0/posts']);
     }catch(error){
       this.showToast("Erro ao entrar na conta")
       console.error("Error on login: ", error);
@@ -124,6 +124,7 @@ export class AuthService {
   
         //calls the sync route of backend
         await this.syncProfile(idToken);
+        this.router.navigate(['class/0/posts'])
       } catch(error){
         this.showToast("Erro ao entrar com o Google!");
         console.error("Erro ao logar com google: ", error);

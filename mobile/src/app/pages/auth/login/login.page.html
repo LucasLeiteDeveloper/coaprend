@@ -1,8 +1,10 @@
 <main class="content-container grid-spacing-b">
 	<h1 class="ion-text-center"><strong>Entrar</strong></h1>
-	<form class="grid-spacing-m" (ngSubmit)="submitForm()">
+	<form class="grid-spacing-m" #loginForm="ngForm" >
 		<ion-input
 			type="email"
+			name="email"
+			[(ngModel)]="userData.email"
 			placeholder="email@domain.com"
 			label="Email"
 			labelPlacement="stacked"
@@ -11,6 +13,8 @@
 		></ion-input>
 		<ion-input
 			type="password"
+			name="password"
+			[(ngModel)]="userData.password"
 			label="Senha"
 			labelPlacement="stacked"
 			autocomplete="password"
@@ -18,14 +22,14 @@
 		>
 			<ion-input-password-toggle slot="end"></ion-input-password-toggle>
 		</ion-input>
-		<ion-button [routerLink]="['/tfa']" class="ion-text-capitalize" shape="round">Continuar</ion-button>
+		<ion-button (click)="submitForm()" class="ion-text-capitalize" shape="round" size="large">Continuar</ion-button>
 		<p>OU</p>
-		<ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round">Continuar com Google</ion-button>
+		<ion-button (click)="googleLogin()" class="ion-text-capitalize" shape="round">Continuar com Google</ion-button>
 	</form>
 
 	<div class="grid-spacing-m">
+		<p><a routerLink="/forgot-password">Esqueceu sua senha?</a></p>
 		<p>Não tem uma conta? <a routerLink="/register">Cadastre-se</a>.</p>
-		<p>Esqueceu sua senha? <a routerLink="/forgot-password">Recuperar</a>.</p>
 	</div>
 </main>
 <ion-toast trigger="test" message="This toast will disappear after 5 seconds" [duration]="5000"></ion-toast>
