@@ -51,4 +51,20 @@ export class TagService {
   updateManyTags(classId: string, tags: any[]): Observable<any> {
     return this.api.put(`classes/${classId}/tags`, { tags });
   }
+
+  // ISSO ESTAVA NA PÁGINA DE POSTS
+  // private applyTagFilter() {
+  //   const selectedTags = this.classPage.tags
+  //     .filter((t: any) => t.selected)
+  //     .map((t: any) => t.id);
+
+  //   if (!selectedTags.length) {
+  //     this.filteredPosts = [...this.posts];
+  //     return;
+  //   }
+
+  //   this.filteredPosts = this.posts.filter((post: any) =>
+  //     post.tags?.some((t: any) => selectedTags.includes(t.id ?? t))
+  //   );
+  // }
 }

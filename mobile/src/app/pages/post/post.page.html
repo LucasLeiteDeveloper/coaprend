@@ -7,11 +7,9 @@
 
 <ion-content>
   <main class="content-container">
-
-    <!-- Evita erro enquanto o post carrega -->
     <post-card *ngIf="post" [post]="post" [multiPosts]="false"></post-card>
 
-    <ion-button 
+    <!-- <ion-button 
       expand="block" 
       (click)="generateContent()" 
       [disabled]="!post || isLoading"
@@ -31,7 +29,7 @@
         <ion-card-title>Resultado</ion-card-title>
       </ion-card-header>
       <ion-card-content [innerHTML]="resultText"></ion-card-content>
-    </ion-card>
+    </ion-card> -->
 
   </main>
 </ion-content>
