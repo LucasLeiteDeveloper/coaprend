@@ -174,7 +174,7 @@ exports.deleteUserAccount = async (req, res) => {
     }
 }
 
-// get the user profile data, its a secure route, 
+// get the  current user data
 exports.getUserProfile = async (req, res) => {
     try {
         const uid = req.user.uid; //UID will be send by anthenticateToken
@@ -191,6 +191,72 @@ exports.getUserProfile = async (req, res) => {
         return res.status(200).json(profileData);
     } catch(error){
         console.error(error);
+        return res.status(500).json({ error: "Erro interno no servidor ao buscar perfil" })
+    }
+}
+// get the user an public profile with id
+exports.getPublicUserProfileById = async (req, res) => {
+    try {
+        const { uid } = req.params;//UID will be send by anthenticateToken
+
+        if(!uid) return res.status(400).json({ error: "UID não fornecido!" });
+
+        // get the users doc on firestore
+        const userRef = db.collection('users').doc(uid);
+        const userDoc = await userRef.get();
+
+        //if the user doesn't exists
+        if(!userDoc.exists) return res.status(404).json({ error: "Dados do usuário não encontrados" });
+
+        const userData = userDoc.data();
+
+        //only return public information
+        const publicProfile = {
+            uid: userDoc.id,
+            name: userData.name,
+            username: userData.username,
+            bio: userData.bio,
+            imgAccount: userData.imgAccount,
+            createdAt: userData.createdAt
+        };
+
+        return res.status(200).json(publicProfile);
+    } catch(error){
+        console.error(error);
+        return res.status(500).json({ error: "Erro interno no servidor ao buscar perfil" })
+    }
+}
+exports.getPublicUserProfileByUsername = async (req, res) => {
+    try {
+        const { username } = req.params;
+
+        if(!usermame) return res.status(400).json({ error: "Username não encontrado!" });
+
+        //gets the user profile
+        const usersRef = db.collection('users');
+        const snapshot = await usersRef.where('username', '==', username)
+                                .limit(1)
+                                .get();
+
+        if(snapshot.empty) return res.status(400).json({ error: "Usuário não encontrado!" });
+
+        // gets the user data
+        const userDoc = snapshot.docs[0];
+        const userData = userDoc.data();
+
+        //only return public information
+        const publicProfile = {
+            uid: userDoc.id,
+            name: userData.name,
+            username: userData.username,
+            bio: userData.bio,
+            imgAccount: userData.imgAccount,
+            createdAt: userData.createdAt
+        };
+
+        return res.status(200).json(publicProfile);
+    } catch(error){
+        console.error("Erro ao buscar perfil por username: ", error);
         return res.status(500).json({ error: "Erro interno no servidor ao buscar perfil" })
     }
 }
