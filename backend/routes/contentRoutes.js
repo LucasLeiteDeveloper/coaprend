@@ -4,26 +4,30 @@ const router = express.Router();
 //get the authenticateToken 
 const authenticateToken = require("../middlewares/authenticateToken");
 //get the controller
+const classController = require("../controllers/classController");
 const contentController = require("../controllers/contentController");
 const notificationContoller = require("../controllers/notificationController");
 
-// route of rooms
-router.post("/room", authenticateToken, contentController.createContentRoom);
-router.patch('/room/:roomId', authenticateToken, contentController.updateRoom);
-router.delete("/room/roomId", authenticateToken, contentController.deleteRoom);
+// route of classes 
+router.get("/classes/my", authenticateToken, classController.getUserClasses);
+router.get("/class/:classId", authenticateToken, classController.getClassDetails);
+router.post("/class", authenticateToken, classController.createClass);
+router.post("/class/enter", authenticateToken, classController.enterClass);
+router.patch("/class/:classId", authenticateToken, classController.updateClass);
+router.delete("/class/:classId", authenticateToken, classController.deleteClass);
 
 // posts routes
 router.post("/posts", authenticateToken, contentController.createPost);
 router.patch("/posts/:postId", authenticateToken, contentController.updatePost);
 router.delete("/posts/:postId", authenticateToken, contentController.deletePost);
-router.get("room/:roomid/posts", authenticateToken, contentController.getPostsForRoom);
+router.get("/class/:classId/posts", authenticateToken, contentController.getPostsForClass);
 router.get("/posts/search", authenticateToken, contentController.searchGlobalPosts);
 router.get("/posts/tags/search", authenticateToken, contentController.searchPostsByTags);
 
 // tasks routes
 router.post("/tasks", authenticateToken, contentController.createTask);
 router.patch("/tasks/:taskId", authenticateToken, contentController.updateTask);
-router.get("/room/:roomId/tasks", authenticateToken, contentController.getTasksForRoom);
+router.get("/class/:classId/tasks", authenticateToken, contentController.getTasksForClass);
 router.delete("/tasks/:taskId", authenticateToken, contentController.deleteTask);
 
 // notification routes
