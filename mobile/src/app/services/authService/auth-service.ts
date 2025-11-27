@@ -75,7 +75,14 @@ export class AuthService {
       localStorage.setItem("firebaseToken", idToken);
       
       this.router.navigate(['/class/0/posts']);
-    } catch(error) {
+    } catch(error: any) {
+      // verify the type of error
+      if(error.error && error.error.error) {
+        this.showToast(error.error.error);
+      } else {
+        this.showToast("Erro ao cadastrar usuário!");
+      }
+
       this.showToast("Erro ao cadastrar usuário!")
       console.error("Error on register: ", error);
 
@@ -167,8 +174,12 @@ export class AuthService {
 
       await this.http.patch(url, updates, { headers }).toPromise();
       this.showToast("Perfil atualizado!");
-    } catch(error){
-      this.showToast("Erro ao atualizar perfil!");
+    } catch(error: any){
+      if(error.error.error){
+        this.showToast(error.error.error);
+      } else {
+        this.showToast("Erro ao atualizar perfil!");
+      }
       console.error("Erro ao atualizar perfil: ", error);
       throw error;
     }
