@@ -10,26 +10,20 @@ import { ToastController, NavController } from '@ionic/angular';
   standalone: false,
 })
 export class ConfigPage implements OnInit {
+  public classId!: string;
+  public class: any = {};
+  public inviteCode = '';
 
-  classId!: string;
-  classData: any = {};
-  inviteCode = '';
+  public newName = '';
+  public newImage?: File;
 
-  // alterar nome
-  newName = '';
+  public tags: any[] = [];
+  public newTagName = '';
+  public newTagColor = '#3B82F6';
 
-  // alterar imagem
-  newImage?: File;
-
-  // tags
-  tags: any[] = [];
-  newTagName = '';
-  newTagColor = '#3B82F6';
-
-  // === CONTROLES DE INTERFACE (Necessários!) ===
-  showNameEditor = false;
-  showImagePicker = false;
-  showTagEditor = false;
+  public showNameEditor = false;
+  public showImagePicker = false;
+  public showTagEditor = false;
 
   constructor(
     private classService: ClassService,
@@ -37,7 +31,6 @@ export class ConfigPage implements OnInit {
     private toastCtrl: ToastController,
     private navCtrl: NavController
   ) {}
-
 
   ngOnInit() {
     this.loadClassData();
@@ -48,23 +41,9 @@ export class ConfigPage implements OnInit {
   // ============================
 
   loadClassData() {
-    const classId = this.classService.get.currentClassId()
-    this.classService.get.byClassId(classId).subscribe({
-      next: (data) => {
-        this.classData = data;
-        this.classId = data.id;
-        this.inviteCode = data.invite_code;
-        this.newName = data.name;
-
-        // this.loadTags();
-      },
-      error: () => this.showToast('Erro ao carregar dados da sala.')
-    });
+    const classId = this.classService.get.currentClassId();
+    this.class = this.classService.get.byClassId(classId);
   }
-
-  // ============================
-  // CÓDIGO DE CONVITE
-  // ============================
 
   copyInviteCode() {
     navigator.clipboard.writeText(this.inviteCode);
@@ -81,50 +60,41 @@ export class ConfigPage implements OnInit {
     });
   }
 
-  // ============================
-  // EDITAR NOME DA SALA
-  // ============================
-
   updateName() {
     const payload = { name: this.newName };
-
-this.classService.update.nameById(this.classId, this.newName).subscribe({
-  next: () => this.showToast('Nome atualizado!'),
-  error: () => this.showToast('Erro ao atualizar nome.')
-});
+    this.classService.update.nameById(this.classId, this.newName).subscribe({
+      next: () => this.showToast('Nome atualizado!'),
+      error: () => this.showToast('Erro ao atualizar nome.')
+    });
   }
-
-  // ============================
-  // ALTERAR FOTO DA SALA
-  // ============================
 
   onImageSelected(ev: any) {
     this.newImage = ev.target.files[0];
   }
 
-updatePhoto() {
-  if (!this.newImage) {
-    this.showToast('Selecione uma imagem.');
-    return;
+  updatePhoto() {
+    if (!this.newImage) {
+      this.showToast('Selecione uma imagem.');
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const base64 = (reader.result as string).split(',')[1]; // remove cabeçalho data:image/...
+
+      this.classService.update.imageById(this.classId, base64).subscribe({
+        next: () => this.showToast('Foto atualizada!'),
+        error: () => this.showToast('Erro ao atualizar foto.')
+      });
+    };
+
+    reader.onerror = () => {
+      this.showToast('Erro ao ler imagem.');
+    };
+
+    reader.readAsDataURL(this.newImage);
   }
-
-  const reader = new FileReader();
-
-  reader.onload = () => {
-    const base64 = (reader.result as string).split(',')[1]; // remove cabeçalho data:image/...
-
-    this.classService.update.imageById(this.classId, base64).subscribe({
-      next: () => this.showToast('Foto atualizada!'),
-      error: () => this.showToast('Erro ao atualizar foto.')
-    });
-  };
-
-  reader.onerror = () => {
-    this.showToast('Erro ao ler imagem.');
-  };
-
-  reader.readAsDataURL(this.newImage);
-}
 
 
   // ============================
@@ -190,10 +160,6 @@ updatePhoto() {
     });
   }
 
-  // ============================
-  // EXCLUIR SALA
-  // ============================
-
   deleteClass() {
     this.classService.delete.byClassId(this.classId).subscribe({
       next: () => {
@@ -203,10 +169,6 @@ updatePhoto() {
       error: () => this.showToast('Erro ao excluir sala.')
     });
   }
-
-  // ============================
-  // TOAST
-  // ============================
 
   async showToast(msg: string) {
     const toast = await this.toastCtrl.create({
