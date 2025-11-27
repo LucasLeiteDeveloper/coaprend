@@ -174,7 +174,6 @@ exports.getUserClasses = async (req, res) => {
 
         const classesSnapshot = await db.collection('classes')
                                     .where('membersId', 'array-contains', userId)
-                                    .orderBy('createdAt', 'desc')
                                     .get();
         if(classesSnapshot.empty) return res.status(200).json([]);
 

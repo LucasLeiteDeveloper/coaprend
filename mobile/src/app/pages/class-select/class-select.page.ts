@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular'; // Adicionei LoadingController
 import { ClassService } from 'src/app/services/classService/class';
 import { Router } from '@angular/router';
+import { ContentService } from 'src/app/services/contentService/content-service';
 
 @Component({
   selector: 'app-class-select',
@@ -16,24 +17,23 @@ export class ClassSelectPage implements OnInit {
   constructor(
     private alertCtrl: AlertController, // Renomeado para evitar conflito com a propriedade
     private classService: ClassService,
+    private contentService: ContentService,
     private router: Router,
     private loadingCtrl: LoadingController, // Injeção do LoadingController
   ) {}
 
-  ngOnInit() {
-    this.loadClasses();
+  async ngOnInit() {
+    await this.loadClasses();
   }
 
   // 🔹 Carrega todas as salas do usuário
-  loadClasses() {
-    this.classService.getMyClasses().subscribe({
-      next: (res) => {
-        this.classes = res;
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
+  async loadClasses() {
+    const response = await this.contentService.getUserClasses()
+                    .then(data => data);
+
+                    console.log(response)
+    
+    if(response) this.classes = response;
   }
 
   // 🔹 Sair da sala

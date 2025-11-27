@@ -1,7 +1,7 @@
 <ion-header class="subpage-header">
   <ion-toolbar class="content-container">
     <ion-back-button slot="start" icon="chevron-back-outline" color="dark" text=""></ion-back-button>
-    <ion-title>Selecionar Sala</ion-title>
+    <ion-title>Selecionar a Sala</ion-title>
     <div slot="end" class="header-options">
       <ion-icon name="add-outline" [routerLink]="['/create/class']"></ion-icon>
       <ion-icon name="enter-outline" (click)="enterClassAlert()"></ion-icon>
@@ -14,7 +14,7 @@
     <ion-item *ngFor="let class of classes" class="class-item">
       <div>
         <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=">
-        <p>{{ class.name }}</p>
+        <p>{{ class.title }}</p>
       </div>
       <div slot="end">
         <ion-icon name="settings-outline" id="open-modal" [routerLink]="['/class', class.id, 'config']"></ion-icon>
