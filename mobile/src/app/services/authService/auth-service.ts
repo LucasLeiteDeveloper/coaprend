@@ -48,7 +48,7 @@ export class AuthService {
 
   //register a new user 
   async register(formData: any): Promise<void>{
-    const { email, password, name, dt_birthday } = formData;
+    const { email, password, name, dt_birthday, username } = formData;
     
     //create an account on firebase
     try {
@@ -65,6 +65,7 @@ export class AuthService {
         uid,
         name: name,
         email: email,
+        username: username,
         dt_birthday: dt_birthday,
       }
 

@@ -1,36 +1,64 @@
 <main class="content-container grid-spacing-b">
   <h1 class="ion-text-center"><strong>Cadastre-se</strong></h1>
-  <form class="grid-spacing-m">
+  <form #registerForm="ngForm" class="grid-spacing-m">
+	<ion-input
+			type="text"
+			name="name"
+			[(ngModel)]="userData.name"
+			placeholder="Fulano da Silva"
+			label="Nome de usuário"
+			labelPlacement="stacked"
+			fill="outline"
+			autocomplete="nome"
+  		errorText="Nome invalido"
+		></ion-input>
+	<ion-input
+			type="text"
+			name="username"
+			[(ngModel)]="userData.username"
+			placeholder="Fulano_silva"
+			label="Nome de usuário"
+			labelPlacement="stacked"
+			fill="outline"
+			autocomplete="nome"
+  		errorText="Nome de usuário invalido"
+		></ion-input>
     <ion-input
 			type="email"
+			name="email"
+			[(ngModel)]="userData.email"
 			placeholder="email@domain.com"
 			label="Email"
 			labelPlacement="stacked"
 			fill="outline"
 			autocomplete="email"
-  		errorText="Email invalido"
+  		errorText="Nome invalido"
 		></ion-input>
 		<ion-input
 			type="password"
+			name="password"
+			[(ngModel)]="userData.password"
 			label="Senha"
 			labelPlacement="stacked"
 			fill="outline"
 			autocomplete="password"
-  			errorText="Senha invalida"
+  		errorText="Senha invalida"
 		>
 			<ion-input-password-toggle slot="end"></ion-input-password-toggle>
 		</ion-input>
     <ion-input
 			type="date"
+			name="dt_birthday"
+			[(ngModel)]="userData.dt_birthday"
 			placeholder="DD/MM/AAAA"
 			label="Data de Nascimento"
 			labelPlacement="stacked"
 			fill="outline"
   		errorText="Data invalida"
 		></ion-input>
-    <ion-button [routerLink]="['/create/profile']" class="ion-text-capitalize" shape="round" size="large">Continuar</ion-button>
+    <ion-button class="ion-text-capitalize" (click)="submitForm()" shape="round" size="large">Continuar</ion-button>
     <p>OU</p>
-    <ion-button [routerLink]="['/class/0/post']" class="ion-text-capitalize" shape="round" size="large">Continuar com Google</ion-button>
+    <ion-button class="ion-text-capitalize" (click)="googleLogin()"  shape="round" size="large">Continuar com Google</ion-button>
   </form>
   <div class="grid-spacing-m">
     <p>Ao continuar você concorda com os <a routerLink="/terms">Termos de Uso</a> do Coaprend e confirma que leu nossa <a routerLink="/policy">Politica de Privacidade</a>.</p>

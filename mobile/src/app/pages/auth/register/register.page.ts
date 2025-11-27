@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router'; // 👈 1. Para redirecionar
-import { ApiService } from 'src/app/services/apiService/api-service'; // 👈 2. Serviço para comunicação com o Backend
+import { AuthService } from 'src/app/services/authService/auth-service';
 import { RegisterService } from 'src/app/services/registerService/register-service'; 
 
 @Component({
@@ -10,22 +11,24 @@ import { RegisterService } from 'src/app/services/registerService/register-servi
   standalone: false,
 })
 export class RegisterPage implements OnInit {
- 
+  //form object to valid data received
+  @ViewChild('registerForm') registerForm!: NgForm;
+
+  //object with the real userData
+  userData = {
+    name: '',
+    username: '',
+    email: '',
+    password: '',
+    dt_birthday: ''
+  }
+
   public errorMessage: string = '';
   public isLoading: boolean = false;
 
-  // 4. Estrutura do formulário (IMPORTANTE: deve refletir o que o Laravel espera!)
-  public form: any = {
-    name: '',
-    email: '',
-    password: '',
-    // O Laravel (com a regra 'confirmed') exige este campo para confirmar a senha
-    password_confirmation: '', 
-  };
-
   constructor(
     private registerService: RegisterService, 
-    private apiService: ApiService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -35,39 +38,28 @@ export class RegisterPage implements OnInit {
   submitForm(): void {
     this.errorMessage = '';
     
-    // **VALIDAÇÃO LOCAL (Frontend)**
-    // Você deve implementar uma função isRegisterDataValid no seu LoginService
-    // que checa se as senhas são iguais, se todos os campos estão preenchidos, etc.
-    if (!this.registerService.isFormDataValid(this.form)) {
+    if (!this.registerForm.valid) {
       this.errorMessage = "Por favor, preencha todos os campos e confirme sua senha corretamente.";
       return; 
     }
 
     this.isLoading = true; // Indica que a requisição está em andamento
 
-    // **COMUNICAÇÃO COM A API (Backend)**
-    this.apiService.postRegister(this.form).subscribe({
-      next: (response: any) => {
-        // SUCESSO: Login automático após o registro
-        this.isLoading = false;
-        console.log('Registro OK. Usuário criado e logado:', response.token);
-        
-        // Armazena o token para manter o usuário autenticado
-        localStorage.setItem('auth_token', response.token); 
-        
-        // Redireciona para a home page do Coaprend
-        this.router.navigate(['/home']);
-      },
-      error: (err: any) => {
-        // ERRO: Pode ser falha de conexão ou erro de validação do Laravel (ex: e-mail já existe)
-        this.isLoading = false;
-        console.error('Falha na API durante o registro:', err);
-        
-        // Tenta exibir a mensagem de erro do backend
-        this.errorMessage = err.error && err.error.message 
-                          ? err.error.message 
-                          : 'Erro no registro. Tente novamente mais tarde.';
-      }
-    });
+    this.authService.register(this.userData);
+  }
+
+  async googleLogin(){
+    try {
+      this.isLoading = true;
+      await this.authService.loginWithGoogle();
+
+      //success, go to home
+      this.router.navigate(['/home']);
+    } catch(error){
+      this.errorMessage = "Falha no login com Google. Tente novamente";
+      console.error(error);
+    } finally {
+      this.isLoading = false;
+    }
   }
 }

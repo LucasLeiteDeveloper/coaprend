@@ -21,10 +21,10 @@ function parseDateStringToUTC(dateString) {
 //create an user
 exports.registerUser = async (req, res) => {
     //get the info send by ionic
-    const { uid, name, dt_birthday, email } = req.body;
+    const { uid, name, dt_birthday, email, username } = req.body;
 
     //validation
-    if(!uid || !name || !email) return res.status(400).json({ error: "Essential data (uid, name or email) not send!" });
+    if(!uid || !name || !email || !username) return res.status(400).json({ error: "Essential data (uid, name or email) not send!" });
 
     try {
         //formating the dt_birthday
@@ -39,7 +39,7 @@ exports.registerUser = async (req, res) => {
             dt_birthday: dt_birthdayFormated,
             imgAccount: null,
             bio: 'new user coaprend',
-            username: null, //check if exist some @
+            username: username, //check if exist some @
             createdAt: new Date()
         });
 
