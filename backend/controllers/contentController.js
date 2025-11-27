@@ -9,7 +9,7 @@ exports.createPost = async (req, res)=> {
         const authorUid = req.user.uid;
     
         //gets the nome of token 
-        const username = req.user.name;
+        const username = req.user.username;
 
         const { title, classId, texts, images, marker } = req.body;
 
