@@ -44,7 +44,7 @@ export class SettingsPage implements OnInit {
     document.documentElement.classList.toggle('ion-palette-dark', shouldAdd);
   }
 
-  async canDismiss() {
+  async canDismissLogout() {
     const actionSheet = await this.actionConfirm.create({
       header: 'Deseja mesmo sair?',
       buttons: [
@@ -53,6 +53,31 @@ export class SettingsPage implements OnInit {
           role: 'confirm',
           handler: async () => {
             await this.authService.logout();
+          }
+        },
+        {
+          text: 'Não',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    actionSheet.present();
+
+    const { role } = await actionSheet.onWillDismiss();
+
+    return role === 'confirm';
+  };
+
+  async canDismissDelete() {
+    const actionSheet = await this.actionConfirm.create({
+      header: 'Deseja mesmo apagar sua conta?',
+      buttons: [
+        {
+          text: 'Sim',
+          role: 'confirm',
+          handler: async () => {
+            await this.authService.deleteAccount();
           }
         },
         {
