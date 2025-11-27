@@ -10,6 +10,8 @@ const authController = require('../controllers/authController');
 //routes of authentication
 //gets the profile data
 router.get('/profile', authenticateToken, authController.getUserProfile);
+router.get("/profile/:uid", authenticateToken, authController.getPublicUserProfileById);
+router.get("/profile/username/:username", authenticateToken, authController.getPublicUserProfileByUsername);
 // update the profile
 router.patch('/profile', authenticateToken, authController.updateUserProfile);
 //update the settings 
