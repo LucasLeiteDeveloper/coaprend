@@ -20,6 +20,14 @@ export interface UserProfile {
   username?: string,
   imgAccount?: string
 }
+export interface PublicUserProfile {
+  uid: string,
+  name: string,
+  dt_birthday?: string | FirestoreTimestamp,
+  bio?: string,
+  username?: string,
+  imgAccount?: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -236,6 +244,22 @@ export class AuthService {
       console.error("Erro ao buscar dados do perfil: ", error);
       throw error;
     }
+  }
+  async getPublicUserProfile(uid: string): Promise<PublicUserProfile>{
+    try {
+      const url = `${this.apiUrl}/profile/${uid}`;
+      const profile = await this.http.get<PublicUserProfile>(url).toPromise();
+
+      return profile as PublicUserProfile;
+    } catch(error: any){
+      if(error.error && error.error.error) {
+        this.showToast(error.error.error)
+      } else {
+        this.showToast("Erro ao buscar perfil do usuário!")
+      }
+      console.error("Erro ao buscar perfil público: ", error);
+      throw error;
+    }    
   }
 
   //show the error toast
