@@ -76,7 +76,8 @@ exports.syncProfile = async (req, res) => {
             username: null, // start with no username
             dt_birthday: null,
             imgAccount: picture || null, //'picture' comes from google
-            bio: "new user",
+            bio: "new user coaprend",
+            createdAt: new Date()
         };
 
         //await the user being created
