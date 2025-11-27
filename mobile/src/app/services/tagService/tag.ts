@@ -11,28 +11,16 @@ export class TagService {
 
   constructor(private api: ApiService) {}
 
-  // Observable que os componentes podem assinar para receber notificações.
   tagClicked$ = this.tagClickedSource.asObservable();
 
-  /**
-   * Método que a Página Principal chama para notificar a subpágina.
-   */
   notifyTagClicked(): void {
     this.tagClickedSource.next();
   }
 
-  // -------------------------------------------------------------
-  // 🔵 Buscar tags de uma sala
-  // GET /classes/:id/tags
-  // -------------------------------------------------------------
   getTagsByClass(classId: string): Observable<any[]> {
     return this.api.get(`classes/${classId}/tags`);
   }
 
-  // -------------------------------------------------------------
-  // 🟢 Criar nova tag na sala
-  // POST /classes/:id/tags
-  // -------------------------------------------------------------
   createTag(
     classId: string,
     payload: { name: string; color: string }
@@ -40,10 +28,6 @@ export class TagService {
     return this.api.post(`classes/${classId}/tags`, payload);
   }
 
-  // -------------------------------------------------------------
-  // 🟡 Editar tag
-  // PUT /classes/:id/tags/:tagId
-  // -------------------------------------------------------------
   updateTag(
     classId: string,
     tagId: string,
@@ -52,36 +36,18 @@ export class TagService {
     return this.api.put(`classes/${classId}/tags/${tagId}`, payload);
   }
 
-  // -------------------------------------------------------------
-  // 🔴 Excluir tag
-  // DELETE /classes/:id/tags/:tagId
-  // -------------------------------------------------------------
   deleteTag(classId: string, tagId: string): Observable<any> {
     return this.api.delete(`classes/${classId}/tags/${tagId}`);
   }
 
-  // -------------------------------------------------------------
-  // 🔥 NOVO — Remover TODAS as tags da sala
-  // DELETE /classes/:id/tags
-  // -------------------------------------------------------------
   clearAllTags(classId: string): Observable<any> {
     return this.api.delete(`classes/${classId}/tags`);
   }
 
-  // -------------------------------------------------------------
-  // 🔄 NOVO — Reordenar tags (drag & drop)
-  // POST /classes/:id/tags/reorder
-  // body: [ID das tags na nova ordem]
-  // -------------------------------------------------------------
   reorderTags(classId: string, orderedTagIds: string[]): Observable<any> {
     return this.api.post(`classes/${classId}/tags/reorder`, { order: orderedTagIds });
   }
 
-  // -------------------------------------------------------------
-  // ⚡ NOVO — Atualizar várias tags de uma vez (batch)
-  // PUT /classes/:id/tags
-  // body: array de objetos de tag
-  // -------------------------------------------------------------
   updateManyTags(classId: string, tags: any[]): Observable<any> {
     return this.api.put(`classes/${classId}/tags`, { tags });
   }
