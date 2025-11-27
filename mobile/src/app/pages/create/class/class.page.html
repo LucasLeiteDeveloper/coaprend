@@ -12,7 +12,16 @@
       placeholder="Digite aqui"
       label="Nome da Sala*"
       labelPlacement="stacked"
-      [(ngModel)]="className"
+      [(ngModel)]="classData.title"
+      name="className"
+      style="border-bottom: 1px solid gray;"
+    ></ion-input>
+    <ion-input
+      type="text"
+      placeholder="Digite aqui"
+      label="Descrição da sala*"
+      labelPlacement="stacked"
+      [(ngModel)]="classData.description"
       name="className"
       style="border-bottom: 1px solid gray;"
     ></ion-input>
@@ -38,9 +47,9 @@
     </ion-item>
 
     <!-- Tags (opcional) -->
-    <ion-item lines="none" *ngIf="tags.length">
+    <ion-item lines="none" *ngIf="classData.tags.length">
       <ion-label>Tags</ion-label>
-      <ion-chip *ngFor="let t of tags; let i = index">
+      <ion-chip *ngFor="let t of classData.tags; let i = index">
         {{ t }}
         <ion-icon name="close" (click)="removeTag(i)"></ion-icon>
       </ion-chip>
