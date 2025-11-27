@@ -17,7 +17,9 @@ export class ClassPage implements OnInit {
   public selectedTab: string = "";
   public classId!: string | null;
   public tags: any[] = [];
-  public classData!: any;
+  public classData: any = {
+    title: ''
+  };
 
   // BehaviorSubject para notificar filhos sobre as tags selecionadas
   public tagFilter$ = new BehaviorSubject<number[]>([]);
