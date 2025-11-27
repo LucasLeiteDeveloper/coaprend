@@ -18,7 +18,7 @@
       </div>
       <div slot="end">
         <ion-icon name="settings-outline" id="open-modal" [routerLink]="['/class', class.id, 'config']"></ion-icon>
-        <ion-icon name="exit-outline" color="danger" (click)="exitClassAlert(class.name, class.id)"></ion-icon>
+        <ion-icon name="exit-outline" color="danger" (click)="exitClassAlert(class.title, class.id)"></ion-icon>
       </div>
     </ion-item>
   </ion-list>

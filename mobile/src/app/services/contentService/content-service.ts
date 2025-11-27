@@ -55,6 +55,10 @@ export class ContentService {
     const headers = this.getAuthHeaders();
     return this.http.delete<any>(`${this.apiUrl}/class/${classId}`, { headers }).toPromise();
   }
+  async leaveClass(classId: string){
+    const headers = this.getAuthHeaders();
+    return this.http.delete<any>(`${this.apiUrl}/class/${classId}/leave`, { headers }).toPromise()
+  } 
 
 
   // methods for posts

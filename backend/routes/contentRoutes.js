@@ -15,6 +15,7 @@ router.post("/class", authenticateToken, classController.createClass);
 router.post("/class/enter", authenticateToken, classController.enterClass);
 router.patch("/class/:classId", authenticateToken, classController.updateClass);
 router.delete("/class/:classId", authenticateToken, classController.deleteClass);
+router.delete("/class/:classId/leave'", authenticateToken, classController.leaveClass);
 
 // posts routes
 router.post("/posts", authenticateToken, contentController.createPost);

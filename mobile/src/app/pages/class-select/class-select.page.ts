@@ -37,7 +37,7 @@ export class ClassSelectPage implements OnInit {
   }
 
   // 🔹 Sair da sala
-  async exitClassAlert(name: string, id: number) {
+  async exitClassAlert(name: string, id: string) {
     const alert = await this.alertCtrl.create({
       header: `Deseja sair de ${name}?`,
       buttons: [
@@ -48,11 +48,8 @@ export class ClassSelectPage implements OnInit {
         {
           text: 'Confirmar',
           role: 'confirm',
-          handler: () => {
-            this.classService.leaveClass(id).subscribe({
-              next: () => this.loadClasses(),
-              error: (err) => console.error(err)
-            });
+          handler: async () => {
+           
           }
         }
       ]

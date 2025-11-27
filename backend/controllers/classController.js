@@ -127,6 +127,51 @@ exports.enterClass = async (req, res) => {
     }
 }
 
+exports.leaveClass = async (req, res) => {
+    try {
+        const { classId } = req.params;
+        const userId = req.user.id;
+
+        if(!classId) return res.status(400).json({ error: "ID da classe é obrigatório!" });
+
+         const classRef = db.collection('classes').doc(classId);
+        const classDoc = await classRef.get();
+
+        if (!classDoc.exists) {
+            return res.status(404).json({ error: "Classe não encontrada!" });
+        }
+
+        const classData = classDoc.data();
+
+        // Check if user is a member of the class
+        if (!classData.membersId.includes(userId)) {
+            return res.status(400).json({ error: "Você não é membro desta classe!" });
+        }
+
+        // Check if user is the creator
+        if (classData.creatorUid === userId) {
+            return res.status(400).json({ 
+                error: "O criador da classe não pode sair. Transfira a criação primeiro ou exclua a classe." 
+            });
+        }
+
+        // Remove user from members list
+        const updatedMembers = classData.membersId.filter(memberId => memberId !== userId);
+        
+        await classRef.update({
+            membersId: updatedMembers,
+            memberCount: updatedMembers.length
+        });
+
+        return res.status(200).json({ 
+            message: "Você saiu da classe com sucesso!",
+            classId: classId
+         });
+    } catch(error){
+
+    }
+}
+
 // gets class details
 exports.getClassDetails = async (req, res) => {
     try {
