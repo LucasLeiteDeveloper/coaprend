@@ -11,8 +11,8 @@
 }
 
 .task-card-main {
-    display: grid;
-    grid-auto-flow: column;
+    display: flex;
+    align-items: center;
     gap: var(--spacing-m);
     align-items: center;
 }
@@ -38,8 +38,9 @@
 }
 
 .task-card-content {
-    display: grid;
-    gap: var(--spacing-sx);
+    display: flex;
+    flex-flow: column;
+    gap: var(--spacing-xs);
 }
 
 .task-card-content > h2 {

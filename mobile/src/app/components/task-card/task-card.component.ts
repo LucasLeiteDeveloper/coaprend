@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 export class TaskCardComponent implements OnInit {
   @Input() multiTasks: boolean = true;
   @Input() task: any;
+  @Input() skeleton: boolean = false;
   public displayTags: any;
 
   constructor(

@@ -1,14 +1,33 @@
-<article class="task-card"> 
-    <div class="task-card-main">
-        <ion-checkbox *ngIf="multiTasks"></ion-checkbox>
-        <div class="task-card-content" [routerLink]="['/task', task.id]"> 
-            <p class="task-text">{{ task.dueDate }}</p>
-            <h2>{{ task.title }}</h2>
+<div *ngIf="!skeleton">
+    <article class="task-card"> 
+        <div class="task-card-main">
+            <ion-checkbox *ngIf="multiTasks"></ion-checkbox>
+            <div class="task-card-content" [routerLink]="['/task', task.id]"> 
+                <p class="task-text">{{ task.dueDate }}</p>
+                <h2>{{ task.title }}</h2>
+            </div>
         </div>
-    </div>
-    <div class="tags-container">
-        <ion-icon *ngFor="let tag of displayTags" [class]="tag.color" [id]="['tag' + tag.id]" [name]="tag.icon" aria-hidden="true"></ion-icon>
-    </div>
-</article>
-<p *ngIf="!multiTasks">{{ task.content }}</p>
-<hr *ngIf="multiTasks">
+        <div class="tags-container">
+            <ion-icon *ngFor="let tag of displayTags" [class]="tag.color" [id]="['tag' + tag.id]" [name]="tag.icon" aria-hidden="true"></ion-icon>
+        </div>
+    </article>
+    <p *ngIf="!multiTasks">{{ task.content }}</p>
+    <hr *ngIf="multiTasks">
+</div>
+<div *ngIf="skeleton">
+    <article class="task-card"> 
+        <div class="task-card-main" style="width: 80%;">
+            <ion-skeleton-text [animated]="true" *ngIf="multiTasks" style="width: 24px; aspect-ratio: 1/1;"></ion-skeleton-text>
+            <div class="task-card-content" style="width: 100%;"> 
+                <ion-skeleton-text [animated]="true" class="task-text" style="width: 35%; height: var(--text-m);"></ion-skeleton-text>
+                <ion-skeleton-text [animated]="true" style="width: 100%; height: var(--text-b);"></ion-skeleton-text>
+                <ion-skeleton-text [animated]="true" style="width: 60%; height: var(--text-b);"></ion-skeleton-text>
+            </div>
+        </div>
+        <div class="tags-container">
+            <ion-skeleton-text [animated]="true" style="width: 24px; aspect-ratio: 1/1;"></ion-skeleton-text>
+        </div>
+    </article>
+    <p *ngIf="!multiTasks">{{ task.content }}</p>
+    <hr *ngIf="multiTasks">
+</div>
