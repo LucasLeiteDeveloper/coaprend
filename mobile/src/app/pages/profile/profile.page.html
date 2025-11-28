@@ -9,7 +9,7 @@
 
 <ion-content class="ion-padding" [scrollEvents]="true" (ionScroll)="scroll.onContentScroll($event)">
   <div class="profile">
-    <img src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg">
+    <img [src]="profileData.imgAccount ? profileData.imgAccount :'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'">
     <h2> {{ profileData.name ? profileData.name : "Usuário" }} </h2>
     <h3> {{ profileData.username ? profileData.username : "nome de usuário" }} </h3>
   </div>
