@@ -76,6 +76,9 @@ exports.syncProfile = async (req, res) => {
         //the authenticateToken already validate the token and give the req.user
         const { uid, name, email, picture } = req.user;
 
+        // prepares an username with the email's value
+        const username = email.split("@")[0];
+
         //create an reference to the collection users with the uid
         const userRef = db.collection('users').doc(uid);
         const doc = await userRef.get();
@@ -87,7 +90,7 @@ exports.syncProfile = async (req, res) => {
         const userData = {
             name: name || "Coaprend User",
             email: email,
-            username: null, // start with no username
+            username: username, // start with no username
             dt_birthday: null,
             imgAccount: picture || null, //'picture' comes from google
             bio: "new user coaprend",
