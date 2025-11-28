@@ -78,7 +78,9 @@ exports.createClass = async (req, res) => {
 exports.enterClass = async (req, res) => {
     try {
         const { code } = req.body;
-        const userId = req.user.id;
+        const userId = req.user.uid;
+
+        if(!userId || typeof userId !== 'string') return res.status(400).json({ error: "Id do usuário indefinido!" });
 
         if(!code) return res.status(400).json({ error: "Código da sala é obrigatório!" });
         
@@ -93,12 +95,21 @@ exports.enterClass = async (req, res) => {
         const classDoc = classSnapshot.docs[0];
         const classData = classDoc.data();
 
+        //clean the members id for case of null or undefined values
+        const cleanMembersId = (classData.membersId || []).filter(memberId => 
+            memberId && typeof memberId == 'string'
+        );
+
         // check if user is already a member
-        if(classData.membersId.includes(userId)) return res.status(400).json({ error: "Você já está nesta sala!" });
+        if(cleanMembersId.includes(userId)) return res.status(400).json({ error: "Você já está nesta sala!" });
+
+        // insert userId in cleanMembersId
+        const updatedMembersId = [ ...cleanMembersId,  userId];
+
 
         // add user to members
         await classDoc.ref.update({
-            membersId: [...classData.membersId, userId],
+            membersId: updatedMembersId,
             membersCount: (classData.membersCount || classData.membersId.length) + 1
         });
 

@@ -28,8 +28,7 @@ export class ClassSelectPage implements OnInit {
 
   // 🔹 Carrega todas as salas do usuário
   async loadClasses() {
-    const response = await this.contentService.getUserClasses()
-                    .then(data => data);
+    const response = await this.contentService.getUserClasses();
 
                     console.log(response)
     
@@ -88,30 +87,41 @@ export class ClassSelectPage implements OnInit {
                 });
                 await loading.present();
 
-                this.classService.joinClass(code).subscribe({
-                    next: (res) => {
-                        loading.dismiss();
-                        // 1. Atualizar a lista de salas
-                        this.loadClasses();
-                        // 2. Navegar para a sala recém-associada.
-                        // Assumindo que 'res' é o objeto da sala e contém 'id' ou 'classId'.
-                        const classId = res.id || res.classId; 
+                try {
+                    const response = await this.contentService.enterClass(code);
+                    console.log(response);
+                } catch(error: any){
+                    loading.dismiss();
+                    // Tratamento de erro: exibe a mensagem de erro da API.
+                    console.error('Erro ao tentar entrar na sala:', error);
+                    const errorMessage = error.error.message ? error.error.message : 'Código inválido ou erro de conexão.';
+                    this.presentErrorAlert('Erro ao Entrar', errorMessage);
+                }
+
+                // this.classService.joinClass(code).subscribe({
+                //     next: (res) => {
+                //         loading.dismiss();
+                //         // 1. Atualizar a lista de salas
+                //         this.loadClasses();
+                //         // 2. Navegar para a sala recém-associada.
+                //         // Assumindo que 'res' é o objeto da sala e contém 'id' ou 'classId'.
+                //         const classId = res.id || res.classId; 
                         
-                        if (classId) {
-                            // TODO: Plugar rota real do seu projeto.
-                            this.router.navigateByUrl(`/class/${classId}/details`); 
-                        } else {
-                            this.presentErrorAlert('Sucesso com Alerta', 'Você entrou na sala! (Dados de retorno incompletos)');
-                        }
-                    },
-                    error: (err) => {
-                        loading.dismiss();
-                        // Tratamento de erro: exibe a mensagem de erro da API.
-                        console.error('Erro ao tentar entrar na sala:', err);
-                        const errorMessage = err.error?.message || 'Código inválido ou erro de conexão.';
-                        this.presentErrorAlert('Erro ao Entrar', errorMessage);
-                    }
-                });
+                //         if (classId) {
+                //             // TODO: Plugar rota real do seu projeto.
+                //             this.router.navigateByUrl(`/class/${classId}/details`); 
+                //         } else {
+                //             this.presentErrorAlert('Sucesso com Alerta', 'Você entrou na sala! (Dados de retorno incompletos)');
+                //         }
+                //     },
+                //     error: (err) => {
+                //         loading.dismiss();
+                //         // Tratamento de erro: exibe a mensagem de erro da API.
+                //         console.error('Erro ao tentar entrar na sala:', err);
+                //         const errorMessage = err.error?.message || 'Código inválido ou erro de conexão.';
+                //         this.presentErrorAlert('Erro ao Entrar', errorMessage);
+                //     }
+                // });
                 return true; // Mantém o alerta aberto até que a chamada termine se o código for válido
             }
         },
