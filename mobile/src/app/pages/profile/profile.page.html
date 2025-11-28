@@ -11,7 +11,7 @@
   <div class="profile">
     <img src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg">
     <h2> {{ profileData.name ? profileData.name : "Usuário" }} </h2>
-    <h3>@ do Usuário</h3>
+    <h3> {{ profileData.username ? profileData.username : "nome de usuário" }} </h3>
   </div>
   <post-card [post]="postExample"></post-card>
   <post-card [post]="postExample"></post-card>
