@@ -111,6 +111,8 @@ export class PostPage {
 
     if (role === 'confirm' && data) {
       this.selectedTags = data;
+
+      this.postData.tags = data;
     }
   }
 
