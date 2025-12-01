@@ -36,10 +36,6 @@ export class ConfigPage implements OnInit {
     this.loadClassData();
   }
 
-  // ============================
-  // CARREGAR DADOS DA SALA
-  // ============================
-
   loadClassData() {
     const classId = this.classService.get.currentClassId();
     this.class = this.classService.get.byClassId(classId);

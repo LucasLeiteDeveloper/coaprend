@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // 👈 1. Para redirecionar
-import { ApiService } from 'src/app/services/apiService/api-service'; // 👈 2. Serviço para comunicação com o Backend
+import { Router } from '@angular/router'; 
+import { ApiService } from 'src/app/services/apiService/api-service';
 import { RegisterService } from 'src/app/services/registerService/register-service'; 
 
 @Component({

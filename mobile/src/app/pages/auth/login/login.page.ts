@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; // 👈 IMPORTANTE: Para redirecionar
+import { Router } from '@angular/router'; 
 import { ApiService } from 'src/app/services/apiService/api-service';
 import { LoginService } from 'src/app/services/loginService/login-service';
 
@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
     email: '',
     password: '',
   };
-  public isLoading: boolean = false; // 👈 Bom para desativar o botão durante a requisição
+  public isLoading: boolean = false; 
 
   constructor(
     private loginService: LoginService, // Renomeado para seguir convenção
@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
 
   // Ajuste: A função deve ser do tipo `void` e não deve retornar String.
   submitForm(): void {
-    // Limpa a mensagem de erro anterior
+   
     this.errorMessage = '';
     
     if (!this.loginService.isFormDataValid(this.form)) {

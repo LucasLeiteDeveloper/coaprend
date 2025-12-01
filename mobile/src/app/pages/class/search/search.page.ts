@@ -40,12 +40,10 @@ export class SearchPage implements OnInit {
       return;
     }
 
-    // 🔍 chama backend para posts
     this.postService.get.byWord(text).subscribe((res: any) => {
       this.postsResultados = res.posts ?? res ?? [];
     });
 
-    // 🔍 chama backend para tasks
     this.taskService.search(text).subscribe((res: any) => {
       this.tasksResultados = res.tasks ?? res ?? [];
     });
