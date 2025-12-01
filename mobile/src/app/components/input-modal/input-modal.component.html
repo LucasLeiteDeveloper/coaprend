@@ -24,6 +24,23 @@
       labelPlacement="stacked"
     ></ion-input>
   </div>
+  <div *ngIf="inputType == 'tags'">
+    <ion-list *ngIf="tags && tags.length > 0">
+      <ion-item *ngFor="let tag of tagSelections">
+        <ion-label> {{ tag.tag }} </ion-label>
+
+        <ion-checkbox
+          slot="end"
+          [checked]="tag.selected"
+          (ionChange)="toggleTag(tag.tag)"
+        ></ion-checkbox>
+      </ion-item>
+    </ion-list>
+
+     <div *ngIf="tags && tags.length === 0" class="ion-text-center ion-padding">
+      <p>Nenhuma tag disponível</p>
+    </div>
+  </div>
 </ion-content>
 
 <ion-footer>

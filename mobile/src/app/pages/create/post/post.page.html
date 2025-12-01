@@ -18,7 +18,7 @@
     placeholder="Digite aqui"
     label="Título*"
     labelPlacement="stacked"
-    [(ngModel)]="title"
+    [(ngModel)]="postData.title"
     name="title"
     style="border-bottom: 1px solid gray;">
   </ion-input>
@@ -28,7 +28,7 @@
     label="Conteúdo*"
     labelPlacement="stacked"
     [autoGrow]="true"
-    [(ngModel)]="content"
+    [(ngModel)]="postData.content"
     name="content">
   </ion-textarea>
 
@@ -55,7 +55,7 @@
       <ion-content class="ion-padding">
         <ion-datetime
           presentation="date"
-          [(ngModel)]="postDate">
+          [(ngModel)]="postData.date">
         </ion-datetime>
 
         <ion-button expand="block" (click)="confirmDate()">

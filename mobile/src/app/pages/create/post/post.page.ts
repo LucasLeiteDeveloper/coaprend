@@ -6,6 +6,14 @@ import { ClassService } from 'src/app/services/classService/class';
 import { TagService } from 'src/app/services/tagService/tag';
 import { firstValueFrom } from 'rxjs';
 
+interface PostData {
+  title: string,
+  content: string,
+  image?: File,
+  tags?: string[]
+  date?: Date
+}
+
 @Component({
   selector: 'app-post-create',
   templateUrl: './post.page.html',
@@ -13,6 +21,10 @@ import { firstValueFrom } from 'rxjs';
   standalone: false,
 })
 export class PostPage {
+  postData: PostData = {
+    title: '',
+    content: ''
+  }
 
   title: string = '';
   content: string = '';
@@ -50,8 +62,6 @@ export class PostPage {
   async loadUserClass() {
     try {
       this.classId = localStorage.getItem("classId");
-
-      alert(this.classId);
     } catch {
       console.error('Erro ao carregar sala atual');
     }
@@ -64,7 +74,7 @@ export class PostPage {
     if (!this.classId) return;
 
     try {
-      
+      console.log("carregando tags..")
     } catch {
       console.error('Erro ao carregar tags da sala');
     }
@@ -95,7 +105,7 @@ export class PostPage {
       }
     });
 
-    await modal.present();
+    await   modal.present();
 
     const { data, role } = await modal.onWillDismiss();
 
@@ -108,6 +118,7 @@ export class PostPage {
   // 📝 Criar post
   // --------------------------------------------------------------------
   createPost() {
+    console.log("Dados do post: ", this.postData);
     if (!this.title.trim()) {
       this.showToast('O título é obrigatório!');
       return;

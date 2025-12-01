@@ -15,19 +15,55 @@ import { FormsModule } from '@angular/forms';
 export class InputModalComponent  implements OnInit {
   @Input() inputType: string = "text";
   @Input() title: string = "";
-  public inputValue: string = "";
+  @Input() tags: string[] = []; // all tags
+  selectedTags: string[] = []; // tags selected
+  public inputValue: string = ""; 
+
+  //control the selection of tag
+  tagSelections: {tag: string, selected: boolean}[] = [];
 
   constructor(
-    private modal: ModalController,
+    private modalCtrl: ModalController,
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.inputType === 'tags' && this.tags){
+      // prepares the tags already selected
+      this.tagSelections = this.tags.map(tag => ({
+        tag,
+        selected: this.selectedTags ? this.selectedTags.includes(tag) : false
+      }))
+    }
+  }
+
+  // toggle the tag selection
+  toggleTag(tag: string){
+    const tagIndex = this.tagSelections.findIndex(t => t.tag === tag);
+
+    if(tagIndex > -1) this.tagSelections[tagIndex].selected = !this.tagSelections[tagIndex].selected;
+  }
+  // return all selected tags
+  getSelectedTags(){
+    let tags: string[] = [];
+
+    this.tagSelections.forEach( tagSelection => {
+      if(tagSelection.selected) tags.push(tagSelection.tag);
+    } );
+
+    return tags;
+  }
 
   cancel() {
-    return this.modal.dismiss(null, 'cancel');
+    return this.modalCtrl.dismiss(null, 'cancel');
   }
 
   confirm() {
-    return this.modal.dismiss(this.inputValue, 'confirm');
+    if(this.inputType === "tags") {
+      const selectedTags = this.getSelectedTags();
+
+      return this.modalCtrl.dismiss(selectedTags, 'confirm');
+    } else {
+      return this.modalCtrl.dismiss(this.inputValue, 'confirm');
+    }
   }
 }
