@@ -29,8 +29,6 @@ export class ClassSelectPage implements OnInit {
   // 🔹 Carrega todas as salas do usuário
   async loadClasses() {
     const response = await this.contentService.getUserClasses();
-
-                    console.log(response)
     
     if(response) this.classes = response;
   }
@@ -48,7 +46,25 @@ export class ClassSelectPage implements OnInit {
           text: 'Confirmar',
           role: 'confirm',
           handler: async () => {
-           
+            const loading = await this.loadingCtrl.create({
+                message: 'Entrando na sala...'
+            });
+            await loading.present();
+
+            try {
+                await this.contentService.leaveClass(id);
+
+                loading.dismiss();
+                this.loadClasses();
+
+                this.router.navigate(['/class/0/posts']);
+            } catch(error: any){
+                loading.dismiss();
+                // Tratamento de erro: exibe a mensagem de erro da API.
+                console.error('Erro ao tentar sair na sala:', error);
+                const errorMessage = error.error.message ? error.error.message : 'erro de conexão.';
+                this.presentErrorAlert('Erro ao sair', errorMessage);
+            }
           }
         }
       ]
