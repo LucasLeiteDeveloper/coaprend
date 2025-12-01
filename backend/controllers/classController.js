@@ -259,7 +259,8 @@ exports.getUserClasses = async (req, res) => {
                 return {
                     id: doc.id,
                     ...classData,
-                    creator: creatorData
+                    creator: creatorData,
+                    isCreator: classData.creatorUid == userId 
                 };
             })
         );
