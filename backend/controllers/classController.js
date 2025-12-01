@@ -141,7 +141,7 @@ exports.enterClass = async (req, res) => {
 exports.leaveClass = async (req, res) => {
     try {
         const { classId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user.uid;
 
         if(!classId) return res.status(400).json({ error: "ID da classe é obrigatório!" });
 
@@ -154,6 +154,8 @@ exports.leaveClass = async (req, res) => {
 
         const classData = classDoc.data();
 
+        console.log(classData.membersId);
+        console.log(userId);
         // Check if user is a member of the class
         if (!classData.membersId.includes(userId)) {
             return res.status(400).json({ error: "Você não é membro desta classe!" });
@@ -171,7 +173,7 @@ exports.leaveClass = async (req, res) => {
         
         await classRef.update({
             membersId: updatedMembers,
-            memberCount: updatedMembers.length
+            membersCount: updatedMembers.length
         });
 
         return res.status(200).json({ 
