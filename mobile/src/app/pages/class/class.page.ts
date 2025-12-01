@@ -49,7 +49,8 @@ export class ClassPage implements OnInit {
     const response = await this.contentService.getClassDetails(id);
     
     this.classData = response;
-    console.log(this.classData);
+    console.log("Id da sala: ", response.id)
+    localStorage.setItem("classId", response.id);
   }
 
   private loadTags() {
