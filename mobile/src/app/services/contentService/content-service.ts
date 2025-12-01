@@ -83,7 +83,7 @@ export class ContentService {
   async getTasks(classId: string): Promise<any[] | undefined> {
     const headers = this.getAuthHeaders();
 
-    return this.http.get<any[]>(`${this.apiUrl}/classs/${classId}/tasks`, { headers }).toPromise();
+    return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/tasks`, { headers }).toPromise();
   }
   async createTask(data: { title: string, classId: string, last_date: string }): Promise<any>{
     const headers = this.getAuthHeaders();
@@ -91,7 +91,7 @@ export class ContentService {
     return this.http.post(`${this.apiUrl}/tasks`, data, { headers }).toPromise();
   }
   async updateTask(taskId: string, data: any) {
-    return this.http.patch(`${this.apiUrl}/tasks/${taskId}`, data, { headers: this.getAuthHeaders() });
+    return this.http.patch(`${this.apiUrl}/tasks/${taskId}`, data, { headers: this.getAuthHeaders() }).toPromise();
   }
   deleteTask(taskId: string){
     return this.http.delete(`${this.apiUrl}/tasks/${taskId}`, { headers: this.getAuthHeaders() }).toPromise();
