@@ -56,7 +56,7 @@ export class ClassSelectPage implements OnInit {
 
                 loading.dismiss();
                 this.loadClasses();
-
+                localStorage.removeItem("classId");
                 this.router.navigate(['/class/0/posts']);
             } catch(error: any){
                 loading.dismiss();
