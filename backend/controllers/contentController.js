@@ -11,7 +11,7 @@ exports.createPost = async (req, res)=> {
         //gets the nome of token 
         const username = req.user.username;
 
-        const { title, classId, texts, images, marker } = req.body;
+        const { title, classId, texts, images, tags, marker } = req.body;
 
         if(!title ||  !classId || !texts) return res.status(400).json({ error: "Campos 'title', 'classId' e 'texts' são obrigatórios!" });
 
@@ -22,6 +22,7 @@ exports.createPost = async (req, res)=> {
             username: username || "Usuário",
             texts: Array.isArray(texts) ? texts: [texts], // garants that texts be an array
             images: images || [],
+            tags: tags || [],
             marker: marker || null,
             dt_create: new Date()
         };

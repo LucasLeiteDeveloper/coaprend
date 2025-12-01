@@ -24,8 +24,7 @@ export class PostPage {
   type: string = 'text';
   tag_color: string = '#3B82F6';
 
-  userClassId!: number;
-  selectedClassId!: number;
+  classId: string | null = null;
   classTags: any[] = [];
 
   selectedTags: any[] = [];
@@ -42,7 +41,6 @@ export class PostPage {
   async ngOnInit() {
     await this.loadUserClass();
     await this.loadTags();
-    alert("Tesre")
   }
 
   // --------------------------------------------------------------------
@@ -51,12 +49,9 @@ export class PostPage {
   // --------------------------------------------------------------------
   async loadUserClass() {
     try {
-      const stored: any = await firstValueFrom(
-        this.classService.getCurrentUserClass()
-      );
+      this.classId = localStorage.getItem("classId");
 
-      this.userClassId = stored.id;
-      this.selectedClassId = stored.id;
+      alert(this.classId);
     } catch {
       console.error('Erro ao carregar sala atual');
     }
@@ -66,12 +61,10 @@ export class PostPage {
   // 🟢 Carregar tags da sala selecionada
   // --------------------------------------------------------------------
   async loadTags() {
-    if (!this.selectedClassId) return;
+    if (!this.classId) return;
 
     try {
-      this.classTags = await firstValueFrom(
-        this.tagService.getTagsByClass(this.selectedClassId)
-      );
+      
     } catch {
       console.error('Erro ao carregar tags da sala');
     }
@@ -85,7 +78,7 @@ export class PostPage {
   }
 
   confirmDate() {
-    this.showCalendar = false;
+    this.showCalendar = false;;
   }
 
   // --------------------------------------------------------------------
@@ -97,7 +90,7 @@ export class PostPage {
       componentProps: {
         title: 'Selecionar Tags',
         inputType: 'tags',
-        tags: this.classTags,
+        tags: ['teste'],
         selected: this.selectedTags
       }
     });
@@ -131,7 +124,7 @@ export class PostPage {
       tag_color: this.tag_color,
       options: this.selectedTags,
       date: finalDate,
-      class_id: this.selectedClassId,
+      class_id: this.classId,
     };
 
     this.postService.createFormData(payload, this.image).subscribe({
