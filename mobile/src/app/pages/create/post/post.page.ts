@@ -101,7 +101,7 @@ export class PostPage {
         title: 'Selecionar Tags',
         inputType: 'tags',
         tags: ['teste'],
-        selected: this.selectedTags
+        selectedTags: ['teste']
       }
     });
 

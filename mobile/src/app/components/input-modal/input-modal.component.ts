@@ -16,7 +16,7 @@ export class InputModalComponent  implements OnInit {
   @Input() inputType: string = "text";
   @Input() title: string = "";
   @Input() tags: string[] = []; // all tags
-  selectedTags: string[] = []; // tags selected
+  @Input() selectedTags: string[] = []; // tags selected
   public inputValue: string = ""; 
 
   //control the selection of tag
