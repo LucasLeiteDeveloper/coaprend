@@ -52,6 +52,7 @@ export class SettingsPage implements OnInit {
           text: 'Sim',
           role: 'confirm',
           handler: async () => {
+            localStorage.removeItem("classId");
             await this.authService.logout();
           }
         },
@@ -77,6 +78,7 @@ export class SettingsPage implements OnInit {
           text: 'Sim',
           role: 'confirm',
           handler: async () => {
+            localStorage.removeItem("classId")
             await this.authService.deleteAccount();
           }
         },
