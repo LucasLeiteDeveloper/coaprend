@@ -11,6 +11,7 @@ const notificationContoller = require("../controllers/notificationController");
 // route of classes 
 router.get("/classes/my", authenticateToken, classController.getUserClasses);
 router.get("/class/:classId", authenticateToken, classController.getClassDetails);
+router.get("/class/:classId/tags", authenticateToken, classController.getClassTags);
 router.post("/class", authenticateToken, classController.createClass);
 router.post("/class/enter", authenticateToken, classController.enterClass);
 router.patch("/class/:classId", authenticateToken, classController.updateClass);

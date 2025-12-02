@@ -224,6 +224,26 @@ exports.getClassDetails = async (req, res) => {
         console.error("Erro ao buscar detalhes da sala: ", error);
     }
 }
+exports.getClassTags = async (req, res) => {
+    try {
+        const { classId } = req.params;
+
+        // reference to the class doc
+        const classRef = db.collection('classes').doc(classId);
+        const classDoc = await classRef.get();
+
+        if(!classDoc.exists) return res.status(404).json({ error: "Sala não encontrada!" });
+
+        // gets the class data
+        const classData = classDoc.data();
+
+        // return only the tags
+        return res.status(200).json(classData.tags || []);
+    } catch(error){
+        console.error("Erro ao buscar tags: ", error);
+        return res.status(500).json( { error: "Erro interno!" } );
+    }
+}
 
 // get user's classes
 exports.getUserClasses = async (req, res) => {

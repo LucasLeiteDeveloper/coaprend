@@ -47,6 +47,11 @@ export class ContentService {
 
     return this.http.get<any[] | undefined>(`${this.apiUrl}/classes/my`, {headers}).toPromise();
   }
+  async getClassTags(classId: string): Promise<any[] | undefined> {
+    const headers = this.getAuthHeaders();
+
+    return this.http.get<any[] | undefined>(`${this.apiUrl}/class/${classId}/tags`, {headers}).toPromise();
+  }
   async updateClass(classId: string, data: any): Promise<any> {
     const headers = this.getAuthHeaders();
     return this.http.patch(`${this.apiUrl}/class/${classId}`, data, { headers }).toPromise();
