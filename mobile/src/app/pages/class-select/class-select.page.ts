@@ -108,8 +108,6 @@ export class ClassSelectPage implements OnInit {
 
                     loading.dismiss();
                     this.loadClasses();
-
-                    console.log(response);
                 } catch(error: any){
                     loading.dismiss();
                     // Tratamento de erro: exibe a mensagem de erro da API.

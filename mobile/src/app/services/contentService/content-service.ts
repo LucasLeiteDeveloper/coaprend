@@ -72,7 +72,7 @@ export class ContentService {
 
     return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/posts`, { headers }).toPromise();
   }
-  async createPost(data: { title: string, classId: string, texts: string[], tags: any[] }): Promise<any> {
+  async createPost(data: { title: string, classId: string, content: string, tags: any[] }): Promise<any> {
     const headers = this.getAuthHeaders();
 
     return this.http.post(`${this.apiUrl}/posts`, data, { headers }).toPromise();

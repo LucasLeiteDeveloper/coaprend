@@ -2,17 +2,15 @@ import { Component } from '@angular/core';
 import { PostService } from 'src/app/services/postService/post';
 import { ToastController, NavController, ModalController } from '@ionic/angular';
 import { InputModalComponent } from 'src/app/components/input-modal/input-modal.component';
-import { ClassService } from 'src/app/services/classService/class';
-import { TagService } from 'src/app/services/tagService/tag';
-import { firstValueFrom } from 'rxjs';
 import { ContentService } from 'src/app/services/contentService/content-service';
+import { Router } from '@angular/router';
 
 interface PostData {
   title: string,
   content: string,
   image?: File,
   tags?: string[]
-  date?: Date
+  date?: any
 }
 
 @Component({
@@ -43,13 +41,12 @@ export class PostPage {
   selectedTags: any[] = [];
 
   constructor(
+    private router: Router,
     private postService: PostService,
     private toastCtrl: ToastController,
     private navCtrl: NavController,
     private modal: ModalController,
     private contentService: ContentService,
-    private classService: ClassService,
-    private tagService: TagService,
   ) {}
 
   async ngOnInit() {
@@ -123,34 +120,31 @@ export class PostPage {
   // --------------------------------------------------------------------
   // 📝 Criar post
   // --------------------------------------------------------------------
-  createPost() {
-    console.log("Dados do post: ", this.postData);
-    if (!this.title.trim()) {
+  async createPost() {
+    if (!this.postData.title.trim()) {
       this.showToast('O título é obrigatório!');
       return;
     }
 
-    const finalDate = this.postDate
-      ? this.postDate.split('T')[0]
+    try {
+      this.postData.date = this.postData.date
+      ? this.postData.date.split('T')[0]
       : new Date().toISOString().split('T')[0];
 
-    const payload = {
-      title: this.title,
-      content: this.content,
-      type: this.type,
-      tag_color: this.tag_color,
-      options: this.selectedTags,
-      date: finalDate,
-      class_id: this.classId,
-    };
+      console.log("Dados do post: ", this.postData);
 
-    this.postService.createFormData(payload, this.image).subscribe({
-      next: () => {
-        this.showToast('Post criado com sucesso!');
-        this.navCtrl.back();
-      },
-      error: () => this.showToast('Erro ao criar post.')
-    });
+      const createData = {
+        title: this.postData.title,
+        content: this.postData.content,
+        tags: this.postData.tags || [],
+        classId: this.classId || ''
+      }
+
+      await this.contentService.createPost(createData);
+      this.router.navigate(['/class/', this.classId, 'posts']);
+    } catch(error){
+      this.showToast("Erro ao criar post!");
+    }
   }
 
   // --------------------------------------------------------------------
