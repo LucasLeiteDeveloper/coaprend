@@ -5,6 +5,7 @@ import { InputModalComponent } from 'src/app/components/input-modal/input-modal.
 import { ClassService } from 'src/app/services/classService/class';
 import { TagService } from 'src/app/services/tagService/tag';
 import { firstValueFrom } from 'rxjs';
+import { ContentService } from 'src/app/services/contentService/content-service';
 
 interface PostData {
   title: string,
@@ -23,7 +24,7 @@ interface PostData {
 export class PostPage {
   postData: PostData = {
     title: '',
-    content: ''
+    content: '',
   }
 
   title: string = '';
@@ -46,6 +47,7 @@ export class PostPage {
     private toastCtrl: ToastController,
     private navCtrl: NavController,
     private modal: ModalController,
+    private contentService: ContentService,
     private classService: ClassService,
     private tagService: TagService,
   ) {}
@@ -74,7 +76,10 @@ export class PostPage {
     if (!this.classId) return;
 
     try {
-      console.log("carregando tags..")
+      const response = await this.contentService.getClassTags(this.classId);
+      
+
+      if(response) this.classTags = response;
     } catch {
       console.error('Erro ao carregar tags da sala');
     }
@@ -88,7 +93,7 @@ export class PostPage {
   }
 
   confirmDate() {
-    this.showCalendar = false;;
+    this.showCalendar = false;
   }
 
   // --------------------------------------------------------------------
@@ -100,8 +105,8 @@ export class PostPage {
       componentProps: {
         title: 'Selecionar Tags',
         inputType: 'tags',
-        tags: ['teste'],
-        selectedTags: ['teste']
+        tags: this.classTags,
+        selectedTags: this.selectedTags 
       }
     });
 
@@ -111,7 +116,6 @@ export class PostPage {
 
     if (role === 'confirm' && data) {
       this.selectedTags = data;
-
       this.postData.tags = data;
     }
   }
