@@ -82,11 +82,10 @@ export class CreateClassPage {
         tags: this.classData.tags
       }
 
-      console.log("Enviando dados: ", classDataToSend);
       const response = await this.contentService.createClass(classDataToSend);
-      console.log("Resposta recebida: ", response);
 
       await this.showToast(`Sala criada com sucesso! Código: ${response.code}`);
+      console.log("Código da sala: ", response.code);
     } catch(error: any){
       console.error("Erro ao criar sala: ", error);
       this.showToast("Erro ao criar sala!");

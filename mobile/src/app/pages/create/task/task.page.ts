@@ -15,9 +15,10 @@ export class TaskPage implements OnInit {
   description = '';
   dt_final = '';
   
-  classId!: string | null;
+  roomId!: string | null;
 
   tags: string[] = [];
+  userClasses!: any;
   attachments: File[] = [];
 
   isSubmitting = false;
@@ -36,9 +37,14 @@ export class TaskPage implements OnInit {
 
   async loadData(){
     
-    const response = await this.contentService.getUserClasses();
+    try {
+      const response = await this.contentService.getUserClasses();
 
-    console.log("Classes do usuário: ", response)
+      this.userClasses = response;
+      console.log("Classes: ", this.userClasses);
+    } catch(error){
+      console.log("Erro ao pegar as salas do usuário: ", error);
+    }
   }
 
   /* --------------------- TAGS ---------------------- */
@@ -80,11 +86,20 @@ export class TaskPage implements OnInit {
 
   /* --------------------- SALA ---------------------- */
   async selectRoom() {
+    if( !this.userClasses || !Array.isArray(this.userClasses) ) return;
+    
+
     const alert = await this.alertCtrl.create({
       header: 'Selecionar Sala',
-      inputs: [
-        { name: 'room', type: 'number', placeholder: 'ID da Sala', value: this.classId   }
-      ],
+      inputs: this.userClasses.map((classe, index) => {
+        return {
+          name: 'room',
+          type: 'radio',
+          label: classe.title, // Mostra o nome da classe
+          value: classe.id,   // Valor retornado será o ID
+          checked: classe.id === this.roomId // Marca a sala atual
+        };
+      }),
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
         {
@@ -110,7 +125,7 @@ export class TaskPage implements OnInit {
       title: this.title,
       description: this.description,
       dt_final: this.dt_final,
-      room_id: this.classId ,
+      room_id: this.roomId ,
       options: this.tags
     };
 
@@ -119,7 +134,7 @@ export class TaskPage implements OnInit {
     this.taskService.createFormData(payload, this.attachments).subscribe({
       next: () => {
         this.isSubmitting = false;
-        this.router.navigate(['/class', this.classId  ]);
+        this.router.navigate(['/class', this.roomId  ]);
       },
       error: (err) => {
         console.error(err);

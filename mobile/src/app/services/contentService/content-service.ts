@@ -3,6 +3,13 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../authService/auth-service';
 
+export interface ClassData {
+  title: string,
+  description: string,
+  icon?: null | File,
+  tags?: string[]
+}
+
 @Injectable({
   providedIn: 'root'
 })
