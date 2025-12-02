@@ -53,7 +53,6 @@ exports.getPostsForClass = async (req, res) => {
 
         // get the posts referenced by the classId
         const snapshot = await postsRef.where('classId', '==', classId)
-                                        .orderBy('dt_create', 'desc')
                                         .get();
 
 
