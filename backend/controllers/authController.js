@@ -29,14 +29,14 @@ exports.registerUser = async (req, res) => {
     try {
         // e-mail validation
         const emailSnapshot = await db.collection('users')
-                                    .where('email', '===', email)
+                                    .where('email', '==', email)
                                     .limit(1)
                                     .get();
         if(!emailSnapshot.empty) return res.status(400).json({ error: "E-mail já cadastrado!" });
 
         // username validation
         const usernameSnapshot = await db.collection('users')
-                                    .where('username', '===', username)
+                                    .where('username', '==', username)
                                     .limit(1)
                                     .get();
         if(!usernameSnapshot.empty) return res.status(400).json({ error: "Nome de usuário já cadastrado!" });
