@@ -23,6 +23,7 @@ router.post("/posts", authenticateToken, contentController.createPost);
 router.patch("/posts/:postId", authenticateToken, contentController.updatePost);
 router.delete("/posts/:postId", authenticateToken, contentController.deletePost);
 router.get("/class/:classId/posts", authenticateToken, contentController.getPostsForClass);
+router.get("/class/:classId/posts/range", authenticateToken, contentController.getWeekPosts);
 router.get("/posts/search", authenticateToken, contentController.searchGlobalPosts);
 router.get("/posts/tags/search", authenticateToken, contentController.searchPostsByTags);
 

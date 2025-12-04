@@ -65,6 +65,37 @@ exports.getPostsForClass = async (req, res) => {
     }
 }
 
+// get the tasks of a specific week
+exports.getWeekPosts = async (req, res) => {
+    try {
+        const { start, end } = req.query;
+        const { classId } = req.params;
+
+        if(!start || !end || !classId) return res.status(400).json({ error: "ClassId, data inicial e final são obrigatórios!" });
+
+        const startDate = new Date(start);
+        startDate.setHours(0, 0, 0, 0);
+
+        const endDate = new Date(end);
+        endDate.setHours(0, 0, 0, 0);
+
+        const taskRef = db.collection('posts');
+        const snapshot = await taskRef //filter the class and dt_final of task
+                                .where("classId", '==', classId)
+                                .where('dt_final', '>=', startDate)
+                                .where('dt_final', '<=', endDate)
+                                .get();
+
+        if(snapshot.empty) return res.status(200).json([]);
+
+        const tasks = snapshot.docs.map( doc => ({ id: doc.id, ...doc.data() }) );
+        return res.status(200).json(tasks);
+    } catch(error){
+        console.error("Erro ao carregar tarefas: ", error);
+        return res.status(500).json({ error: "Erro interno!" });
+    }
+}
+
 // create a new task in a class
 // route: POST /api/content/tasks
 exports.createTask = async (req, res) => {
