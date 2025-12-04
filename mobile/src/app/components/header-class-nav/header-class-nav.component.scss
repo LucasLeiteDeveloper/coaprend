@@ -1,0 +1,32 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    height: 34px;
+    padding: 4px;
+    margin: 0 16px;
+
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 33%;
+        height: 100%;
+        background-color: initial;
+        border-radius: 8px;
+
+        label {
+            font-size: 15px;
+        }
+    }
+
+    button.selected {
+        background-color: #D2E3FC;
+        
+        label {
+            color: #174EA6;
+        }
+    }
+}

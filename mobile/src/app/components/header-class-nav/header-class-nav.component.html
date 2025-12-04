@@ -1,0 +1,23 @@
+<nav>
+  <button
+    [class.selected]='selectedTab == "posts"'
+    [routerLink]='["/class", classId, "posts"]'
+    (click)='onTabChange("posts")'
+  >
+    <label>Postagens</label>
+  </button>
+  <button
+    [class.selected]='selectedTab == "tasks"'
+    [routerLink]='["/class", classId, "tasks"]'
+    (click)='onTabChange("tasks")'
+  >
+    <label>Tarefas</label>
+  </button>
+  <button
+    [class.selected]='selectedTab == "calendar"'
+    [routerLink]='["/class", classId, "calendar"]'
+    (click)='onTabChange("calendar")'
+  >
+    <label>Calendário</label>
+  </button>
+</nav>
