@@ -30,6 +30,7 @@ router.get("/posts/tags/search", authenticateToken, contentController.searchPost
 router.post("/tasks", authenticateToken, contentController.createTask);
 router.patch("/tasks/:taskId", authenticateToken, contentController.updateTask);
 router.get("/class/:classId/tasks", authenticateToken, contentController.getTasksForClass);
+router.get("/class/:classId/tasks/range", authenticateToken, contentController.getWeekTasks);
 router.delete("/tasks/:taskId", authenticateToken, contentController.deleteTask);
 
 // notification routes
