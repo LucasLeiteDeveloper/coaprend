@@ -1,0 +1,24 @@
+<footer>
+  <button [class.selected]='selectedTab == "class"' [routerLink]="['/class', classId, 'posts']">
+    @if (selectedTab == 'class') {
+      <ion-icon name='school'></ion-icon>
+    } @else {
+      <ion-icon name='school-outline'></ion-icon>
+    }
+    <label>Salas</label>
+  </button>
+  
+  <button>
+    <ion-icon name='add'></ion-icon>
+    <label>Criar</label>
+  </button>
+
+  <button [class.selected]='selectedTab == "profile"' [routerLink]="['/class', classId, 'profile']">
+    @if (selectedTab == 'profile') {
+      <ion-icon name='person'></ion-icon>
+    } @else {
+      <ion-icon name='person-outline'></ion-icon>
+    }
+    <label>Você</label>
+  </button>
+</footer>
