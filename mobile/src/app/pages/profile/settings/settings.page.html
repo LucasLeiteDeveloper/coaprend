@@ -16,7 +16,7 @@
     <ion-item [button]="true">Alterar nome</ion-item>
     <ion-item [button]="true">Alterar foto de perfil</ion-item>
   </ion-list>
-  <ion-list-header>Aparencia</ion-list-header>
+  <ion-list-header>Aparência</ion-list-header>
   <ion-list [inset]="true">
     <ion-item>
       <ion-toggle justify="space-between" [(ngModel)]="paletteToggle" (ionChange)="toggleChange($event)">Modo escuro</ion-toggle>
@@ -28,7 +28,7 @@
   <ion-list-header>Mais</ion-list-header>
   <ion-list [inset]="true">
     <ion-item [button]="true" [routerLink]="['/policy']">Politica de privacidade</ion-item>
-    <ion-item [button]="true">Termos de uso</ion-item>
+    <ion-item [button]="true" [routerLink]="['/terms']">Termos de uso</ion-item>
     <ion-item [button]="true">
       <ion-label color="danger" (click)="canDismissLogout()">Sair</ion-label>
     </ion-item>
