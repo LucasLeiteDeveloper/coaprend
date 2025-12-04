@@ -117,6 +117,10 @@ export class PostPage {
     }
   }
 
+  getUsername() { 
+    return "TesteUsuario"
+  }
+
   // --------------------------------------------------------------------
   // 📝 Criar post
   // --------------------------------------------------------------------
@@ -137,7 +141,8 @@ export class PostPage {
         title: this.postData.title,
         content: this.postData.content,
         tags: this.postData.tags || [],
-        classId: this.classId || ''
+        classId: this.classId || '',
+        username: this.getUsername()
       }
 
       await this.contentService.createPost(createData);

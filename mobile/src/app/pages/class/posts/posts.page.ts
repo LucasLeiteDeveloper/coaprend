@@ -38,6 +38,7 @@ export class PostsPage implements OnInit {
         const response = await this.contentService.getPosts(this.classId);
 
         this.posts = response;
+        console.log("POSTS: ", this.posts);
       }
     } catch(error){
       console.log("Erro ao pegar os posts: ", error);

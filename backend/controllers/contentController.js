@@ -7,19 +7,16 @@ exports.createPost = async (req, res)=> {
     try {
         // receives the author uid 
         const authorUid = req.user.uid;
-    
-        //gets the nome of token 
-        const username = req.user.username;
 
-        const { title, classId, content, images, tags, marker } = req.body;
+        const { title, classId, content, images, tags, marker, username} = req.body;
 
-        if(!title ||  !classId || !content) return res.status(400).json({ error: "Campos 'title', 'classId' e 'content' são obrigatórios!" });
+        if(!title ||  !classId || !content || !username) return res.status(400).json({ error: "Campos 'title', 'classId', 'username' e 'content' são obrigatórios!" });
 
         const postData = {
             title,
             classId,
             authorUid,
-            username: username || "Usuário",
+            username: username,
             content: content,
             images: images || [],
             tags: tags || [],
