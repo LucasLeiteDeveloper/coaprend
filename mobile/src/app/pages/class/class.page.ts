@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { HideOnScrollService } from 'src/app/services/hideOnScrollService/hide-on-scroll-service';
-import { TagService } from 'src/app/services/tagService/tag';
 import { ContentService } from 'src/app/services/contentService/content-service';
 
 @Component({
@@ -24,21 +22,17 @@ export class ClassPage implements OnInit {
   public tagFilter$ = new BehaviorSubject<number[]>([]);
 
   constructor(
-    // Framework services
     private route: ActivatedRoute,
     private router: Router,
-    private popoverCtrl: PopoverController,
-    // Our services
     private contentService: ContentService,
     public scroll: HideOnScrollService,
-    private tagService: TagService
   ) {}
 
   // TODO: need to make a call for the tagService to load the class tags
   ngOnInit() {
     this.classId = this.route.snapshot.params['id'];
-    this.loadData(this.classId);
     this.selectedTab = this.router.url.split('/')[3];
+    this.loadData(this.classId);
   }
 
   // TODO: does this need to be stored in localStorage?

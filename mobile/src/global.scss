@@ -38,7 +38,6 @@
 
 * {
   font-family: 'Roboto', sans-serif;
-  letter-spacing: -0.5px;
 }
 
 body {
@@ -52,6 +51,61 @@ ion-content {
 
 .hidden {
   display: none;
+}
+
+.app-form {
+  display: flex;
+  flex-flow: column;
+  border-radius: 8px;
+  border: 1px solid #BFBFBF;
+  overflow: hidden;
+  font-size: 15px;
+
+  div, button {
+    width: 100%;
+    height: 52px;
+    border: none;
+  }
+
+  div {
+    position: relative;
+    label {
+      position: absolute;
+      margin: 0 16px;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: .2s;
+      color: hsl(0, 0%, 40%);
+    }
+    input {
+      position: relative;
+      padding: 24px 16px 8px 16px;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    input:focus {
+      outline: none;
+    }
+    
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+      font-size: 12px;
+      top: 25%;
+    }
+  }
+
+  button {
+    font-size: 15px;
+    font-weight: bold;
+    color: #174EA6;
+    background-color: #D2E3FC;
+  }
+
+  div:not(:last-child) {
+    border-bottom: 1px solid #BFBFBF;
+  }
 }
 
 .content-container {
@@ -155,5 +209,26 @@ ion-toolbar {
     background-color: blue;
     color: white;
     border-radius: var(--border-radius-s);
+  }
+}
+
+.google-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 52px;
+  background-color: initial;
+  border-radius: 8px;
+  border: 1px solid #BFBFBF;
+
+  img {
+    width: 24px;
+    aspect-ratio: 1/1;
+  }
+
+  span {
+    color: hsl(0, 0%, 40%);
   }
 }

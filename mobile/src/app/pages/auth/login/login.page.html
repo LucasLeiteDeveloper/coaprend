@@ -1,31 +1,25 @@
 <main class="content-container grid-spacing-b">
 	<h1 class="ion-text-center"><strong>Entrar</strong></h1>
-	<form class="grid-spacing-m" #loginForm="ngForm" >
-		<ion-input
-			type="email"
-			name="email"
-			[(ngModel)]="userData.email"
-			placeholder="email@domain.com"
-			label="Email"
-			labelPlacement="stacked"
-			autocomplete="email"
-  			errorText="Email invalido"
-		></ion-input>
-		<ion-input
-			type="password"
-			name="password"
-			[(ngModel)]="userData.password"
-			label="Senha"
-			labelPlacement="stacked"
-			autocomplete="password"
-  			errorText="Senha invalida"
-		>
-			<ion-input-password-toggle slot="end"></ion-input-password-toggle>
-		</ion-input>
-		<ion-button (click)="submitForm()" class="ion-text-capitalize" shape="round" size="large">Continuar</ion-button>
+	<div class="grid-spacing-m">
+		<form #loginForm="ngForm" class="app-form">
+			<div>
+				<input type="email" name="email" [(ngModel)]="userData.email" placeholder=" "/>
+				<label for="email">Email</label>
+			</div>
+			<div>
+				<input type="password" name="password" [(ngModel)]="userData.password" placeholder=" "/>
+				<label for="password">Password</label>
+			</div>
+			<button (click)="submitForm()">Continuar</button>
+		</form>
+
 		<p>OU</p>
-		<ion-button (click)="googleLogin()" class="ion-text-capitalize" shape="round">Continuar com Google</ion-button>
-	</form>
+
+		<button (click)="googleLogin()" class="google-btn">
+			<img src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s96-fcrop64=1,00000000ffffffff-rw" alt="Logo do Google">
+			<span>Continar com Google</span>
+		</button>
+	</div>
 
 	<div class="grid-spacing-m">
 		<p><a routerLink="/forgot-password">Esqueceu sua senha?</a></p>

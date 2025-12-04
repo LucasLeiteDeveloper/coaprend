@@ -17,7 +17,7 @@
 
 <!-- POPUPS -->
 
-<!-- The trigger is in the header-class-page component -->
+<!-- Trigger is in header-class-page component -->
 <ion-popover trigger="tags-popup-trigger">
   <ng-template>
     <div class="ion-padding tag-selector">
@@ -29,25 +29,11 @@
   </ng-template>
 </ion-popover>
 
-<!-- The trigger is in the footer-nav component -->
+<!-- Trigger is in footer-nav component -->
 <ion-popover trigger="create-popup-trigger">
   <ng-template>
-    <menu-criacao></menu-criacao>
+    <menu-criacao/>
   </ng-template>
 </ion-popover>
 
-<!-- <ion-header [class.hidden]="scroll.isHidden">
-  <ion-toolbar slot="start" class="content-container">
-    <div class="header-class" [routerLink]="'/class-select'">
-      <div>
-        <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="/>
-        <p> {{ classData.title? classData.title : "ver classes" }} </p>
-      </div>
-      <ion-icon name="chevron-forward-outline"></ion-icon>
-    </div>
-    <div slot="end" class="header-options">
-      <ion-icon name="pricetag-outline" id="trigger-button"></ion-icon>
-      <ion-icon name="search-outline" [routerLink]="['/class', classId, 'search']"></ion-icon>
-    </div>
-  </ion-toolbar>
-</ion-header> -->
+<!-- TODO: update the header with this -> <p> {{ classData.title? classData.title : "ver classes" }} </p> -->
