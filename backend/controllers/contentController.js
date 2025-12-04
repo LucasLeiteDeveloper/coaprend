@@ -74,7 +74,7 @@ exports.createTask = async (req, res) => {
         // the dt_final needs to come in a string ISO
         const { title, description, tags, classId, dt_final } = req.body;
 
-        if(!title || !classId || !dt_final || !description) return res.status(400).json({ error: "Campos 'title', 'description', 'classId' e 'dt_final' são obrigatórios!" })
+        if(!title || !classId || !dt_final) return res.status(400).json({ error: "Campos 'title', 'classId' e 'dt_final' são obrigatórios!" })
 
         const taskData = {
             authorUid,
