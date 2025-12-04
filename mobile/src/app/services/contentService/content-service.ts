@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../authService/auth-service';
+import { Observable } from 'rxjs';
 
 export interface ClassData {
   title: string,
@@ -103,6 +104,11 @@ export class ContentService {
     const headers = this.getAuthHeaders();
 
     return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/tasks`, { headers }).toPromise();
+  }
+  getTaskByClassAndWeek(classId: string, start: string, end: string): Observable<any[]> {
+    const headers = this.getAuthHeaders();
+
+    return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/tasks/range?start=${start}&end=${end}`, { headers } );
   }
   async createTask(data: { title: string, description: string, tags: string[], classId: string, dt_final: Date }): Promise<any>{
     const headers = this.getAuthHeaders();

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, contentChild, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/services/taskService/task';
 import { PostService } from 'src/app/services/postService/post';
 import { ClassPage } from '../class.page';
+import { ContentService } from 'src/app/services/contentService/content-service';
 
 @Component({
   selector: 'app-calendar',
@@ -22,15 +23,19 @@ export class CalendarPage implements OnInit {
   public tasksOfSelectedDay: any[] = [];
   public postsOfSelectedDay: any[] = [];
 
+  classId: string | null = null;
+
   public showingDayOnly: boolean = false;
 
   constructor(
-    private taskService: TaskService,
+    private contentService: ContentService,
     private postService: PostService,
     private classPage: ClassPage
   ) {}
 
   ngOnInit(): void {
+    this.classId = localStorage.getItem("classId");
+
     this.updateSelectedWeek(this.selectedDate);
 
     // Atualiza filtros em tempo real
@@ -50,6 +55,7 @@ export class CalendarPage implements OnInit {
   }
 
   private updateSelectedWeek(date: Date): void {
+    console.log("Data atual: ", this.selectedDate)
     this.daysOfSelectedWeek = [];
     this.selectedDay = null;
     this.showingDayOnly = false;
@@ -67,14 +73,22 @@ export class CalendarPage implements OnInit {
     this.loadPostsOfWeek();
   }
 
-  private loadTasksOfWeek(): void {
+  private async loadTasksOfWeek() {
+    if(!this.classId) return;
+
     const start = this.dateToYMD(this.daysOfSelectedWeek[0]);
     const end = this.dateToYMD(this.daysOfSelectedWeek[6]);
 
-    this.taskService.getTasksByDateRange(start, end).subscribe(tasks => {
-      this.tasksOfWeek = tasks;
-      this.applyTagFilter();
+    await this.contentService.getTaskByClassAndWeek(this.classId, start, end).subscribe({
+      next: (tasks) => {
+        console.log("Tasks recebidas: ", tasks);
+        this.tasksOfWeek = tasks;
+      },
+      error: (error) => console.error("Erro: ", error)
     });
+
+    const response = await this.contentService.getTasks(this.classId);
+    console.log("todas as tasks: ", response);
   }
 
   private loadPostsOfWeek(): void {

@@ -26,6 +26,12 @@ export class ClassSelectPage implements OnInit {
     await this.loadClasses();
   }
 
+  async enterClass(classId: string) {
+    localStorage.setItem("classId", classId);
+    
+    this.router.navigate(['/class', classId, "posts"]);
+  }
+
   // 🔹 Carrega todas as salas do usuário
   async loadClasses() {
     const response = await this.contentService.getUserClasses();
@@ -47,7 +53,7 @@ export class ClassSelectPage implements OnInit {
           role: 'confirm',
           handler: async () => {
             const loading = await this.loadingCtrl.create({
-                message: 'Entrando na sala...'
+                message: 'Saindo da sala...'
             });
             await loading.present();
 
