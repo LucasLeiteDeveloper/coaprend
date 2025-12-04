@@ -80,6 +80,11 @@ export class ContentService {
 
     return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/posts`, { headers }).toPromise();
   }
+  getPostByClassAndWeek(classId: string, start: string, end: string): Observable<any[]> {
+    const headers = this.getAuthHeaders();
+
+    return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/posts/range?start=${start}&end=${end}`, { headers } );
+  }
   async createPost(data: { title: string, classId: string, content: string, tags: any[] }): Promise<any> {
     const headers = this.getAuthHeaders();
 

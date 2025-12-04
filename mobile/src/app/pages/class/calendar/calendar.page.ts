@@ -25,7 +25,7 @@ export class CalendarPage implements OnInit {
 
   classId: string | null = null;
 
-  public showingDayOnly: boolean = false;
+  public showingDayOnly: boolean = true;
 
   constructor(
     private contentService: ContentService,
@@ -58,7 +58,6 @@ export class CalendarPage implements OnInit {
     console.log("Data atual: ", this.selectedDate)
     this.daysOfSelectedWeek = [];
     this.selectedDay = null;
-    this.showingDayOnly = false;
 
     const firstDay = this.getFirstDayOfWeek(new Date(date));
     for (let d = 0; d < 7; d++) {
@@ -81,23 +80,36 @@ export class CalendarPage implements OnInit {
 
     await this.contentService.getTaskByClassAndWeek(this.classId, start, end).subscribe({
       next: (tasks) => {
-        console.log("Tasks recebidas: ", tasks);
+        this.showingDayOnly = false;
+
+        // transform the dates of tasks in an Date obj
+        tasks.forEach( (t) => t.dt_final = new Date(t.dt_final._seconds * 1000) );
+
         this.tasksOfWeek = tasks;
+        console.log("Tasks da semana: ", this.tasksOfWeek);
       },
       error: (error) => console.error("Erro: ", error)
     });
-
-    const response = await this.contentService.getTasks(this.classId);
-    console.log("todas as tasks: ", response);
   }
 
-  private loadPostsOfWeek(): void {
+  private async loadPostsOfWeek() {
+    if(!this.classId) return;
+
     const start = this.dateToYMD(this.daysOfSelectedWeek[0]);
     const end = this.dateToYMD(this.daysOfSelectedWeek[6]);
 
-    this.postService.getPostsByDateRange(start, end).subscribe(posts => {
-      this.postsOfWeek = posts;
-      this.applyTagFilter();
+    await this.contentService.getPostByClassAndWeek(this.classId, start, end).subscribe({
+      next: (posts) => {
+        this.showingDayOnly = false;
+
+        // transform the dates of posts in an Date obj
+        posts.forEach( (p) => p.dt_create = new Date(p.dt_create._seconds * 1000) );
+
+
+        this.postsOfWeek = posts;
+        console.log("posts da semana: ", this.postsOfWeek);
+      },
+      error: (error) => console.error("Erro: ", error)
     });
   }
 

@@ -80,10 +80,10 @@ exports.getWeekPosts = async (req, res) => {
         endDate.setHours(0, 0, 0, 0);
 
         const taskRef = db.collection('posts');
-        const snapshot = await taskRef //filter the class and dt_final of task
+        const snapshot = await taskRef //filter the class and dt_create of task
                                 .where("classId", '==', classId)
-                                .where('dt_final', '>=', startDate)
-                                .where('dt_final', '<=', endDate)
+                                .where('dt_create', '>=', startDate)
+                                .where('dt_create', '<=', endDate)
                                 .get();
 
         if(snapshot.empty) return res.status(200).json([]);
@@ -91,7 +91,7 @@ exports.getWeekPosts = async (req, res) => {
         const tasks = snapshot.docs.map( doc => ({ id: doc.id, ...doc.data() }) );
         return res.status(200).json(tasks);
     } catch(error){
-        console.error("Erro ao carregar tarefas: ", error);
+        console.error("Erro ao carregar posts: ", error);
         return res.status(500).json({ error: "Erro interno!" });
     }
 }
