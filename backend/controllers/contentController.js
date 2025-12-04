@@ -69,14 +69,19 @@ exports.getPostsForClass = async (req, res) => {
 // route: POST /api/content/tasks
 exports.createTask = async (req, res) => {
     try {
-        // the dt_final needs to come in a string ISO
-        const { title, classId, dt_final } = req.body;
+        const authorUid = req.user.uid;
 
-        if(!title || !classId || !dt_final) return res.status(400).json({ error: "Campos 'title', 'classId' e 'dt_final' são obrigatórios!" })
+        // the dt_final needs to come in a string ISO
+        const { title, description, tags, classId, dt_final } = req.body;
+
+        if(!title || !classId || !dt_final || !description) return res.status(400).json({ error: "Campos 'title', 'description', 'classId' e 'dt_final' são obrigatórios!" })
 
         const taskData = {
+            authorUid,
             title,
             classId,
+            description,
+            tags: tags || [],
             dt_final: new Date(dt_final),
             finishedBy: []
         };
@@ -84,7 +89,7 @@ exports.createTask = async (req, res) => {
         const newTaskRef = await db.collection('tasks').add(taskData);
 
         //gets the class members
-        const classDoc = await db.collection.doc(classId).get();
+        const classDoc = await db.collection('classes').doc(classId).get();
 
         if(classDoc.exists){
             const members = classDoc.data().membersId || [];
@@ -238,16 +243,16 @@ exports.deletePost = async (req, res) => {
         const { postId } = req.params;
         const userId = req.user.uid;
 
-        const postRef = db.collection('classes').doc(postId);
+        const postRef = db.collection('posts').doc(postId);
         const doc = await postRef.get();
 
         if(!doc.exists) return res.status(404).json({ error: "Sala não encontrada!" });
 
-        if(doc.data().creatorUid !== userId) return res.status(403).json({ error: "Sem permissão!" });
+        if(doc.data().authorUid !== userId) return res.status(403).json({ error: "Sem permissão!" });
 
         await postRef.delete();
 
-        return res.status(200).json({ message: "Sala deletada!" });
+        return res.status(200).json({ message: "Post deletado!" });
     } catch(error){
         console.error("Erro ao deletar sala: ", error);
         return res.status(500).json({ error: "Erro interno!" });
@@ -259,16 +264,16 @@ exports.deleteTask = async(req, res) => {
         const { taskId } = req.params;
         const userId = req.user.uid;
 
-        const taskRef = db.collection('classes').doc(taskId);
+        const taskRef = db.collection('tasks').doc(taskId);
         const doc = await taskRef.get();
 
         if(!doc.exists) return res.status(404).json({ error: "Sala não encontrada!" });
 
-        if(doc.data().creatorUid !== userId) return res.status(403).json({ error: "Sem permissão!" });
+        if(doc.data().authorUid !== userId) return res.status(403).json({ error: "Sem permissão!" });
 
         await taskRef.delete();
 
-        return res.status(200).json({ message: "Sala deletada!" });
+        return res.status(200).json({ message: "Tarefa deletada!" });
     } catch(error){
         console.error("Erro ao deletar sala: ", error);
         return res.status(500).json({ error: "Erro interno!" });

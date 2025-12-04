@@ -104,7 +104,7 @@ export class ContentService {
 
     return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/tasks`, { headers }).toPromise();
   }
-  async createTask(data: { title: string, classId: string, last_date: string }): Promise<any>{
+  async createTask(data: { title: string, description: string, tags: string[], classId: string, dt_final: Date }): Promise<any>{
     const headers = this.getAuthHeaders();
 
     return this.http.post(`${this.apiUrl}/tasks`, data, { headers }).toPromise();
