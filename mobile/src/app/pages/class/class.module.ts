@@ -9,6 +9,7 @@ import { ClassPage } from './class.page';
 import { FooterNavComponent } from 'src/app/components/footer-nav/footer-nav.component';
 import { HeaderClassPageComponent } from 'src/app/components/header-class-page/header-class-page.component';
 import { HeaderClassNavComponent } from 'src/app/components/header-class-nav/header-class-nav.component';
+import { MenuCriacaoComponent } from 'src/app/components/menu-criacao/menu-criacao.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +18,8 @@ import { HeaderClassNavComponent } from 'src/app/components/header-class-nav/hea
     ClassPageRoutingModule,
     FooterNavComponent,
     HeaderClassPageComponent,
-    HeaderClassNavComponent
+    HeaderClassNavComponent,
+    MenuCriacaoComponent
   ],
   declarations: [ClassPage]
 })

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuCriacaoComponent } from 'src/app/components/menu-criacao/menu-criacao.component';
+import { BehaviorSubject } from 'rxjs';
+
 import { HideOnScrollService } from 'src/app/services/hideOnScrollService/hide-on-scroll-service';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { TagService } from 'src/app/services/tagService/tag';
 import { ContentService } from 'src/app/services/contentService/content-service';
 
@@ -20,64 +20,42 @@ export class ClassPage implements OnInit {
   public classData: any = {
     title: ''
   };
-
   // BehaviorSubject para notificar filhos sobre as tags selecionadas
   public tagFilter$ = new BehaviorSubject<number[]>([]);
 
   constructor(
-    private contentService: ContentService,
+    // Framework services
     private route: ActivatedRoute,
     private router: Router,
     private popoverCtrl: PopoverController,
+    // Our services
+    private contentService: ContentService,
     public scroll: HideOnScrollService,
     private tagService: TagService
   ) {}
 
+  // TODO: need to make a call for the tagService to load the class tags
   ngOnInit() {
     this.classId = this.route.snapshot.params['id'];
-
     this.loadData(this.classId);
-
     this.selectedTab = this.router.url.split('/')[3];
   }
 
+  // TODO: does this need to be stored in localStorage?
   async loadData(id: string | null){
     if(!id) return;
     const response = await this.contentService.getClassDetails(id);
-    
     this.classData = response;
     console.log("Id da sala: ", response.id)
     localStorage.setItem("classId", response.id);
   }
 
-  private loadTags() {
-    
-  }
-
+  // TODO: move this to tagService
   get selectedTags(): number[] {
     return this.tags.filter(t => t.selected).map(t => t.id);
   }
 
-  onSelectClass(id: any) {
-    this.classId = id;
-    this.router.navigate(['/class', this.classId, 'post']);
-  }
-
-  onTabChange(tab: string) {
-    this.selectedTab = tab;
-  }
-
-  async openCreateNav(ev: any) {
-    const popover = await this.popoverCtrl.create({
-      component: MenuCriacaoComponent,
-      event: ev,
-      translucent: true,
-      animated: false,
-      cssClass: 'menu-criacao-popover',
-    });
-    await popover.present();
-  }
-
+  // TODO: move this to tagService
   selectTag(id: number) {
     const tag = this.tags.find(t => t.id === id);
     if (!tag) return;
