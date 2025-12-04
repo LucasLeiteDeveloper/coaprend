@@ -15,7 +15,7 @@ import { ContentService } from 'src/app/services/contentService/content-service'
 })
 export class ClassPage implements OnInit {
   public selectedTab: string = "";
-  public classId!: string | null;
+  public classId!: string;
   public tags: any[] = [];
   public classData: any = {
     title: ''
@@ -33,13 +33,10 @@ export class ClassPage implements OnInit {
     private tagService: TagService
   ) {}
 
-  async ngOnInit() {
-    console.log("Route Snapshot: ", this.route.snapshot);
-    console.log("ParamMap: ", this.route.snapshot.paramMap);
-    console.log("Todos: ", this.route.snapshot.params);
+  ngOnInit() {
     this.classId = this.route.snapshot.params['id'];
 
-    await this.loadData(this.classId);
+    this.loadData(this.classId);
 
     this.selectedTab = this.router.url.split('/')[3];
   }

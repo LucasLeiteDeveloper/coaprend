@@ -1,4 +1,10 @@
-<ion-header [class.hidden]="scroll.isHidden">
+<app-header-class-page/>
+<app-header-class-nav
+  [classId]="classId"
+  [selectedTab]="selectedTab"
+/>
+
+<!-- <ion-header [class.hidden]="scroll.isHidden">
   <ion-toolbar slot="start" class="content-container">
     <div class="header-class" [routerLink]="'/class-select'">
       <div>
@@ -12,7 +18,7 @@
       <ion-icon name="search-outline" [routerLink]="['/class', classId, 'search']"></ion-icon>
     </div>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-popover trigger="trigger-button">
   <ng-template>
@@ -25,17 +31,23 @@
   </ng-template>
 </ion-popover>
 
-<div class="header-nav">
+<!-- <div class="header-nav">
   <a [class.selected]="selectedTab == 'posts'" [routerLink]="['/class', classId, 'posts']" (click)="onTabChange('posts')">Postagens</a>
   <a [class.selected]="selectedTab == 'tasks'" [routerLink]="['/class', classId, 'tasks']" (click)="onTabChange('tasks')">Tarefas</a>
   <a [class.selected]="selectedTab == 'calendar'" [routerLink]="['/class', classId, 'calendar']" (click)="onTabChange('calendar')">Calendário</a>
-</div>
+</div> -->
 
 <ion-content class="ion-padding" [scrollEvents]="true" (ionScroll)="scroll.onContentScroll($event)">
   <router-outlet></router-outlet>
 </ion-content>
 
-<ion-footer [class.hidden]="scroll.isHidden">
+<app-footer-nav
+  [selectedTab]='"class"'
+  [classId]='classId'
+  [class.hidden]="scroll.isHidden"
+/>
+
+<!-- <ion-footer >
   <nav>
     <ion-tab-button tab="salas" [routerLink]="['/class', classId, 'post']" class="selected">
       <ion-icon name="school" style="color: var(--ion-color-primary);"></ion-icon>
@@ -52,4 +64,4 @@
       <ion-label>Você</ion-label>
     </ion-tab-button>
   </nav>
-</ion-footer>
+</ion-footer> -->
