@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/services/taskService/task';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { ClassPage } from '../class.page';
+import { ContentService } from 'src/app/services/contentService/content-service';
 
 @Component({
   selector: 'app-task',
@@ -16,6 +17,7 @@ export class TasksPage implements OnInit {
 
   constructor(
     private taskService: TaskService,
+    private contentService: ContentService,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
     private navCtrl: NavController,
@@ -50,6 +52,18 @@ export class TasksPage implements OnInit {
         if (event) event.target.complete();
       }
     });
+    try {
+      const classId = localStorage.getItem("classId");
+
+      if(!classId)  throw new Error("Classe não especificada");
+      const response = await this.contentService.getTasks(classId);
+
+      console.log("Tasks: ", response);
+      if(response) this.tasks = response;
+    } catch(error){
+      console.error("Erro ao pegar classes: ", error);
+    }
+
   }
 
   private applyTagFilter() {

@@ -120,7 +120,6 @@ exports.getTasksForClass = async (req, res) => {
         // create a reference of taskRef and get the tasks of class
         const taskRef = db.collection('tasks');
         const snapshot = await taskRef.where('classId', '==', classId)
-                                        .orderBy('dt_final', 'asc')
                                         .get();
 
         if(snapshot.empty) return res.status(200).json([]);
