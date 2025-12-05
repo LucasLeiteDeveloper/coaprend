@@ -18,10 +18,10 @@ h1 {
     font-size: 25px;
 }
 
-h2 {
-    font-size: var(--text-b);
+span {
     text-align: center;
-    font-weight: bold;
+    font-size: var(--text-s);
+    color: var(--color-text-secondary);
 }
 
 p {
@@ -33,3 +33,40 @@ p {
 .error-message {
     color: red;
 }
+
+// .ripple {
+//     background-position: center;
+//     transition: background 0.8s;
+// }
+// .ripple:hover {
+//     background: #4285F4 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+// }
+// .ripple:active {
+//     background-color: #4285F4;
+//     background-size: 100%;
+//     transition: background 0s;
+// }
+
+// .ripple::after {
+//     content: ""; /* Required for pseudo-elements to render */
+//     background-size: cover; /* Ensures the image covers the entire container */
+//     background-position: center; /* Centers the image */
+//     position: absolute; /* Positions the pseudo-element relative to the container */
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     z-index: 1;
+//     background-color: rgba(0, 0, 0, 0); /* Initially transparent black */
+//     transition: background-color 0.3s ease;
+// }
+  
+// .ripple:focus::after {
+//     background: rgba(0, 0, 0, 0.1) radial-gradient(circle, transparent 1%, rgba(0, 0, 0, 0.1) 1%) center/15000%;
+// }
+
+// .ripple:active::after {
+//     background-color: rgba(0, 0, 0, 0.3);
+//     background-size: 100%;
+//     transition: background 0s;
+// }

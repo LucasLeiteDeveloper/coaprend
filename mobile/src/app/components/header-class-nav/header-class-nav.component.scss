@@ -2,12 +2,11 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff;
-    border-radius: 10px;
+    background-color: var(--bg-light);
+    border-radius: var(--bd-rd-out);
     height: 34px;
-    padding: 4px;
-    margin: 0 16px;
-
+    padding: var(--spacing-xs);
+    margin: 0 var(--spacing-m);
     button {
         display: flex;
         justify-content: center;
@@ -15,18 +14,12 @@ nav {
         width: 33%;
         height: 100%;
         background-color: initial;
-        border-radius: 8px;
-
-        label {
-            font-size: 15px;
-        }
+        border-radius: var(--bd-rd-in);
+        font-size: var(--text-m);
+        color: var(--color-black);
     }
-
     button.selected {
-        background-color: #D2E3FC;
-        
-        label {
-            color: #174EA6;
-        }
+        background-color: var(--color-light-blue);
+        color: var(--color-blue);
     }
 }

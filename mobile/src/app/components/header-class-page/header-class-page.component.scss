@@ -2,55 +2,44 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 8px 16px;
-
+    margin: var(--spacing-s) var(--spacing-m);
     div {
         display: flex;
         align-items: center;
-        gap: 4px;
-
+        gap: var(--spacing-xs);
+        color: var(--txt-color);
+        font-variant: small-caps;
+        font-weight: bold;
+        font-size: var(--text-m);
         img {
             width: 22px;
             aspect-ratio: 1/1;
         }
-
-        label {
-            font-variant: small-caps;
-            font-weight: bold;
-            font-size: 15px;
-        }
     }
-
     nav {
         display: flex;
         align-items: center;
-        padding: 4px;
-        border-radius: 10px;
-        background-color: #ffffff;
-        gap: 8px;
-
+        padding: var(--spacing-xs);
+        border-radius: var(--bd-rd-out);
+        background-color: var(--bg-light);
+        gap: var(--spacing-s);
         div {
-            gap: 4px;
-
+            gap: var(--spacing-xs);
+            font-size: var(--text-m);
+            font-weight: normal;
             img {
                 width: 26px;
                 aspect-ratio: 1/1;
-                border-radius: 8px;
-            }
-            label {
-                font-size: 15px;
-                font-weight: normal;
+                border-radius: var(--bd-rd-in);
             }
         }
-
         span {
             width: 1px;
             height: 24px;
-            background-color: #BFBFBF;
+            background-color: var(--color-light-grey);
         }
-
         ion-icon {
-            font-size: 20px;
+            font-size: var(--text-b);
         }
     }
 }

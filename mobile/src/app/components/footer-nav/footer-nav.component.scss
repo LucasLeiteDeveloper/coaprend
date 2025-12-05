@@ -4,39 +4,29 @@ footer {
     align-items: center;
     width: 100%;
     height: 56px;
-    background-color: #ffffff;
-    border-top: 1px solid #BFBFBF;
-    border-radius: 10px 10px 0 0;
-
+    background-color: var(--bg-light);
+    border-top: var(--bd-size) solid var(--color-light-grey);
+    border-radius: var(--bd-rd-out) var(--bd-rd-out) 0 0;
     button {
-        background: initial;
         display: flex;
         flex-flow: column;
         justify-content: center;
         align-items: center;
         width: 30%;
         height: 42px;
-        border-radius: 8px;
-        gap: 2px;
-
+        background: initial;
+        border-radius: var(--bd-rd-in);
+        gap: calc(var(--spacing-sx) / 2);
+        color: var(--txt-color);
+        font-size: var(--text-s);
         ion-icon {
             font-size: 24px;
         }
-        
-        label {
-            font-size: 10px;
-            font-size: var(--text-s);
-        }
     }
-
     button.selected {
         background-color: #D2E3FC;
-
+        color: #174EA6;
         ion-icon {
-            color: #174EA6;
-        }
-        
-        label {
             color: #174EA6;
         }
     }

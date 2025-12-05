@@ -1,30 +1,59 @@
 :root {
-	// Color variables
-	--color-primary: hsl(220, 100%, 50%);
-	--color-primary-light: hsl(220, 80%, 50%);
-	--color-primary-dark: hsl(220, 100%, 30%);
+	--color-blue: #174EAE;
+	--color-medium-blue: #4285F4;
+	--color-light-blue: #D2E3FC;
 
-	--color-background: hsl(0, 0%, 100%);
-	--color-background-secondary-highlight: hsl(0, 0%, 95%);
-	--color-background-secondary: hsl(0, 0%, 90%);
+	--color-red: #A50E0E;
+	--color-medium-red: #EA4335;
+	--color-light-red: #FAD2CF;
 
-	--color-border: hsl(0, 0%, 50%);
+	--color-orange: #E37400;
+	--color-yellow: #FBBCO4;
+	--color-light-yellow: #FEEFC3;
 
-	--color-text-primary: hsl(0, 0%, 0%);
-	--color-text-secondary: hsl(0, 0%, 20%);
+	--color-green: #0D652D;
+	--color-medium-green: #34A853;
+	--color-light-green: #CEEAD6;
 
-	// Spacing
+	--color-black: #202124;
+	--color-grey: #9AA0A6;
+	--color-light-grey: #F1F3F4;
+	--color-white: #FFFFFF;
+
+	--txt-color: hsl(0, 0%, 0%);
+	--txt-color-light: hsl(0, 0%, 20%);
+	--txt-color-lighter: #9AA0A6;
+
+	--bg-img: url("/assets/background.png");
+	--bg-dark: hsl(0, 0%, 20%);
+	--bg-light: hsl(0, 0%, 100%);
+
 	--spacing-xs: 4px;
 	--spacing-s: 8px;
 	--spacing-m: 16px;
 	--spacing-b: 32px;
 
-	// Text Size
-	--text-s: 0.625rem;
-	--text-m: 0.938rem;
-	--text-b: 1.25rem;
+	--txt-xs: 10px;
+	--txt-s: 12px;
+	--txt-m: 15px;
+	--txt-b: 20px;
 
-	// Others
-	--border-thickness: 1px;
-	--border-radius-s: 5px;
+	--bd-size: 1px;
+	--bd-rd-out: 10px;
+	--bd-rd-in: 8px;
+}
+
+body.darkMode {
+	--color-black:#FFFFFF;
+	--color-grey: #F1F3F4;
+	--color-light-grey: #9AA0A6;
+	--color-white: #202124;
+
+	--txt-color: hsl(0, 0%, 100%);
+	--txt-color-light: hsl(0, 0%, 80%);
+	--txt-color-lighter: #9AA0A6;
+
+	--bg-img: url("/assets/backgroundDark.png");
+	--bg-dark: hsl(0, 0%, 100%);
+	--bg-light: hsl(0, 0%, 20%);
 }
