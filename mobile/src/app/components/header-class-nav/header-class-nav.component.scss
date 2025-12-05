@@ -4,7 +4,6 @@ nav {
     align-items: center;
     background-color: var(--bg-light);
     border-radius: var(--bd-rd-out);
-    height: 34px;
     padding: var(--spacing-xs);
     margin: 0 var(--spacing-m);
     button {
@@ -12,7 +11,7 @@ nav {
         justify-content: center;
         align-items: center;
         width: 33%;
-        height: 100%;
+        height: calc(28px + var(--spacing-s));
         background-color: initial;
         border-radius: var(--bd-rd-in);
         font-size: var(--text-m);
