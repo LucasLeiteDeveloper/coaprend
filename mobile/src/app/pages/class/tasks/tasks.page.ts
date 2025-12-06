@@ -56,10 +56,12 @@ export class TasksPage implements OnInit {
       const classId = localStorage.getItem("classId");
 
       if(!classId)  throw new Error("Classe não especificada");
-      const response = await this.contentService.getTasks(classId);
+      const responseTasks = await this.contentService.getTasks(classId);
 
-      console.log("Tasks: ", response);
-      if(response) this.tasks = response;
+      responseTasks?.forEach(task => task.dt_final = new Date(task.dt_final._seconds * 1000));
+
+      console.log("Tasks: ", responseTasks);
+      if(responseTasks) this.tasks = responseTasks;
     } catch(error){
       console.error("Erro ao pegar classes: ", error);
     }
@@ -81,15 +83,15 @@ export class TasksPage implements OnInit {
     );
   }
 
-  viewTask(id: number) {
+  viewTask(id: string) {
     this.navCtrl.navigateForward(`/class/task/view/${id}`);
   }
 
-  editTask(id: number) {
+  editTask(id: string) {
     this.navCtrl.navigateForward(`/class/task/edit/${id}`);
   }
 
-  async confirmDelete(id: number) {
+  async confirmDelete(id: string) {
     const alert = await this.alertCtrl.create({
       header: 'Excluir tarefa?',
       message: 'Essa ação não pode ser desfeita.',
@@ -101,10 +103,11 @@ export class TasksPage implements OnInit {
     await alert.present();
   }
 
-  deleteTask(id: number) {
-    this.taskService.delete(id).subscribe(() => {
-      this.tasks = this.tasks.filter(t => t.id !== id);
-      this.applyTagFilter();
-    });
+  deleteTask(id: string) {
+    console.log(id)
+    // this.taskService.delete(id).subscribe(() => {
+    //   this.tasks = this.tasks.filter(t => t.id !== id);
+    //   this.applyTagFilter();
+    // });
   }
 }
