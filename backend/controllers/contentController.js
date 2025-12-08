@@ -147,6 +147,7 @@ exports.createTask = async (req, res) => {
 exports.getTasksForClass = async (req, res) => {
     try {
         const { classId } = req.params;
+        const userId = req.user.id;
  
         // create a reference of taskRef and get the tasks of class
         const taskRef = db.collection('tasks');
