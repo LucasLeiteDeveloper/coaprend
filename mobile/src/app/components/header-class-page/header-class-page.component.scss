@@ -7,13 +7,15 @@ header {
         display: flex;
         align-items: center;
         gap: var(--spacing-xs);
-        color: var(--txt-color);
-        font-variant: small-caps;
-        font-weight: bold;
-        font-size: var(--text-m);
         img {
             width: 22px;
             aspect-ratio: 1/1;
+        }
+        label {
+            color: var(--txt-color);
+            font-variant: small-caps;
+            font-weight: bold;
+            font-size: var(--txt-m);
         }
     }
     nav {
@@ -21,16 +23,19 @@ header {
         align-items: center;
         padding: var(--spacing-xs);
         border-radius: var(--bd-rd-out);
+        border: var(--bd-size) solid var(--color-light-grey);
         background-color: var(--bg-light);
         gap: var(--spacing-s);
         div {
             gap: var(--spacing-xs);
-            font-size: var(--text-m);
-            font-weight: normal;
             img {
                 width: 26px;
                 aspect-ratio: 1/1;
                 border-radius: var(--bd-rd-in);
+            }
+            label {
+                font-size: var(--txt-m);
+                font-weight: normal;
             }
         }
         span {
@@ -39,7 +44,7 @@ header {
             background-color: var(--color-light-grey);
         }
         ion-icon {
-            font-size: var(--text-b);
+            font-size: var(--txt-b);
         }
     }
 }

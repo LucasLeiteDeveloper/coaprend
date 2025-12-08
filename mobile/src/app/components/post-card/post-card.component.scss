@@ -1,138 +1,63 @@
-/*
- * ----------------------------------------------------
- * ESTILOS GERAIS
- * ----------------------------------------------------
- */
 * {
-    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
+    --tag-color: #4285F4;
 }
 
-/*
- * ----------------------------------------------------
- * ESTILOS DO CARD DA POSTAGEM
- * ----------------------------------------------------
- */
-.post-card {
-    display: grid;
-    gap: var(--spacing-m);
-    margin: 16px 0;
-}
-
-/*
- * ----------------------------------------------------
- * CABEÇALHO DO CARD
- * ----------------------------------------------------
- */
-.post-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.post-card-profile {
-    display: flex;
-    align-items: center;
-    width: fit-content;
-}
-
-.post-card-profile > img {
-    width: 28px;
-    height: 28px;
-    border-radius: 100%;
-}
-
-.post-author-name {
-    color: var(--color-text-secondary);
-    font-size: var(--text-m);
-    margin-left: var(--spacing-s);
-}
-
-.post-card-tags {
-    display: flex;
-    align-items: center;
-    width: fit-content;
-}
-
-.tag {
-    display: flex;
-    align-items: center;
-    width: fit-content;
-}
-
-.tag > ion-icon {
-    padding: var(--spacing-xs);
-    background-color: blue;
-    color: white;
-    border-radius: var(--border-radius-s);
-    margin-left: var(--spacing-s);
-}
-
-/*
- * ----------------------------------------------------
- * CONTEÚDO DO CARD
- * ----------------------------------------------------
- */
-.post-card-content {
+article {
     display: grid;
     gap: var(--spacing-s);
-}
-
-.post-card-content > h2 {
-    font-size: var(--text-b);
-    font-weight: bold;
-}
-
-.post-card-content > p {
-    font-size: var(--text-m);
-    line-height: 140%;
-}
-
-.post-text.multiPosts {
-    -webkit-line-clamp: 5;
-    line-clamp: 5;
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
+    margin: 16px 0;
+    background-color: var(--bg-light);
+    border-radius: var(--bd-rd-out);
     overflow: hidden;
-    text-overflow: ellipsis; 
-}
-
-/*
- * ----------------------------------------------------
- * RODAPÉ DO CARD
- * ----------------------------------------------------
- */
-.post-card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.post-link {
-    color: var(--color-primary);
-    font-size: var(--text-m);
-    text-decoration: none;
-}
-
-.bookmark-button {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    color: var(--color-icon-default);
-    font-size: var(--icon-l);
-    transition: color 0.2s ease; 
-}
-
-.bookmark-button:hover {
-    color: var(--color-primary);
-}
-
-hr {
-    width: 100%;
-    height: 0.5px;
-    border: 0;
-    background-color: var(--color-border);
+    div {
+        width: 100%;
+        background-color: var(--tag-color);
+        h3 {
+            margin: var(--spacing-xs) 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: var(--txt-m);
+            color: var(--txt-color-opossite);
+        }
+    }
+    h2 {
+        font-size: var(--txt-b);
+        font-weight: bold;
+        margin: 0 var(--spacing-m);
+        line-clamp: 2;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+    p {
+        font-size: var(--txt-m);
+        margin: 0 var(--spacing-m);
+        line-clamp: 5;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+    }
+    footer {
+        display: flex;
+        justify-content: space-between;
+        width: calc(100% - var(--spacing-m) * 2);
+        margin: var(--spacing-m);
+        a {
+            font-size: var(--txt-m);
+            color: var(--color-medium-blue);
+            text-decoration: none;
+        }
+        div {
+            width: fit-content;
+            background-color: initial;
+            button {
+                background-color: initial;
+                font-size: var(--txt-b);
+            }
+        }
+    }
 }

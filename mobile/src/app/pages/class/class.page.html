@@ -1,11 +1,17 @@
-<app-header-class-page/>
+<app-header-class-page
+  [class.hidden]="scroll.isHidden"
+/>
 
 <app-header-class-nav
   [classId]="classId"
   [selectedTab]="selectedTab"
 />
 
-<ion-content class="ion-padding" [scrollEvents]="true" (ionScroll)="scroll.onContentScroll($event)">
+<ion-content
+  class="ion-padding"
+  [scrollEvents]="true"
+  (ionScroll)="scroll.onContentScroll($event)"
+>
   <router-outlet/>
 </ion-content>
 
@@ -14,8 +20,6 @@
   [classId]='classId'
   [class.hidden]="scroll.isHidden"
 />
-
-<!-- POPUPS -->
 
 <!-- Trigger is in header-class-page component -->
 <ion-popover trigger="tags-popup-trigger">
@@ -28,12 +32,10 @@
     </div>
   </ng-template>
 </ion-popover>
-
 <!-- Trigger is in footer-nav component -->
 <ion-popover trigger="create-popup-trigger">
   <ng-template>
     <menu-criacao/>
   </ng-template>
 </ion-popover>
-
 <!-- TODO: update the header with this -> <p> {{ classData.title? classData.title : "ver classes" }} </p> -->

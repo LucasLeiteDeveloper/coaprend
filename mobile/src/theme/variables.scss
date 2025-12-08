@@ -23,6 +23,7 @@
 	--txt-color: hsl(0, 0%, 0%);
 	--txt-color-light: hsl(0, 0%, 20%);
 	--txt-color-lighter: #9AA0A6;
+	--txt-color-opossite: #ffffff;
 
 	--bg-img: url("/assets/background.png");
 	--bg-dark: hsl(0, 0%, 20%);
@@ -44,6 +45,10 @@
 }
 
 body.darkMode {
+	--color-blue: #D2E3FC;
+	--color-medium-blue: #4285F4;
+	--color-light-blue: #174EAE;
+
 	--color-black:#FFFFFF;
 	--color-grey: #F1F3F4;
 	--color-light-grey: #9AA0A6;
@@ -52,6 +57,7 @@ body.darkMode {
 	--txt-color: hsl(0, 0%, 100%);
 	--txt-color-light: hsl(0, 0%, 80%);
 	--txt-color-lighter: #9AA0A6;
+	--txt-color-opossite: #000000;
 
 	--bg-img: url("/assets/backgroundDark.png");
 	--bg-dark: hsl(0, 0%, 100%);

@@ -4,6 +4,7 @@ nav {
     align-items: center;
     background-color: var(--bg-light);
     border-radius: var(--bd-rd-out);
+    border: var(--bd-size) solid var(--color-light-grey);
     padding: var(--spacing-xs);
     margin: 0 var(--spacing-m);
     button {
@@ -14,7 +15,7 @@ nav {
         height: calc(28px + var(--spacing-s));
         background-color: initial;
         border-radius: var(--bd-rd-in);
-        font-size: var(--text-m);
+        font-size: var(--txt-m);
         color: var(--color-black);
     }
     button.selected {

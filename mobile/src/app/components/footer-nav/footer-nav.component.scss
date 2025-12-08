@@ -18,16 +18,13 @@ footer {
         border-radius: var(--bd-rd-in);
         gap: calc(var(--spacing-sx) / 2);
         color: var(--txt-color);
-        font-size: var(--text-s);
+        font-size: var(--txt-s);
         ion-icon {
             font-size: 24px;
         }
     }
     button.selected {
-        background-color: #D2E3FC;
-        color: #174EA6;
-        ion-icon {
-            color: #174EA6;
-        }
+        background-color: var(--color-light-blue);
+        color: var(--color-blue);
     }
 }

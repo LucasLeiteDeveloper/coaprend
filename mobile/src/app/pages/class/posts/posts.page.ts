@@ -14,6 +14,15 @@ export class PostsPage implements OnInit {
   classId: string | null = null;
   posts: any[] | undefined = undefined;
   filteredPosts: any[] = [];
+  postTest: any = {
+    "id": 0,
+    "title": "Dominando JavaScript Assíncrono: Promises, Async/Await e Tratamento de Erros",
+    "content": "A programação assíncrona é fundamental no JavaScript moderno, especialmente ao lidar com requisições de rede (APIs) ou operações baseadas em tempo. Este artigo explora a progressão dos Callbacks tradicionais para as Promises modernas, oferecendo um mergulho profundo nos métodos `.then()`, `.catch()` e `.finally()`. Crucialmente, detalhamos como a sintaxe `async/await` simplifica as cadeias complexas de Promises, tornando o código assíncrono mais legível e fácil de depurar. Além disso, fornecemos melhores práticas para um tratamento de erros robusto usando blocos `try...catch` com `async/await` para evitar falhas inesperadas em suas aplicações web.",
+    "username": "Felipe Souza",
+    "tags": {
+      "title": "Português",
+    }
+  };
 
   constructor(
     private postService: PostService,
@@ -57,9 +66,5 @@ export class PostsPage implements OnInit {
     // this.filteredPosts = this.posts.filter(post =>
     //   post.tags?.some((t: any) => selectedTags.includes(t.name ?? t))
     // );
-  }
-
-  openPost(id: string) {
-    this.router.navigate([`/class/post/view/${id}`]);
   }
 }

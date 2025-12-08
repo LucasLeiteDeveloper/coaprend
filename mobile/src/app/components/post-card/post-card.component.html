@@ -1,28 +1,18 @@
-<article class="post-card"> 
-  <header class="post-card-header">
-    <div class="post-card-profile">
-      <img alt="Avatar do autor" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-      <p class="post-author-name">{{ post.username }}</p>
-    </div>
-    <div class="tags-container">
-      <ion-icon name="file-tray-stacked-outline" aria-hidden="true"></ion-icon>
-      <ion-icon name="file-tray-stacked-outline" aria-hidden="true"></ion-icon>
-    </div>
-  </header>
-  
-  <div class="post-card-content">
-    <h2>{{ post.title }}</h2> 
-    <p class="post-text" [class.multiPosts]="multiPosts">{{ post.content }}</p>
+<article> 
+  <div>
+    <h3>{{ post.tags.title }}</h3>
   </div>
+  
+  <h2>{{ post.title }}</h2> 
 
-  <footer class="post-card-footer">
-    <a [routerLink]="['/post', post.id]" class="post-link" *ngIf="multiPosts">Ver Mais</a>
+  <p [class.multiPosts]="multiPosts">{{ post.content }}</p>
+
+  <footer>
+    <a [routerLink]="['/post', post.id]" *ngIf="multiPosts">Ver Mais</a>
     <div>
-      <button class="bookmark-button" aria-label="Marcar postagem">
+      <button aria-label="Salvar postagem">
         <ion-icon name="bookmark-outline"></ion-icon>
       </button>
     </div>
   </footer>
-
-  <hr *ngIf="multiPosts">
 </article>
