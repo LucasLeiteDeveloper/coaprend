@@ -25,7 +25,7 @@
 
       <ion-card-content>
         <p class="descricao">
-          {{ task.descricao || 'Sem descrição...' }}
+          {{ task.description || 'Sem descrição...' }}
         </p>
 
         <div class="anexos">
@@ -34,15 +34,15 @@
         </div>
 
         <div class="buttons">
-          <ion-button size="small" fill="outline" (click)="viewTask(task.id)">
+          <ion-button size="small" fill="outline" (click)="viewTask(task)">
             Visualizar
           </ion-button>
 
-          <ion-button size="small" color="warning" fill="outline" (click)="editTask(task.id)">
+          <ion-button *ngIf="task.isCreator" size="small" color="warning" fill="outline" (click)="editTask(task)">
             Editar
           </ion-button>
 
-          <ion-button size="small" color="danger" fill="outline" (click)="confirmDelete(task.id)">
+          <ion-button *ngIf="task.isCreator" size="small" color="danger" fill="outline" (click)="confirmDelete(task.id)">
             Excluir
           </ion-button>
         </div>

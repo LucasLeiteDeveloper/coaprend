@@ -147,7 +147,7 @@ exports.createTask = async (req, res) => {
 exports.getTasksForClass = async (req, res) => {
     try {
         const { classId } = req.params;
-        const userId = req.user.id;
+        const userId = req.user.uid;
  
         // create a reference of taskRef and get the tasks of class
         const taskRef = db.collection('tasks');
@@ -158,6 +158,9 @@ exports.getTasksForClass = async (req, res) => {
 
         const tasks = snapshot.docs.map(doc => {
             const taskData = doc.data();
+            
+            console.log("U")
+
             return {
                 id: doc.id,
                 ...taskData,
