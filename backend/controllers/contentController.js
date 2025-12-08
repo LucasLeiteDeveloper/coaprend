@@ -155,7 +155,15 @@ exports.getTasksForClass = async (req, res) => {
 
         if(snapshot.empty) return res.status(200).json([]);
 
-        const tasks = snapshot.docs.map( doc => ({id: doc.id, ...doc.data()}) );
+        const tasks = snapshot.docs.map(doc => {
+            const taskData = doc.data();
+            return {
+                id: doc.id,
+                ...taskData,
+                isCreator: taskData.authorUid === userId 
+            }
+        })
+
         return res.status(200).json(tasks);
     } catch(error){
         console.error("Erro ao listar tarefas: ", error);
@@ -187,7 +195,15 @@ exports.getWeekTasks = async (req, res) => {
 
         if(snapshot.empty) return res.status(200).json([]);
 
-        const tasks = snapshot.docs.map( doc => ({ id: doc.id, ...doc.data() }) );
+        const tasks = snapshot.docs.map( doc => {
+            const taskData = doc.data();
+
+            return {
+                id: doc.id,
+                ...taskData,
+                isCreator: taskData.authorUid === userId
+            }
+        });
         return res.status(200).json(tasks);
     } catch(error){
         console.error("Erro ao carregar tarefas: ", error);
