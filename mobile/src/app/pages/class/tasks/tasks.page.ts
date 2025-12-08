@@ -97,17 +97,35 @@ export class TasksPage implements OnInit {
       message: 'Essa ação não pode ser desfeita.',
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
-        { text: 'Excluir', handler: () => this.deleteTask(id) }
+        { text: 'Excluir', handler: async () => {
+          this.loading = await this.loadingCtrl.create({ message: 'Excluindo tarefa...' });
+          await this.loading.present();
+
+          try {
+            await this.contentService.deleteTask(id);
+
+            this.loading.dismiss();
+          } catch(error){
+            this.loading.dismiss();
+
+            this.presentErrorAlert("Erro ao deletar", "erro de conexão");
+
+            console.error("Erro ao deletar tarefa: ", error);
+          }
+
+          this.loadTasks();
+        }}
       ]
     });
     await alert.present();
-  }
+    }
 
-  deleteTask(id: string) {
-    console.log(id)
-    // this.taskService.delete(id).subscribe(() => {
-    //   this.tasks = this.tasks.filter(t => t.id !== id);
-    //   this.applyTagFilter();
-    // });
-  }
+    async presentErrorAlert(header: string, message: string) {
+      const alert = await this.alertCtrl.create({
+          header: header,
+          message: message,
+          buttons: ['OK']
+      });
+      await alert.present();
+    }
 }
