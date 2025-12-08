@@ -231,16 +231,40 @@ exports.updatePost = async (req, res) => {
 exports.updateTask = async (req, res) => {
     try {
         const { taskId } = req.params; //gets the task id
+        const userId = req.user.uid;
         const updates = req.body; //gets the update
         
+        const taskRef = db.collection("tasks").doc(taskId);
+        const taskDoc = await taskRef.get();
+
+        if(!taskDoc.exists) return res.status(404).json({ error: "Tarefa não encontrada" });
+    
+        const taskData = taskDoc.data();
+        if(taskData.authorUid !== userId) return res.status(403).json({ error: "você só pode editar suas próprias tarefas." });
+
+        const allowedUpdates = ['title', 'description', 'tags', 'dt_final'];
+        const filteredUpdates = {};
+
+        // insert the updates on filteredUpdates
+        allowedUpdates.forEach(field => {
+            if(updates[field] !== undefined && updates[field]) filteredUpdates[field] = updates[field];
+        })
+
         // if has some date, change to Date()
-        if (updates.dt_final) updates.dt_final = new Date(updates.dt_final);
+        if (filteredUpdates.dt_final) filteredUpdates.dt_final = new Date(filteredUpdates.dt_final);
 
-        // create a reference of the task and update it
-        const taskRef = db.collection('tasks').doc(taskId);
-        await taskRef.update(updates);
+        // check if there are updates
+        if(Object.keys(filteredUpdates).length == 0) return res.status(400).json({ error: "Nenhum campo válido para atualizar" });
 
-        return res.status(200).json({ message: "Tarefa atualizada!" });
+        //add update timestamp
+        filteredUpdates.dt_updated = new Date();
+
+        await taskRef.update(filteredUpdates);
+
+        return res.status(200).json({ 
+            message: "Tarefa atualizada!",
+            updates: filteredUpdates
+        });
     } catch (error) {
         console.error("Erro update task:", error);
         return res.status(500).json({ error: "Erro interno." });
