@@ -49,6 +49,7 @@ hr {
 .app-form {
   display: flex;
   flex-flow: column;
+  width: 100%;
   border-radius: 8px;
   border: 1px solid #BFBFBF;
   overflow: hidden;
@@ -133,12 +134,13 @@ hr {
   border: 1px solid #BFBFBF;
 
   img {
-    width: 24px;
+    width: calc(var(--txt-b) * 1.2);
     aspect-ratio: 1/1;
   }
 
   span {
-    color: hsl(0, 0%, 40%);
+    font-size: var(--txt-m) !important;
+    color: hsl(0, 0%, 40%) !important;
   }
 }
 

@@ -4,20 +4,34 @@
 }
 
 main {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
     position: absolute;
+    gap: var(--spacing-m);
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-}
-
-h2 {
-    font-size: var(--text-b);
-    text-align: center;
-    font-weight: bold;
-}
-
-p {
-    text-align: center;
-    font-size: var(--text-s);
-    color: var(--color-text-secondary);
+    border-radius: 10px;
+    background-color: var(--bg-light);
+    padding: var(--spacing-b) var(--spacing-m);
+    h1 {
+        color: var(--color-medium-blue);
+        font-size: calc(var(--txt-b) * 1.25);
+        font-weight: bold;
+    }
+    span {
+        font-size: var(--txt-xs);
+        color: var(--txt-color-light);
+    }
+    div {
+        p {
+            text-align: center;
+            font-size: var(--txt-s);
+            color: var(--txt-color-light);
+            a {
+                color: var(--color-medium-blue);
+            }
+        }
+    }
 }
