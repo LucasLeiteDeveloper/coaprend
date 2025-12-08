@@ -174,6 +174,8 @@ export class TasksPage implements OnInit {
             }
             console.log("Entrando em saveTaskChanges..")
             await this.saveTaskChanges(task.id, data);
+
+            alert.dismiss();
             return false;
           }
         }
@@ -211,8 +213,6 @@ export class TasksPage implements OnInit {
       
       //calls API to update
       this.contentService.updateTask(id, updateData);
-
-      this.loadTasks();
       
       loading.dismiss();
 
