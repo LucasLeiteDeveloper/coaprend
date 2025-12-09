@@ -26,6 +26,7 @@ router.get("/class/:classId/posts", authenticateToken, contentController.getPost
 router.get("/class/:classId/posts/range", authenticateToken, contentController.getWeekPosts);
 router.get("/posts/search", authenticateToken, contentController.searchGlobalPosts);
 router.get("/posts/tags/search", authenticateToken, contentController.searchPostsByTags);
+router.get('/users/:userId/posts', authenticateToken, contentController.getPostsByUser);
 
 // tasks routes
 router.post("/tasks", authenticateToken, contentController.createTask);
@@ -33,6 +34,7 @@ router.patch("/tasks/:taskId", authenticateToken, contentController.updateTask);
 router.get("/class/:classId/tasks", authenticateToken, contentController.getTasksForClass);
 router.get("/class/:classId/tasks/range", authenticateToken, contentController.getWeekTasks);
 router.delete("/tasks/:taskId", authenticateToken, contentController.deleteTask);
+router.get('/users/:userId/tasks', authenticateToken, contentController.getTasksByUser);
 
 // notification routes
 router.get("/notifications", authenticateToken, notificationContoller.getMyNotifications);

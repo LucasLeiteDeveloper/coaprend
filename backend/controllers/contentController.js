@@ -65,6 +65,28 @@ exports.getPostsForClass = async (req, res) => {
     }
 }
 
+exports.getPostsByUser = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const currentUserId = req.user.uid;
+
+        const postsRef = db.collection('posts');
+        const snapshot = await postsRef.where('authorUid', '==', userId).get();
+
+        if(snapshot.empty) return res.status(200).json([]);
+
+        const posts = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        return res.status(200).json(posts);
+    } catch(error) {
+        console.error("Erro ao listar posts do usuário: ", error);
+        return res.status(500).json({ error: "Erro interno!" });
+    }
+}
+
 // get the tasks of a specific week
 exports.getWeekPosts = async (req, res) => {
     try {
@@ -169,9 +191,32 @@ exports.getTasksForClass = async (req, res) => {
         })
 
         return res.status(200).json(tasks);
-    } catch(error){
+    } catch(error){v
         console.error("Erro ao listar tarefas: ", error);
         return res.status(500).json({ error: "Erro interno" })
+    }
+}
+
+exports.getTasksByUser = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const currentUserId = req.user.uid;
+
+        const tasksRef = db.collection('tasks');
+        const snapshot = await tasksRef.where('authorUid', '==', userId).get();
+
+        if(snapshot.empty) return res.status(200).json([]);
+
+        const tasks = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        return res.status(200).json(tasks);
+    } catch(error) {
+        console.error("Erro ao listar tarefas do usuário: ", error);
+
+        return res.status(500).json({ error: "Erro interno!" });
     }
 }
 
