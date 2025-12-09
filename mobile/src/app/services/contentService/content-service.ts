@@ -85,6 +85,11 @@ export class ContentService {
 
     return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/posts/range?start=${start}&end=${end}`, { headers } );
   }
+  getPostsByUser(userId: string) {
+    const headers = this.getAuthHeaders();
+
+    return this.http.get<any[]>(`${this.apiUrl}/users/${userId}/posts`, { headers }).toPromise();
+  }
   async createPost(data: { title: string, classId: string, content: string, tags: any[] }): Promise<any> {
     const headers = this.getAuthHeaders();
 
@@ -114,6 +119,11 @@ export class ContentService {
     const headers = this.getAuthHeaders();
 
     return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/tasks/range?start=${start}&end=${end}`, { headers } );
+  }
+  getTasksByUser(userId: string) {
+    const headers = this.getAuthHeaders();
+    
+    return this.http.get<any[]>(`${this.apiUrl}/users/${userId}/tasks`, { headers }).toPromise();
   }
   async createTask(data: { title: string, description: string, tags: string[], classId: string, dt_final: Date }): Promise<any>{
     const headers = this.getAuthHeaders();

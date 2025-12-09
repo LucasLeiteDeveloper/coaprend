@@ -13,6 +13,7 @@ import { AuthService, UserProfile } from 'src/app/services/authService/auth-serv
 })
 export class ProfilePage implements OnInit {
   public classId: any = 0;
+  public userPosts: any[] = [];
   public postExample: {} = {
     title: 'Post de teste',
     author: 'Usuário de teste',
@@ -34,7 +35,7 @@ export class ProfilePage implements OnInit {
 
   async ngOnInit() {
     await this.loadProfileData();
-    console.log(this.profileData);
+    await this.loadProfilePosts();
 
     this.route.paramMap.subscribe((params) => {
       this.classId = params.get('id');
@@ -53,6 +54,10 @@ export class ProfilePage implements OnInit {
     } finally {
       this.isLoading = false;
     }
+  }
+  
+  async loadProfilePosts(){
+    console.log("Dados do perfil: ", this.profileData);
   }
 
   async openCreateNav(ev: any) {
