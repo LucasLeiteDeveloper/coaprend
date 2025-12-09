@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { MenuCriacaoComponent } from 'src/app/components/menu-criacao/menu-criacao.component';
 import { AuthService, UserProfile } from 'src/app/services/authService/auth-service';
+import { ContentService } from 'src/app/services/contentService/content-service';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,7 @@ import { AuthService, UserProfile } from 'src/app/services/authService/auth-serv
 })
 export class ProfilePage implements OnInit {
   public classId: any = 0;
-  public userPosts: any[] = [];
+  public userPosts: any[] | undefined = [];
   public postExample: {} = {
     title: 'Post de teste',
     author: 'Usuário de teste',
@@ -29,6 +30,7 @@ export class ProfilePage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
+    private contentService: ContentService,
     private popover: PopoverController,
     public scroll: HideOnScrollService,
   ) {}
@@ -57,7 +59,21 @@ export class ProfilePage implements OnInit {
   }
   
   async loadProfilePosts(){
-    console.log("Dados do perfil: ", this.profileData);
+    this.isLoading = true;
+    console.log("Posts antes do request: ", this.userPosts);
+
+    try {
+      const userId = this.profileData.uid;
+
+      if(userId) this.userPosts = await this.contentService.getPostsByUser(userId);
+    }catch(error){
+      console.error("Erro ao carregar posts: ", error);
+      this.authService.showToast("Erro ao carregar posts!");
+    }finally {
+      this.isLoading = false;
+    }
+
+    console.log("Posts depois do request: ", this.userPosts);
   }
 
   async openCreateNav(ev: any) {
