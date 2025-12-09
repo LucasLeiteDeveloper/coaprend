@@ -34,6 +34,8 @@ export class TasksPage implements OnInit {
   }
 
   async loadTasks(event?: any) {
+    if(!localStorage.getItem("classId")) return;
+
     if (!event) {
       this.loading = await this.loadingCtrl.create({ message: 'Carregando tarefas...' });
       await this.loading.present();
@@ -54,8 +56,8 @@ export class TasksPage implements OnInit {
     // });
     try {
       const classId = localStorage.getItem("classId");
+      if(!classId) return;
 
-      if(!classId)  throw new Error("Classe não especificada");
       const responseTasks = await this.contentService.getTasks(classId);
 
       responseTasks?.forEach(task => task.dt_final = new Date(task.dt_final._seconds * 1000));
