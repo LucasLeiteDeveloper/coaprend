@@ -190,7 +190,7 @@ exports.getUserProfile = async (req, res) => {
         if(!userDoc.exists) return res.status(404).json({ error: "Dados do usuário não encontrados" });
 
         const profileData = {
-            id: userDoc.id,
+            uid: userDoc.id,
             ...userDoc.data()
         };
 
