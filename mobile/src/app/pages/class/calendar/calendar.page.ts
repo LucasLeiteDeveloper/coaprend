@@ -1,8 +1,8 @@
 import { Component, contentChild, OnInit } from '@angular/core';
-import { TaskService } from 'src/app/services/taskService/task';
 import { PostService } from 'src/app/services/postService/post';
 import { ClassPage } from '../class.page';
 import { ContentService } from 'src/app/services/contentService/content-service';
+import { PostPageRoutingModule } from '../../post/post-routing.module';
 
 @Component({
   selector: 'app-calendar',
@@ -51,7 +51,21 @@ export class CalendarPage implements OnInit {
   }
 
   private dateToYMD(date: Date): string {
-    return date.toISOString().split('T')[0];
+    const localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+    return localDate.toISOString().split('T')[0];
+  }
+
+  private timestampToDate(timestamp: any): Date {
+    if (!timestamp) return new Date();
+    
+    if (timestamp._seconds) {
+      const date = new Date(timestamp._seconds * 1000);
+      
+      return new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+    }
+    
+    // Se já for Date ou string ISO
+    return new Date(timestamp);
   }
 
   private updateSelectedWeek(date: Date): void {
@@ -83,7 +97,10 @@ export class CalendarPage implements OnInit {
         this.showingDayOnly = false;
 
         // transform the dates of tasks in an Date obj
-        tasks.forEach( (t) => t.dt_final = new Date(t.dt_final._seconds * 1000) );
+        tasks.forEach( (t) => {
+          t.dt_final = this.timestampToDate(t.dt_final);
+          t.formattedDate = this.dateToYMD(t.dt_final);
+        });
 
         this.tasksOfWeek = tasks;
         console.log("Tasks da semana: ", this.tasksOfWeek);
@@ -103,7 +120,10 @@ export class CalendarPage implements OnInit {
         this.showingDayOnly = false;
 
         // transform the dates of posts in an Date obj
-        posts.forEach( (p) => p.dt_create = new Date(p.dt_create._seconds * 1000) );
+        posts.forEach( (p) => {
+          p.dt_create = this.timestampToDate(p.dt_create);
+          p.formattedDate = this.dateToYMD(p.dt_create);
+        } );
 
 
         this.postsOfWeek = posts;
@@ -117,6 +137,30 @@ export class CalendarPage implements OnInit {
     this.selectedDay = day;
     this.showingDayOnly = true;
     this.applyTagFilter();
+
+    this.updateDayView();
+  }
+  private updateDayView(){
+    if(this.selectedDay) {
+      const selectedYMD = this.dateToYMD(this.selectedDay);
+
+      //filter the tasks of day
+      this.tasksOfSelectedDay = this.tasksOfWeek.filter(task => {
+        const taskYMD = this.dateToYMD(task.dt_final);
+
+        return taskYMD === selectedYMD;
+      });
+
+      //filter the posts of day
+      this.postsOfSelectedDay = this.postsOfWeek.filter(post => {
+        const postYMD = this.dateToYMD(post.dt_create);
+
+        return postYMD === selectedYMD;
+      });
+
+      console.log("Tasks do dia: ", this.tasksOfSelectedDay)
+      console.log("Posts do dia: ", this.postsOfSelectedDay);
+    }
   }
 
   private applyTagFilter(): void {
