@@ -62,7 +62,7 @@ export class ConfigPage implements OnInit {
         this.classData = response;
         this.inviteCode = response.code;
         this.newName = response.title;
-        this.tags = response.tags;
+        this.tags = Array.isArray(response.tags) ? response.tags : [response.tags];
       }
     } catch(error) {
       this.showToast("Erro ao carregar dados da classe");
@@ -183,7 +183,15 @@ updatePhoto() {
     // });
   }
 
-  deleteTag(tagId: number) {
+  async deleteTag(tag: string) {
+    const newTags = this.tags.filter( t => t !== tag);
+    
+    const response = await this.contentService.updateClass(this.classId, { tags: newTags });
+
+    console.log("Resposta da requisição: ", response);
+
+    await this.loadClassData();
+
     // this.tagService.deleteTag(this.classId, tagId).subscribe({
     //   next: () => {
     //     this.tags = this.tags.filter(t => t.id !== tagId);
