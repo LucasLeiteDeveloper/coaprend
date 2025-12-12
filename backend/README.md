@@ -1,0 +1,3 @@
+# Configuração do backend do projeto
+
+O backend deste projeto é uma API REST criada com nodeJS e Express ligado à um banco de dados Firebase, para fazê-la funcionar, você deve ir até o caminho desta pasta e rodar o comando `npm install`, após todas as depêndencias serem instaladas, basta rodar `npm run dev` para o servidor ser inicializado e depois rodar o mobile, agora ambas as partes poderão conversar entre si

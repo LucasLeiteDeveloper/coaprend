@@ -1,0 +1,43 @@
+//initialize express and Router
+const express = require('express');
+const router = express.Router();
+//get the authenticateToken 
+const authenticateToken = require("../middlewares/authenticateToken");
+//get the controller
+const classController = require("../controllers/classController");
+const contentController = require("../controllers/contentController");
+const notificationContoller = require("../controllers/notificationController");
+
+// route of classes 
+router.get("/classes/my", authenticateToken, classController.getUserClasses);
+router.get("/class/:classId", authenticateToken, classController.getClassDetails);
+router.get("/class/:classId/tags", authenticateToken, classController.getClassTags);
+router.post("/class", authenticateToken, classController.createClass);
+router.post("/class/enter", authenticateToken, classController.enterClass);
+router.patch("/class/:classId", authenticateToken, classController.updateClass);
+router.delete("/class/:classId", authenticateToken, classController.deleteClass);
+router.delete("/class/:classId/leave", authenticateToken, classController.leaveClass);
+
+// posts routes
+router.post("/posts", authenticateToken, contentController.createPost);
+router.patch("/posts/:postId", authenticateToken, contentController.updatePost);
+router.delete("/posts/:postId", authenticateToken, contentController.deletePost);
+router.get("/class/:classId/posts", authenticateToken, contentController.getPostsForClass);
+router.get("/class/:classId/posts/range", authenticateToken, contentController.getWeekPosts);
+router.get("/posts/search", authenticateToken, contentController.searchGlobalPosts);
+router.get("/posts/tags/search", authenticateToken, contentController.searchPostsByTags);
+router.get('/users/:userId/posts', authenticateToken, contentController.getPostsByUser);
+
+// tasks routes
+router.post("/tasks", authenticateToken, contentController.createTask);
+router.patch("/tasks/:taskId", authenticateToken, contentController.updateTask);
+router.get("/class/:classId/tasks", authenticateToken, contentController.getTasksForClass);
+router.get("/class/:classId/tasks/range", authenticateToken, contentController.getWeekTasks);
+router.delete("/tasks/:taskId", authenticateToken, contentController.deleteTask);
+router.get('/users/:userId/tasks', authenticateToken, contentController.getTasksByUser);
+
+// notification routes
+router.get("/notifications", authenticateToken, notificationContoller.getMyNotifications);
+router.get("/notifications/:id/read", authenticateToken, notificationContoller.markAsRead);
+
+module.exports = router;
