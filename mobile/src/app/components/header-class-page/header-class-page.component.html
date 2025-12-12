@@ -3,10 +3,10 @@
     <img src="assets/icon/appIcon.png" alt="">
     <label>Coaprend</label>
   </div>
-  <nav>
+  <nav [routerLink]="['/class-select']">
     <div>
       <img src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="/>
-      <label>3IFEM</label>
+      <label> {{ className }}</label>
     </div>
     <span></span>
     <ion-icon name="pricetag-outline" id="tags-popup-trigger"></ion-icon>

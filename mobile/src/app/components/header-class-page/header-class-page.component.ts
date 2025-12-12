@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
@@ -10,4 +10,6 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, RouterModule]
 })
 
-export class HeaderClassPageComponent {}
+export class HeaderClassPageComponent {
+  @Input() className!: string;
+}
