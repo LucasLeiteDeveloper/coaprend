@@ -13,6 +13,7 @@ export interface FirestoreTimestamp {
 }
 
 export interface UserProfile {
+  uid?: string,
   name: string,
   email: string,
   dt_birthday?: string | FirestoreTimestamp,

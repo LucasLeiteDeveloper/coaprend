@@ -23,9 +23,9 @@
     <!-- TAREFAS -->
     <ion-item *ngFor="let task of tasksOfWeek">
         <ion-label>
-            <h2>{{ task.titulo }}</h2>
-            <p>{{ task.descricao }}</p>
-            <p>Entrega: {{ task.data_limite | date:'dd/MM/yyyy' }}</p>
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.description }}</p>
+            <p>Entrega: {{ task.dt_final | date:'dd/MM/yyyy' }}</p>
         </ion-label>
     </ion-item>
 
@@ -34,7 +34,7 @@
         <ion-label>
             <h2>{{ post.title }}</h2>
             <p>{{ post.content }}</p>
-            <p>Postado em: {{ post.date | date:'dd/MM/yyyy' }}</p>
+            <p>Postado em: {{ post.dt_create | date:'dd/MM/yyyy' }}</p>
         </ion-label>
     </ion-item>
 
@@ -42,13 +42,18 @@
 
 <!-- LISTA POR DIA SELECIONADO -->
 <ion-list *ngIf="showingDayOnly">
+    <ion-item-divider>
+        <ion-label>
+        <h2>{{ selectedDay | date:'fullDate' }}</h2>
+        </ion-label>
+    </ion-item-divider>
 
     <!-- TAREFAS -->
     <ion-item *ngFor="let task of tasksOfSelectedDay">
         <ion-label>
-            <h2>{{ task.titulo }}</h2>
-            <p>{{ task.descricao }}</p>
-            <p>Entrega: {{ task.data_limite | date:'dd/MM/yyyy' }}</p>
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.description }}</p>
+            <p>Entrega: {{ task.dt_final | date:'dd/MM/yyyy' }}</p>
         </ion-label>
     </ion-item>
 

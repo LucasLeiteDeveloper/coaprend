@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../authService/auth-service';
+import { Observable } from 'rxjs';
 
 export interface ClassData {
   title: string,
@@ -79,10 +80,27 @@ export class ContentService {
 
     return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/posts`, { headers }).toPromise();
   }
+  getPostByClassAndWeek(classId: string, start: string, end: string): Observable<any[]> {
+    const headers = this.getAuthHeaders();
+
+    return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/posts/range?start=${start}&end=${end}`, { headers } );
+  }
+  getPostsByUser(userId: string) {
+    const headers = this.getAuthHeaders();
+
+    return this.http.get<any[]>(`${this.apiUrl}/users/${userId}/posts`, { headers }).toPromise();
+  }
   async createPost(data: { title: string, classId: string, content: string, tags: any[] }): Promise<any> {
     const headers = this.getAuthHeaders();
 
-    return this.http.post(`${this.apiUrl}/posts`, data, { headers }).toPromise();
+    const username = await this.authService.getProfileData();
+
+    let postData = {
+      ...data,
+      username: username.username || username.name
+    }
+
+    return this.http.post(`${this.apiUrl}/posts`, postData, { headers }).toPromise();
   }
   async updatePost(postId: string, data: any){
     return this.http.patch(`${this.apiUrl}/posts/${postId}`, data, { headers: this.getAuthHeaders() });
@@ -97,7 +115,17 @@ export class ContentService {
 
     return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/tasks`, { headers }).toPromise();
   }
-  async createTask(data: { title: string, classId: string, last_date: string }): Promise<any>{
+  getTaskByClassAndWeek(classId: string, start: string, end: string): Observable<any[]> {
+    const headers = this.getAuthHeaders();
+
+    return this.http.get<any[]>(`${this.apiUrl}/class/${classId}/tasks/range?start=${start}&end=${end}`, { headers } );
+  }
+  getTasksByUser(userId: string) {
+    const headers = this.getAuthHeaders();
+    
+    return this.http.get<any[]>(`${this.apiUrl}/users/${userId}/tasks`, { headers }).toPromise();
+  }
+  async createTask(data: { title: string, description: string, tags: string[], classId: string, dt_final: Date }): Promise<any>{
     const headers = this.getAuthHeaders();
 
     return this.http.post(`${this.apiUrl}/tasks`, data, { headers }).toPromise();

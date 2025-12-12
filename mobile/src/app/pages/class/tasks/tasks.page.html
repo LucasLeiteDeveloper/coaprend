@@ -17,15 +17,15 @@
   <ion-list>
     <ion-card *ngFor="let task of tasks">
       <ion-card-header>
-        <ion-card-title>{{ task.titulo }}</ion-card-title>
+        <ion-card-title>{{ task.title }}</ion-card-title>
         <ion-card-subtitle>
-          Data limite: {{ task.data_limite | date:'dd/MM/yyyy' }}
+          Data limite: {{ task.dt_final | date:'dd/MM/yyyy' }}
         </ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
         <p class="descricao">
-          {{ task.descricao || 'Sem descrição...' }}
+          {{ task.description || 'Sem descrição...' }}
         </p>
 
         <div class="anexos">
@@ -38,7 +38,7 @@
             Visualizar
           </ion-button>
 
-          <ion-button size="small" color="warning" fill="outline" (click)="editTask(task.id)">
+          <ion-button size="small" color="warning" fill="outline" (click)="editTask(task)">
             Editar
           </ion-button>
 

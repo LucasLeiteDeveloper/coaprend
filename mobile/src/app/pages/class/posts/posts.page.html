@@ -1,17 +1,5 @@
 <post-card
   *ngFor="let post of posts"
-  [post]="post">
+  [post]="post"
+  (click)="openPost(post.id)">
 </post-card>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
-<post-card [post]="postTest"/>
