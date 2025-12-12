@@ -13,9 +13,9 @@ import { ContentService } from 'src/app/services/contentService/content-service'
 export class TaskPage implements OnInit {
   title = '';
   description = '';
-  dt_final = '';
+  dt_final!: Date;
   
-  roomId!: string | null;
+  classId!: string | null;
 
   tags: string[] = [];
   userClasses!: any;
@@ -91,13 +91,13 @@ export class TaskPage implements OnInit {
 
     const alert = await this.alertCtrl.create({
       header: 'Selecionar Sala',
-      inputs: this.userClasses.map((classe, index) => {
+      inputs: this.userClasses.map((c) => {
         return {
           name: 'room',
           type: 'radio',
-          label: classe.title, // Mostra o nome da classe
-          value: classe.id,   // Valor retornado será o ID
-          checked: classe.id === this.roomId // Marca a sala atual
+          label: c.title, // Mostra o nome da c
+          value: c.id,   // Valor retornado será o ID
+          checked: c.id === this.classId // Marca a sala atual
         };
       }),
       buttons: [
@@ -105,7 +105,7 @@ export class TaskPage implements OnInit {
         {
           text: 'OK',
           handler: data => {
-            
+            if(data) this.classId = data;
           }
         }
       ]
@@ -115,32 +115,33 @@ export class TaskPage implements OnInit {
   }
 
   /* --------------------- SUBMIT ---------------------- */
-  submit() {
+  async submit() {
     if (!this.title.trim() || !this.dt_final) {
       alert('Preencha pelo menos título e data limite.');
       return;
     }
-
-    const payload = {
-      title: this.title,
-      description: this.description,
-      dt_final: this.dt_final,
-      room_id: this.roomId ,
-      options: this.tags
-    };
+    if(!this.classId){
+      alert("Escolha a classe para postar a tarefa!");
+      return;
+    }
 
     this.isSubmitting = true;
 
-    this.taskService.createFormData(payload, this.attachments).subscribe({
-      next: () => {
-        this.isSubmitting = false;
-        this.router.navigate(['/class', this.roomId  ]);
-      },
-      error: (err) => {
-        console.error(err);
-        this.isSubmitting = false;
-        alert('Erro ao criar tarefa.');
+    try {
+      const taskData = {
+        title: this.title,
+        description: this.description,
+        classId: this.classId,
+        dt_final: this.dt_final,
+        tags: this.tags
       }
-    });
+
+      console.log("Dados da tarefa: ", taskData);
+      await this.contentService.createTask(taskData);
+
+      this.router.navigate(['/class', this.classId]);
+    } catch(error){
+      alert("Erro ao criar tarefa");
+    }
   }
 }

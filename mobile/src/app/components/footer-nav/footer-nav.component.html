@@ -9,11 +9,11 @@
   </button>
   
   <button>
-    <ion-icon name='add' id="create-popup-trigger"></ion-icon>
+    <ion-icon name='add' id="create-popup-trigger" (click)="openCreateNav($event)"></ion-icon>
     <label>Criar</label>
   </button>
 
-  <button [class.selected]='selectedTab == "profile"' [routerLink]="['/class', classId, 'profile']">
+  <button [class.selected]='selectedTab == "profile"' [routerLink]="['/profile', 'profileId']">
     @if (selectedTab == 'profile') {
       <ion-icon name='person'></ion-icon>
     } @else {

@@ -17,7 +17,5 @@ export class PostCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    alert("Teste")
-    console.log(this.post)
   }
 }
